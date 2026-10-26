@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portal Masuk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EAEFF3; --surface:#FFFFFF; --ink:#14212B; --muted:#5B6B78; --line:#CBD5DD;
+  --admin:#2457F5; --aktivasi:#0E9F6E; --mobile:#E8590C;
+  --on-accent:#FFFFFF;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F171D; --surface:#17232C; --ink:#EAF0F4; --muted:#93A3B0; --line:#2A3A46;
+    --admin:#6C8CFF; --aktivasi:#3CC795; --mobile:#FF8A4C; --on-accent:#0F171D;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F171D; --surface:#17232C; --ink:#EAF0F4; --muted:#93A3B0; --line:#2A3A46;
+  --admin:#6C8CFF; --aktivasi:#3CC795; --mobile:#FF8A4C; --on-accent:#0F171D;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Instrument Sans",system-ui,sans-serif;line-height:1.55;min-height:100vh}
+.wrap{max-width:980px;margin:0 auto;padding:48px 24px 40px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:40px}
+h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:clamp(2.2rem,6vw,3.8rem);line-height:1.02;letter-spacing:-.02em;margin:0 0 12px;max-width:14ch}
+.lead{color:var(--muted);margin:0;max-width:46ch}
+.theme{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-size:.875rem;cursor:pointer}
+.theme:hover{border-color:var(--ink)}
+
+.doors{display:flex;flex-direction:column;gap:12px}
+.door{
+  --c:var(--admin);
+  position:relative;text-align:left;width:100%;font:inherit;color:inherit;cursor:pointer;
+  background:var(--surface);border:1px solid var(--line);border-left:8px solid var(--c);
+  border-radius:14px;padding:22px 24px;display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:center;
+  transition:border-color .2s, transform .2s;
+}
+.door[data-id="admin"]{--c:var(--admin)}
+.door[data-id="aktivasi"]{--c:var(--aktivasi)}
+.door[data-id="mobile"]{--c:var(--mobile)}
+.door:hover{transform:translateX(4px)}
+.door:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+.door h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.6rem;margin:0;font-weight:700;letter-spacing:-.01em}
+.door .who{color:var(--muted);font-size:.95rem;margin:2px 0 0}
+.door .key{font-size:.8rem;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 8px;white-space:nowrap}
+.detail{grid-column:1/-1;display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.detail>div{overflow:hidden}
+.door[aria-expanded="true"] .detail{grid-template-rows:1fr}
+.door[aria-expanded="true"]{border-color:var(--c)}
+.detail ul{margin:14px 0 18px;padding-left:18px;color:var(--ink)}
+.detail li{margin:4px 0}
+.go{
+  display:inline-flex;align-items:center;gap:8px;background:var(--c);color:var(--on-accent);
+  border:0;border-radius:10px;padding:12px 20px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none
+}
+.go:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.url{font-size:.85rem;color:var(--muted);overflow-wrap:anywhere}
+
+.opts{margin-top:28px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;color:var(--muted);font-size:.9rem}
+.opts label{display:inline-flex;gap:8px;align-items:center;cursor:pointer}
+.opts input{width:18px;height:18px;accent-color:var(--admin)}
+#status{min-height:1.4em}
+footer{margin-top:40px;color:var(--muted);font-size:.85rem}
+@media (max-width:560px){
+  .wrap{padding:28px 16px}
+  .door{padding:18px 16px}
+  .door .key{display:none}
+  .theme{flex:none}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Mau masuk ke mana?</h1>
+      <p class="lead">Pilih satu pintu sesuai kebutuhan Anda. Klik untuk melihat detailnya, lalu buka halamannya.</p>
+    </div>
+    <button class="theme" id="themeBtn" type="button" aria-label="Ganti tema tampilan">Ganti tema</button>
+  </header>
+
+  <main class="doors" id="doors"></main>
+
+  <div class="opts">
+    <label><input type="checkbox" id="newTab"> Buka di tab baru</label>
+    <span id="status" role="status" aria-live="polite">Tips: tekan A, K, atau M untuk memilih cepat.</span>
+  </div>
+  <footer>Butuh bantuan akses? Hubungi tim IT Anda.</footer>
+</div>
+
+<script>
+// Ganti URL tujuan di sini
+const CONFIG = [
+  { id:"admin",    key:"A", title:"Admin",         who:"Untuk pengelola sistem",
+    url:"https://asthara-click-v2.vercel.app/admin",
+    points:["Kelola pengguna, peran, dan hak akses","Pantau data dan aktivitas sistem","Atur konfigurasi aplikasi"] },
+  { id:"aktivasi", key:"K", title:"Aktivasi Akun", who:"Untuk pengguna baru",
+    url:"https://asthara-click-v2.vercel.app/aktivasi",
+    points:["Aktifkan akun dengan kode atau tautan undangan","Atur kata sandi pertama Anda","Selesai dalam beberapa menit"] },
+  { id:"mobile",   key:"M", title:"Mobile Apps",   who:"Untuk pengguna lapangan",
+    url:"https://asthara-click-v2.vercel.app/mobile",
+    points:["Unduh atau buka aplikasi di ponsel","Masuk dengan akun yang sudah aktif","Kerjakan tugas langsung dari lapangan"] }
+];
+
+const doors = document.getElementById("doors");
+const statusEl = document.getElementById("status");
+const newTab = document.getElementById("newTab");
+
+CONFIG.forEach(d=>{
+  const el = document.createElement("div");
+  el.className = "door";
+  el.dataset.id = d.id;
+  el.setAttribute("role","button");
+  el.setAttribute("tabindex","0");
+  el.setAttribute("aria-expanded","false");
+  el.innerHTML = `
+    <div><h2>${d.title}</h2><p class="who">${d.who}</p></div>
+    <span class="key" aria-hidden="true">Tombol ${d.key}</span>
+    <div class="detail"><div>
+      <ul>${d.points.map(p=>`<li>${p}</li>`).join("")}</ul>
+      <div class="row">
+        <button class="go" type="button">Buka ${d.title}</button>
+        <span class="url">${d.url==="#" ? "URL belum diatur" : d.url}</span>
+      </div>
+    </div></div>`;
+  doors.appendChild(el);
+
+  el.addEventListener("click", e=>{
+    if (e.target.closest(".go")) { open(d); return; }
+    select(d.id);
+  });
+  el.addEventListener("keydown", e=>{
+    if (e.target !== el) return;
+    if (e.key==="Enter" || e.key===" ") { e.preventDefault(); select(d.id); }
+  });
+});
+
+function select(id){
+  document.querySelectorAll(".door").forEach(el=>{
+    const on = el.dataset.id===id && el.getAttribute("aria-expanded")!=="true";
+    el.setAttribute("aria-expanded", on ? "true":"false");
+  });
+}
+
+function open(d){
+  if (d.url==="#") {
+    statusEl.textContent = `URL untuk ${d.title} belum diatur. Isi di bagian CONFIG pada kode.`;
+    return;
+  }
+  statusEl.textContent = `Membuka ${d.title}…`;
+  if (newTab.checked) window.open(d.url,"_blank","noopener");
+  else window.location.href = d.url;
+}
+
+document.addEventListener("keydown", e=>{
+  if (e.ctrlKey||e.metaKey||e.altKey) return;
+  const d = CONFIG.find(x=>x.key.toLowerCase()===e.key.toLowerCase());
+  if (d && !/input|textarea/i.test(e.target.tagName)) {
+    select(d.id);
+    document.querySelector(`.door[data-id="${d.id}"]`).focus();
+  }
+});
+
+document.getElementById("themeBtn").addEventListener("click", ()=>{
+  const r = document.documentElement;
+  const dark = r.dataset.theme ? r.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  r.dataset.theme = dark ? "light" : "dark";
+});
+</script>
+</body>
+</html>
