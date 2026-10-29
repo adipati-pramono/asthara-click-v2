@@ -1,0 +1,19 @@
+{
+  "name": "Asthara Skyfront City",
+  "short_name": "Asthara",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#C88246",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

@@ -1,0 +1,3000 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asthara components</title>
+<link rel="icon" href="favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="foundation/asthara.css">
+<link rel="stylesheet" href="components/button/button.css">
+<link rel="stylesheet" href="components/input/input.css">
+<link rel="stylesheet" href="components/badge/badge.css">
+<link rel="stylesheet" href="components/tabs/tabs.css">
+<link rel="stylesheet" href="components/kpi-card/kpi-card.css">
+<link rel="stylesheet" href="components/avatar/avatar.css">
+<link rel="stylesheet" href="components/stepper/stepper.css">
+<link rel="stylesheet" href="components/activity-feed/activity-feed.css">
+<link rel="stylesheet" href="components/log/log.css">
+<link rel="stylesheet" href="components/loader/loader.css">
+<link rel="stylesheet" href="components/app-boot/app-boot.css">
+<link rel="stylesheet" href="components/sidebar/sidebar.css">
+<link rel="stylesheet" href="docs/demo.css">
+<style>
+  .shell { display: grid; grid-template-columns: var(--as-sidebar) 1fr; min-height: 100vh; }
+  .side { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--as-gradient-ink); color: var(--as-bg); padding: 28px 20px; box-sizing: border-box; }
+  .side img { width: 150px; display: block; margin: 0 0 6px 4px; }
+  .side .sub { font: 500 12px/1.4 var(--as-font-body); color: var(--as-gold-soft); margin: 0 0 28px 4px; }
+  .side nav { display: flex; flex-direction: column; gap: 2px; }
+  .side nav a { font: 500 13px/1 var(--as-font-body); color: var(--as-bg); text-decoration: none; padding: 10px 12px; border-radius: 8px; }
+  .side nav a:hover { background: rgba(250, 248, 244, 0.08); }
+  .side nav a.on { background: rgba(250, 248, 244, 0.1); color: var(--as-gold-soft); }
+  .side .group { font: 700 10px/1 var(--as-font-body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--as-gold-soft); margin: 22px 12px 8px; }
+  main.wrap { padding: 44px 36px 96px; max-width: 1000px; box-sizing: border-box; width: 100%; min-width: 0; }
+  .intro h1 { margin: 0 0 10px; }
+  .intro p { max-width: 66ch; margin: 0 0 12px; }
+  .intro .steps { margin: 18px 0 0; }
+  .comp { padding-top: 56px; scroll-margin-top: 8px; }
+  .comp-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-top: 1px solid var(--as-line); padding-top: 20px; }
+  .comp-head h2 { margin: 0; font-size: 20px; line-height: 26px; }
+  .comp-open { font: 600 12px/1 var(--as-font-body); color: var(--as-gold-deep); text-decoration: none; white-space: nowrap; }
+  .comp-open:hover { text-decoration: underline; }
+  .comp-lede { margin: 6px 0 18px; max-width: 66ch; }
+  .code-tabs { margin: 18px 0 10px; flex-wrap: wrap; border-radius: 12px; width: fit-content; max-width: 100%; box-sizing: border-box; }
+  .code { position: relative; }
+  .code pre { margin: 0; background: var(--as-ink); color: var(--as-bg); border-radius: 12px; padding: 18px 20px; overflow: auto; max-height: 420px; font: 400 12px/1.6 var(--as-font-mono); tab-size: 2; }
+  .code .copy { position: absolute; top: 10px; right: 10px; }
+  .comp-files { font: 400 12px/1.6 var(--as-font-body); color: var(--as-ink-soft); margin: 10px 0 0; }
+  .comp-files code, .intro code { font: 500 11.5px/1 var(--as-font-mono); color: var(--as-ink); background: var(--as-bg-alt); padding: 2px 5px; border-radius: 4px; }
+  .intro pre code { background: none; padding: 0; color: inherit; font: inherit; }
+  .intro pre { background: var(--as-ink); color: var(--as-bg); border-radius: 12px; padding: 16px 20px; overflow: auto; font: 400 12px/1.6 var(--as-font-mono); }
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: 1fr; }
+    .side { position: sticky; height: auto; padding: 14px 16px; z-index: 5; }
+    .side img, .side .sub, .side .group { display: none; }
+    .side nav { flex-direction: row; overflow-x: auto; }
+    .side nav a { white-space: nowrap; }
+    main.wrap { padding: 28px 18px 72px; }
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<script src="components/select/select.js"></script>
+<script src="components/date-picker/date-picker.js"></script>
+<script src="components/avatar/avatar.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="side">
+    <img src="docs/logo-horizontal-dark.png" alt="Asthara Skyfront City">
+    <p class="sub">Components for developers</p>
+    <nav aria-label="Components">
+      <a href="#start">Start here</a>
+      <span class="group">Components</span>
+      <a href="#button">Button</a>
+      <a href="#input">Inputs</a>
+      <a href="#select">Select</a>
+      <a href="#date-picker">Date picker</a>
+      <a href="#badge">Badges</a>
+      <a href="#tabs">Tabs</a>
+      <a href="#kpi-card">KPI card</a>
+      <a href="#avatar">Avatar</a>
+      <a href="#stepper">Stepper</a>
+      <a href="#activity-feed">Activity feed</a>
+      <a href="#log">Log</a>
+      <a href="#loader">Loaders</a>
+      <a href="#app-boot">App boot</a>
+      <a href="#sidebar">Sidebar</a>
+    </nav>
+  </aside>
+  <main class="wrap">
+    <section class="intro" id="start">
+      <h1 class="as-h1">Asthara components</h1>
+      <p class="as-body">Copy-ready code for each component of the Asthara Design System. Every component lives in its own folder under <code>components/</code> with its CSS, any script it needs, a README and a page of its own. Copy the files into your project, or translate them to your framework: the class names, values and states here are the reference.</p>
+      <p class="as-body">Colours, type, spacing, radii and shadows are not components: read them in <code>foundation/asthara.css</code> (CSS variables) or <code>foundation/tokens.json</code> (for other platforms).</p>
+      <pre class="steps"><code>&lt;!-- 1. once per page --&gt;
+&lt;link rel="stylesheet" href="foundation/asthara.css"&gt;
+&lt;!-- 2. each component you use --&gt;
+&lt;link rel="stylesheet" href="components/button/button.css"&gt;</code></pre>
+    </section>
+<section class="comp" id="button">
+  <header class="comp-head">
+    <h2 class="as-h2">Button</h2>
+    <a class="comp-open" href="components/button/button.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">Actions. One gold primary per surface; secondary, ghost, success and danger around it, in three sizes.</p>
+  <div class="stage stage--button">
+<!-- Variants -->
+<button type="button" class="as-btn as-btn--primary">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+  New request
+</button>
+<button type="button" class="as-btn as-btn--secondary">Export</button>
+<button type="button" class="as-btn as-btn--ghost">Filters</button>
+<button type="button" class="as-btn as-btn--success">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+  Approve
+</button>
+<button type="button" class="as-btn as-btn--danger">Reject</button>
+<button type="button" class="as-btn as-btn--primary" disabled>Disabled</button>
+
+<!-- Sizes -->
+<button type="button" class="as-btn as-btn--primary as-btn--sm">Small</button>
+<button type="button" class="as-btn as-btn--primary">Medium</button>
+<button type="button" class="as-btn as-btn--primary as-btn--lg">Large</button>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Button code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="button-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="button-1">CSS</button></div>
+  <div class="code" id="button-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;!-- Variants --&gt;
+&lt;button type="button" class="as-btn as-btn--primary"&gt;
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M12 5v14M5 12h14"/&gt;&lt;/svg&gt;
+  New request
+&lt;/button&gt;
+&lt;button type="button" class="as-btn as-btn--secondary"&gt;Export&lt;/button&gt;
+&lt;button type="button" class="as-btn as-btn--ghost"&gt;Filters&lt;/button&gt;
+&lt;button type="button" class="as-btn as-btn--success"&gt;
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M20 6 9 17l-5-5"/&gt;&lt;/svg&gt;
+  Approve
+&lt;/button&gt;
+&lt;button type="button" class="as-btn as-btn--danger"&gt;Reject&lt;/button&gt;
+&lt;button type="button" class="as-btn as-btn--primary" disabled&gt;Disabled&lt;/button&gt;
+
+&lt;!-- Sizes --&gt;
+&lt;button type="button" class="as-btn as-btn--primary as-btn--sm"&gt;Small&lt;/button&gt;
+&lt;button type="button" class="as-btn as-btn--primary"&gt;Medium&lt;/button&gt;
+&lt;button type="button" class="as-btn as-btn--primary as-btn--lg"&gt;Large&lt;/button&gt;</code></pre></div><div class="code" id="button-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Button
+   From the design system's Buttons card. Needs foundation/asthara.css. */
+
+.as-btn {
+  box-sizing: border-box;
+  font: 600 13px/1 var(--as-font-body);
+  padding: 0 16px; height: 40px; border-radius: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid transparent; cursor: pointer;
+  transition: background var(--as-dur-micro) var(--as-ease-out), border-color var(--as-dur-micro) var(--as-ease-out);
+}
+.as-btn svg { width: 14px; height: 14px; stroke-width: 1.75; }
+.as-btn:focus-visible { outline: none; box-shadow: var(--as-focus-ring); }
+
+/* Sizes (md is the default) */
+.as-btn--sm { height: 32px; padding: 0 12px; font-size: 12px; border-radius: 6px; }
+.as-btn--lg { height: 48px; padding: 0 20px; font-size: 14px; }
+
+/* Variants */
+.as-btn--primary         { background: var(--as-gold); color: #fff; }
+.as-btn--primary:hover   { background: var(--as-gold-deep); }
+.as-btn--secondary       { background: #fff; color: var(--as-ink); border-color: var(--as-line-strong); }
+.as-btn--ghost           { background: transparent; color: var(--as-ink); }
+.as-btn--ghost:hover     { background: var(--as-bg-alt); }
+.as-btn--success         { background: var(--as-success-fg); color: #fff; }
+.as-btn--danger          { background: var(--as-danger-fg); color: #fff; }
+
+/* Disabled: the native attribute or the class */
+.as-btn:disabled,
+.as-btn--disabled,
+.as-btn:disabled:hover,
+.as-btn--disabled:hover  { background: var(--as-line); color: var(--as-ink-faint); border-color: transparent; cursor: not-allowed; }
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/button/README.md</code> · <code>components/button/button.css</code></p>
+</section>
+<section class="comp" id="input">
+  <header class="comp-head">
+    <h2 class="as-h2">Inputs</h2>
+    <a class="comp-open" href="components/input/input.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">Text field, textarea, checkbox and toggle: 40px fields, 8px radius, uppercase caption labels, gold focus.</p>
+  <div class="stage stage--input">
+<div class="as-field">
+  <label class="as-field__label" for="plate">Vehicle plate *</label>
+  <input class="as-input" id="plate" type="text" value="B 8412 KCD">
+</div>
+
+<div class="as-field">
+  <label class="as-field__label" for="phone">Driver phone</label>
+  <input class="as-input" id="phone" type="tel" value="+62 813 4567 0001">
+</div>
+
+<div class="as-field">
+  <label class="as-field__label" for="notes">Notes</label>
+  <textarea class="as-textarea" id="notes">Coordinate with mall ops for elevator booking 06:30.</textarea>
+</div>
+
+<label class="as-check">
+  <input type="checkbox" class="as-check__box" checked>
+  Keep me signed in
+</label>
+
+<div class="as-toggle-row">
+  <span id="tfa-label">Two-factor auth</span>
+  <button type="button" class="as-toggle" role="switch" aria-checked="true" aria-labelledby="tfa-label"></button>
+</div>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Inputs code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="input-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="input-1">CSS</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="input-2">JS</button></div>
+  <div class="code" id="input-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;div class="as-field"&gt;
+  &lt;label class="as-field__label" for="plate"&gt;Vehicle plate *&lt;/label&gt;
+  &lt;input class="as-input" id="plate" type="text" value="B 8412 KCD"&gt;
+&lt;/div&gt;
+
+&lt;div class="as-field"&gt;
+  &lt;label class="as-field__label" for="phone"&gt;Driver phone&lt;/label&gt;
+  &lt;input class="as-input" id="phone" type="tel" value="+62 813 4567 0001"&gt;
+&lt;/div&gt;
+
+&lt;div class="as-field"&gt;
+  &lt;label class="as-field__label" for="notes"&gt;Notes&lt;/label&gt;
+  &lt;textarea class="as-textarea" id="notes"&gt;Coordinate with mall ops for elevator booking 06:30.&lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;label class="as-check"&gt;
+  &lt;input type="checkbox" class="as-check__box" checked&gt;
+  Keep me signed in
+&lt;/label&gt;
+
+&lt;div class="as-toggle-row"&gt;
+  &lt;span id="tfa-label"&gt;Two-factor auth&lt;/span&gt;
+  &lt;button type="button" class="as-toggle" role="switch" aria-checked="true" aria-labelledby="tfa-label"&gt;&lt;/button&gt;
+&lt;/div&gt;</code></pre></div><div class="code" id="input-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Inputs: text field, textarea, checkbox, toggle
+   From the design system's Inputs card. Needs foundation/asthara.css. */
+
+.as-field { display: flex; flex-direction: column; gap: 6px; }
+.as-field__label {
+  font: 700 10px/1 var(--as-font-body);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--as-ink-soft);
+}
+
+.as-input,
+.as-textarea {
+  box-sizing: border-box;
+  font: 400 13px/1.4 var(--as-font-body);
+  padding: 0 12px; height: 40px;
+  border: 1px solid var(--as-line-strong); border-radius: 8px;
+  background: #fff; color: var(--as-ink); outline: none;
+  transition: box-shadow var(--as-dur-micro), border-color var(--as-dur-micro);
+}
+.as-textarea { padding: 10px 12px; height: 64px; resize: none; line-height: 1.45; }
+.as-input:focus,
+.as-textarea:focus { border-color: var(--as-gold); box-shadow: var(--as-focus-ring); }
+
+/* Checkbox: &lt;label class="as-check"&gt;&lt;input type="checkbox" class="as-check__box"&gt; Text&lt;/label&gt; */
+.as-check { display: flex; gap: 10px; align-items: center; font: 500 12px/1 var(--as-font-body); color: var(--as-ink); }
+.as-check__box {
+  box-sizing: border-box; width: 16px; height: 16px; padding: 0;
+  appearance: none; -webkit-appearance: none;
+  border: 1.5px solid var(--as-line-strong); border-radius: 4px;
+  background: #fff;
+}
+.as-check__box:checked { background: var(--as-gold); border-color: var(--as-gold); position: relative; }
+.as-check__box:checked::after {
+  content: ""; position: absolute; inset: 0;
+  background: url("data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'&gt;&lt;path d='M20 6 9 17l-5-5'/&gt;&lt;/svg&gt;") center/14px no-repeat;
+}
+.as-check__box:focus-visible { outline: none; box-shadow: var(--as-focus-ring); }
+
+/* Toggle: &lt;button type="button" class="as-toggle" role="switch" aria-checked="false"&gt; */
+.as-toggle {
+  box-sizing: border-box; width: 32px; height: 18px; padding: 0; border: 0;
+  background: var(--as-line-strong); border-radius: 9999px;
+  position: relative; cursor: pointer;
+  transition: background var(--as-dur-micro);
+}
+.as-toggle[aria-checked="true"] { background: var(--as-gold); }
+.as-toggle::after {
+  content: ""; position: absolute; left: 2px; top: 2px;
+  width: 14px; height: 14px; background: #fff; border-radius: 50%;
+  transition: left var(--as-dur-micro);
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+.as-toggle[aria-checked="true"]::after { left: 16px; }
+.as-toggle:focus-visible { outline: none; box-shadow: var(--as-focus-ring); }
+.as-toggle-row { display: flex; align-items: center; gap: 10px; font: 500 12px/1 var(--as-font-body); color: var(--as-ink); }
+</code></pre></div><div class="code" id="input-2" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Toggle behaviour: flips aria-checked on click.
+   Behaviour only; in a framework, bind aria-checked to your state instead. */
+document.addEventListener("click", function (e) {
+  var t = e.target.closest(".as-toggle");
+  if (!t || t.disabled) return;
+  t.setAttribute("aria-checked", t.getAttribute("aria-checked") === "true" ? "false" : "true");
+});
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/input/README.md</code> · <code>components/input/input.css</code> · <code>components/input/input.js</code></p>
+</section>
+<section class="comp" id="select">
+  <header class="comp-head">
+    <h2 class="as-h2">Select</h2>
+    <a class="comp-open" href="components/select/select.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">Single- and multi-select dropdown with search, chips and a gold selection mark. React component, with a plain-script build.</p>
+  <div class="stage stage--select">
+<div id="region"></div>
+<div id="zones"></div>
+
+<script>
+(function () {
+  const { Select } = window.Asthara;
+  const h = React.createElement;
+  const regions = ["Jakarta Pusat", "Tangerang", "Bekasi", "Bogor", "Depok", "Bandung", "Serang", "Karawang"];
+  const zones = [
+    { value: "z1", label: "Skyfront Core", hint: "Mixed-use district" },
+    { value: "z2", label: "Riverside Park", hint: "Residential" },
+    { value: "z3", label: "Airport Link", hint: "Logistics" },
+    { value: "z4", label: "Heritage Walk", hint: "Retail & F&B" },
+  ];
+  ReactDOM.createRoot(document.getElementById("region")).render(
+    h(Select, { label: "Service region", options: regions, defaultValue: "Tangerang" })
+  );
+  ReactDOM.createRoot(document.getElementById("zones")).render(
+    h(Select, { multi: true, label: "Active zones", options: zones, defaultValue: ["z1", "z3"] })
+  );
+})();
+</script>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Select code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="select-0">React usage</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="select-1">Select.jsx</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="select-2">CSS (for porting)</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="select-3">Plain HTML + script</button></div>
+  <div class="code" id="select-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>import { Select } from "./Select";
+
+const zones = [
+  { value: "z1", label: "Skyfront Core", hint: "Mixed-use district" },
+  { value: "z2", label: "Riverside Park", hint: "Residential" },
+  { value: "z3", label: "Airport Link", hint: "Logistics" },
+];
+
+&lt;Select label="Service region" options={["Jakarta Pusat", "Tangerang", "Bekasi"]} defaultValue="Tangerang" /&gt;
+&lt;Select multi label="Active zones" options={zones} value={selected} onChange={setSelected} /&gt;
+&lt;Select size="sm" label="Shift window" options={["06:00", "14:00", "22:00"]} disabled /&gt;</code></pre></div><div class="code" id="select-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>import React, { useState, useRef, useEffect, useMemo, useCallback, useId } from "react";
+
+/* ============================================================
+   Asthara · Select
+   A single- and multi-select dropdown built on the --as-* tokens.
+   - Loadify product voice: Raleway 13px, 40px trigger, 8px radius.
+   - Popover elevation e2, gold focus ring, gold selection mark.
+   - One component, two modes via `multi`.
+   ============================================================ */
+
+const ASDS_STYLE_ID = "asds-select-styles";
+const ASDS_CSS = `
+.asds-sel { position: relative; font-family: var(--as-font-body); width: 100%; }
+/* Sizes include padding and border whatever the page sets, so the search field fits inside the menu */
+.asds-sel, .asds-sel *, .asds-sel *::before, .asds-sel *::after { box-sizing: border-box; }
+.asds-sel__label {
+  display: block; margin-bottom: 6px;
+  font: 700 10px/1 var(--as-font-body);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--as-ink-soft);
+}
+.asds-sel__req { color: var(--as-gold-deep); margin-left: 2px; }
+
+.asds-sel__trigger {
+  width: 100%; min-height: 40px; padding: 0 12px;
+  display: flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--as-ink);
+  border: 1px solid var(--as-line-strong); border-radius: var(--as-radius-3);
+  font: 400 13px/1.4 var(--as-font-body); text-align: left; cursor: pointer;
+  transition: border-color var(--as-dur-micro) var(--as-ease-out),
+              box-shadow var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-sel--sm .asds-sel__trigger { min-height: 32px; font-size: 12px; padding: 0 10px; border-radius: var(--as-radius-2); }
+.asds-sel__trigger:hover { border-color: var(--as-ink-faint); }
+.asds-sel__trigger:focus-visible,
+.asds-sel--open .asds-sel__trigger {
+  outline: none; border-color: var(--as-gold); box-shadow: var(--as-focus-ring);
+}
+.asds-sel--disabled .asds-sel__trigger {
+  background: var(--as-bg-alt); color: var(--as-ink-faint);
+  cursor: not-allowed; border-color: var(--as-line);
+}
+
+.asds-sel__value { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 5px 0; }
+.asds-sel__placeholder { color: var(--as-ink-faint); }
+.asds-sel__single { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.asds-sel__chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 2px 6px 2px 9px; max-width: 100%;
+  background: var(--as-gold-tint); color: var(--as-gold-deep);
+  border: 1px solid var(--as-gold-soft); border-radius: var(--as-radius-full);
+  font: 600 11px/1.4 var(--as-font-body);
+}
+.asds-sel__chip-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.asds-sel__chip-x {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 14px; height: 14px; border-radius: 50%; cursor: pointer;
+  color: var(--as-gold-deep); flex: none;
+  transition: background var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-sel__chip-x:hover { background: rgba(145, 80, 15, 0.16); }
+.asds-sel__chip-x svg { width: 9px; height: 9px; stroke-width: 2.5; }
+
+.asds-sel__count {
+  flex: none; font: 700 10px/1 var(--as-font-body);
+  color: var(--as-ink-soft); background: var(--as-bg-alt);
+  border: 1px solid var(--as-line); border-radius: var(--as-radius-full);
+  padding: 3px 7px;
+}
+.asds-sel__caret { flex: none; color: var(--as-ink-soft); transition: transform var(--as-dur-standard) var(--as-ease-out); }
+.asds-sel--open .asds-sel__caret { transform: rotate(180deg); }
+.asds-sel__caret svg { width: 16px; height: 16px; stroke-width: 1.75; display: block; }
+
+.asds-sel__pop {
+  position: absolute; z-index: 60; top: calc(100% + 6px); left: 0; right: 0;
+  background: var(--as-card); border: 1px solid var(--as-line);
+  border-radius: var(--as-radius-3); box-shadow: var(--as-e2);
+  padding: 5px; overflow: hidden;
+  transform-origin: top center;
+  animation: asds-pop var(--as-dur-standard) var(--as-ease-out);
+}
+@keyframes asds-pop { from { opacity: 0; transform: translateY(-4px) scale(0.985); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .asds-sel__pop { animation: none; } }
+
+.asds-sel__search {
+  width: 100%; height: 34px; padding: 0 10px; margin-bottom: 4px;
+  border: 1px solid var(--as-line); border-radius: var(--as-radius-2);
+  font: 400 12px/1 var(--as-font-body); color: var(--as-ink); outline: none;
+}
+.asds-sel__search:focus { border-color: var(--as-gold-soft); }
+
+.asds-sel__list { max-height: 248px; overflow-y: auto; margin: 0; padding: 0; list-style: none; }
+.asds-sel__opt {
+  display: flex; align-items: center; gap: 9px;
+  padding: 8px 9px; border-radius: var(--as-radius-2); cursor: pointer;
+  font: 500 13px/1.3 var(--as-font-body); color: var(--as-ink);
+  transition: background var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-sel__opt:hover, .asds-sel__opt--active { background: var(--as-bg-alt); }
+.asds-sel__opt--selected { color: var(--as-gold-deep); font-weight: 600; }
+.asds-sel__opt--disabled { color: var(--as-ink-faint); cursor: not-allowed; }
+.asds-sel__opt--disabled:hover { background: transparent; }
+.asds-sel__opt-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.asds-sel__opt-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.asds-sel__opt-hint { font: 400 11px/1.3 var(--as-font-body); color: var(--as-ink-faint); }
+
+.asds-sel__box {
+  flex: none; width: 16px; height: 16px; border-radius: 4px;
+  border: 1.5px solid var(--as-line-strong); background: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background var(--as-dur-micro), border-color var(--as-dur-micro);
+}
+.asds-sel__opt--selected .asds-sel__box { background: var(--as-gold); border-color: var(--as-gold); }
+.asds-sel__box svg { width: 11px; height: 11px; stroke: #fff; stroke-width: 3; opacity: 0; }
+.asds-sel__opt--selected .asds-sel__box svg { opacity: 1; }
+
+.asds-sel__tick { flex: none; width: 16px; color: var(--as-gold); opacity: 0; }
+.asds-sel__opt--selected .asds-sel__tick { opacity: 1; }
+.asds-sel__tick svg { width: 16px; height: 16px; stroke-width: 2.25; display: block; }
+
+.asds-sel__empty { padding: 14px 9px; text-align: center; font: 400 12px/1.4 var(--as-font-body); color: var(--as-ink-faint); }
+
+.asds-sel__foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; padding: 6px 4px 2px; margin-top: 3px; border-top: 1px solid var(--as-line);
+}
+.asds-sel__foot-info { font: 600 11px/1 var(--as-font-body); color: var(--as-ink-soft); }
+.asds-sel__foot-clear {
+  font: 700 11px/1 var(--as-font-body); color: var(--as-gold-deep);
+  background: none; border: none; cursor: pointer; padding: 4px 6px; border-radius: var(--as-radius-1);
+}
+.asds-sel__foot-clear:hover { background: var(--as-bg-alt); }
+`;
+
+function useInjectStyles() {
+  useEffect(() =&gt; {
+    if (typeof document === "undefined") return;
+    if (document.getElementById(ASDS_STYLE_ID)) return;
+    const el = document.createElement("style");
+    el.id = ASDS_STYLE_ID;
+    el.textContent = ASDS_CSS;
+    document.head.appendChild(el);
+  }, []);
+}
+
+const Caret = () =&gt; (
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="m6 9 6 6 6-6" /&gt;&lt;/svg&gt;
+);
+const Check = () =&gt; (
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="M20 6 9 17l-5-5" /&gt;&lt;/svg&gt;
+);
+const XMark = () =&gt; (
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="M18 6 6 18M6 6l12 12" /&gt;&lt;/svg&gt;
+);
+
+/* normalise options: accept strings or {value,label,hint,disabled} */
+function normalize(options) {
+  return (options || []).map((o) =&gt;
+    typeof o === "string" || typeof o === "number"
+      ? { value: o, label: String(o) }
+      : { value: o.value, label: o.label != null ? o.label : String(o.value), hint: o.hint, disabled: !!o.disabled }
+  );
+}
+
+export function Select({
+  options = [],
+  value,
+  defaultValue,
+  onChange,
+  multi = false,
+  placeholder = multi ? "Select options…" : "Select an option…",
+  label,
+  required = false,
+  disabled = false,
+  size = "md",
+  searchable,
+  closeOnSelect,
+  clearable = true,
+  maxTags = 3,
+  id,
+}) {
+  useInjectStyles();
+  const opts = useMemo(() =&gt; normalize(options), [options]);
+  const autoId = useId();
+  const rootId = id || autoId;
+
+  const isControlled = value !== undefined;
+  const initial = defaultValue !== undefined ? defaultValue : multi ? [] : null;
+  const [inner, setInner] = useState(initial);
+  const current = isControlled ? value : inner;
+
+  const selected = useMemo(() =&gt; {
+    if (multi) return Array.isArray(current) ? current : current == null ? [] : [current];
+    return current;
+  }, [current, multi]);
+
+  const isSel = useCallback(
+    (v) =&gt; (multi ? selected.includes(v) : selected === v),
+    [multi, selected]
+  );
+
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [activeIdx, setActiveIdx] = useState(-1);
+  const rootRef = useRef(null);
+  const searchRef = useRef(null);
+
+  const doSearch = searchable === undefined ? opts.length &gt; 7 : searchable;
+  const autoClose = closeOnSelect === undefined ? !multi : closeOnSelect;
+
+  const filtered = useMemo(() =&gt; {
+    if (!doSearch || !query.trim()) return opts;
+    const q = query.trim().toLowerCase();
+    return opts.filter((o) =&gt; o.label.toLowerCase().includes(q));
+  }, [opts, query, doSearch]);
+
+  const commit = useCallback(
+    (next) =&gt; {
+      if (!isControlled) setInner(next);
+      if (onChange) onChange(next);
+    },
+    [isControlled, onChange]
+  );
+
+  const pick = useCallback(
+    (opt) =&gt; {
+      if (opt.disabled) return;
+      if (multi) {
+        const set = Array.isArray(selected) ? selected : [];
+        const next = set.includes(opt.value) ? set.filter((v) =&gt; v !== opt.value) : [...set, opt.value];
+        commit(next);
+      } else {
+        commit(opt.value);
+      }
+      if (autoClose) { setOpen(false); setQuery(""); }
+    },
+    [multi, selected, commit, autoClose]
+  );
+
+  const removeTag = useCallback(
+    (v, e) =&gt; {
+      if (e) e.stopPropagation();
+      commit((Array.isArray(selected) ? selected : []).filter((x) =&gt; x !== v));
+    },
+    [selected, commit]
+  );
+
+  const clearAll = useCallback(
+    (e) =&gt; {
+      if (e) e.stopPropagation();
+      commit(multi ? [] : null);
+    },
+    [commit, multi]
+  );
+
+  // close on outside click
+  useEffect(() =&gt; {
+    if (!open) return;
+    const onDoc = (e) =&gt; { if (rootRef.current &amp;&amp; !rootRef.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", onDoc);
+    return () =&gt; document.removeEventListener("mousedown", onDoc);
+  }, [open]);
+
+  // focus search + reset active when opening
+  useEffect(() =&gt; {
+    if (open) {
+      setActiveIdx(-1);
+      if (doSearch) { const t = setTimeout(() =&gt; searchRef.current &amp;&amp; searchRef.current.focus(), 20); return () =&gt; clearTimeout(t); }
+    } else {
+      setQuery("");
+    }
+  }, [open, doSearch]);
+
+  const onKeyDown = useCallback(
+    (e) =&gt; {
+      if (disabled) return;
+      if (!open &amp;&amp; (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ")) {
+        e.preventDefault(); setOpen(true); return;
+      }
+      if (!open) return;
+      if (e.key === "Escape") { e.preventDefault(); setOpen(false); return; }
+      if (e.key === "ArrowDown") { e.preventDefault(); setActiveIdx((i) =&gt; Math.min(i + 1, filtered.length - 1)); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); setActiveIdx((i) =&gt; Math.max(i - 1, 0)); }
+      else if (e.key === "Enter" &amp;&amp; activeIdx &gt;= 0 &amp;&amp; filtered[activeIdx]) { e.preventDefault(); pick(filtered[activeIdx]); }
+    },
+    [disabled, open, filtered, activeIdx, pick]
+  );
+
+  const labelFor = useCallback((v) =&gt; { const o = opts.find((x) =&gt; x.value === v); return o ? o.label : v; }, [opts]);
+  const selArr = multi ? (Array.isArray(selected) ? selected : []) : [];
+  const hasValue = multi ? selArr.length &gt; 0 : selected != null &amp;&amp; selected !== "";
+
+  return (
+    &lt;div
+      ref={rootRef}
+      id={rootId}
+      className={[
+        "asds-sel",
+        `asds-sel--${size}`,
+        open ? "asds-sel--open" : "",
+        disabled ? "asds-sel--disabled" : "",
+        multi ? "asds-sel--multi" : "asds-sel--single",
+      ].join(" ").trim()}
+    &gt;
+      {label &amp;&amp; (
+        &lt;label className="asds-sel__label" htmlFor={`${rootId}-trigger`}&gt;
+          {label}{required &amp;&amp; &lt;span className="asds-sel__req"&gt;*&lt;/span&gt;}
+        &lt;/label&gt;
+      )}
+
+      &lt;button
+        type="button"
+        id={`${rootId}-trigger`}
+        className="asds-sel__trigger"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        disabled={disabled}
+        onClick={() =&gt; !disabled &amp;&amp; setOpen((o) =&gt; !o)}
+        onKeyDown={onKeyDown}
+      &gt;
+        &lt;span className="asds-sel__value"&gt;
+          {!hasValue &amp;&amp; &lt;span className="asds-sel__placeholder"&gt;{placeholder}&lt;/span&gt;}
+
+          {hasValue &amp;&amp; !multi &amp;&amp; &lt;span className="asds-sel__single"&gt;{labelFor(selected)}&lt;/span&gt;}
+
+          {hasValue &amp;&amp; multi &amp;&amp; selArr.slice(0, maxTags).map((v) =&gt; (
+            &lt;span className="asds-sel__chip" key={v}&gt;
+              &lt;span className="asds-sel__chip-label"&gt;{labelFor(v)}&lt;/span&gt;
+              &lt;span
+                className="asds-sel__chip-x"
+                role="button"
+                aria-label={`Remove ${labelFor(v)}`}
+                onClick={(e) =&gt; removeTag(v, e)}
+              &gt;
+                &lt;XMark /&gt;
+              &lt;/span&gt;
+            &lt;/span&gt;
+          ))}
+          {hasValue &amp;&amp; multi &amp;&amp; selArr.length &gt; maxTags &amp;&amp; (
+            &lt;span className="asds-sel__count"&gt;+{selArr.length - maxTags}&lt;/span&gt;
+          )}
+        &lt;/span&gt;
+
+        &lt;span className="asds-sel__caret"&gt;&lt;Caret /&gt;&lt;/span&gt;
+      &lt;/button&gt;
+
+      {open &amp;&amp; (
+        &lt;div className="asds-sel__pop" role="listbox" aria-multiselectable={multi}&gt;
+          {doSearch &amp;&amp; (
+            &lt;input
+              ref={searchRef}
+              className="asds-sel__search"
+              placeholder="Search…"
+              value={query}
+              onChange={(e) =&gt; { setQuery(e.target.value); setActiveIdx(-1); }}
+              onKeyDown={onKeyDown}
+            /&gt;
+          )}
+
+          &lt;ul className="asds-sel__list"&gt;
+            {filtered.length === 0 &amp;&amp; &lt;li className="asds-sel__empty"&gt;No matches&lt;/li&gt;}
+            {filtered.map((o, i) =&gt; {
+              const sel = isSel(o.value);
+              return (
+                &lt;li
+                  key={o.value}
+                  role="option"
+                  aria-selected={sel}
+                  className={[
+                    "asds-sel__opt",
+                    sel ? "asds-sel__opt--selected" : "",
+                    o.disabled ? "asds-sel__opt--disabled" : "",
+                    i === activeIdx ? "asds-sel__opt--active" : "",
+                  ].join(" ").trim()}
+                  onMouseEnter={() =&gt; setActiveIdx(i)}
+                  onClick={() =&gt; pick(o)}
+                &gt;
+                  {multi &amp;&amp; &lt;span className="asds-sel__box"&gt;&lt;Check /&gt;&lt;/span&gt;}
+                  &lt;span className="asds-sel__opt-main"&gt;
+                    &lt;span className="asds-sel__opt-label"&gt;{o.label}&lt;/span&gt;
+                    {o.hint &amp;&amp; &lt;span className="asds-sel__opt-hint"&gt;{o.hint}&lt;/span&gt;}
+                  &lt;/span&gt;
+                  {!multi &amp;&amp; &lt;span className="asds-sel__tick"&gt;&lt;Check /&gt;&lt;/span&gt;}
+                &lt;/li&gt;
+              );
+            })}
+          &lt;/ul&gt;
+
+          {multi &amp;&amp; clearable &amp;&amp; (
+            &lt;div className="asds-sel__foot"&gt;
+              &lt;span className="asds-sel__foot-info"&gt;{selArr.length} selected&lt;/span&gt;
+              &lt;button type="button" className="asds-sel__foot-clear" onClick={clearAll} disabled={selArr.length === 0}&gt;
+                Clear all
+              &lt;/button&gt;
+            &lt;/div&gt;
+          )}
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+export default Select;
+</code></pre></div><div class="code" id="select-2" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Select: the CSS that Select.jsx injects at runtime, extracted for porting.
+   A React app using Select.jsx does not need this file. Needs foundation/asthara.css. */
+
+.asds-sel { position: relative; font-family: var(--as-font-body); width: 100%; }
+/* Sizes include padding and border whatever the page sets, so the search field fits inside the menu */
+.asds-sel, .asds-sel *, .asds-sel *::before, .asds-sel *::after { box-sizing: border-box; }
+.asds-sel__label {
+  display: block; margin-bottom: 6px;
+  font: 700 10px/1 var(--as-font-body);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--as-ink-soft);
+}
+.asds-sel__req { color: var(--as-gold-deep); margin-left: 2px; }
+
+.asds-sel__trigger {
+  width: 100%; min-height: 40px; padding: 0 12px;
+  display: flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--as-ink);
+  border: 1px solid var(--as-line-strong); border-radius: var(--as-radius-3);
+  font: 400 13px/1.4 var(--as-font-body); text-align: left; cursor: pointer;
+  transition: border-color var(--as-dur-micro) var(--as-ease-out),
+              box-shadow var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-sel--sm .asds-sel__trigger { min-height: 32px; font-size: 12px; padding: 0 10px; border-radius: var(--as-radius-2); }
+.asds-sel__trigger:hover { border-color: var(--as-ink-faint); }
+.asds-sel__trigger:focus-visible,
+.asds-sel--open .asds-sel__trigger {
+  outline: none; border-color: var(--as-gold); box-shadow: var(--as-focus-ring);
+}
+.asds-sel--disabled .asds-sel__trigger {
+  background: var(--as-bg-alt); color: var(--as-ink-faint);
+  cursor: not-allowed; border-color: var(--as-line);
+}
+
+.asds-sel__value { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 5px 0; }
+.asds-sel__placeholder { color: var(--as-ink-faint); }
+.asds-sel__single { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.asds-sel__chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 2px 6px 2px 9px; max-width: 100%;
+  background: var(--as-gold-tint); color: var(--as-gold-deep);
+  border: 1px solid var(--as-gold-soft); border-radius: var(--as-radius-full);
+  font: 600 11px/1.4 var(--as-font-body);
+}
+.asds-sel__chip-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.asds-sel__chip-x {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 14px; height: 14px; border-radius: 50%; cursor: pointer;
+  color: var(--as-gold-deep); flex: none;
+  transition: background var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-sel__chip-x:hover { background: rgba(145, 80, 15, 0.16); }
+.asds-sel__chip-x svg { width: 9px; height: 9px; stroke-width: 2.5; }
+
+.asds-sel__count {
+  flex: none; font: 700 10px/1 var(--as-font-body);
+  color: var(--as-ink-soft); background: var(--as-bg-alt);
+  border: 1px solid var(--as-line); border-radius: var(--as-radius-full);
+  padding: 3px 7px;
+}
+.asds-sel__caret { flex: none; color: var(--as-ink-soft); transition: transform var(--as-dur-standard) var(--as-ease-out); }
+.asds-sel--open .asds-sel__caret { transform: rotate(180deg); }
+.asds-sel__caret svg { width: 16px; height: 16px; stroke-width: 1.75; display: block; }
+
+.asds-sel__pop {
+  position: absolute; z-index: 60; top: calc(100% + 6px); left: 0; right: 0;
+  background: var(--as-card); border: 1px solid var(--as-line);
+  border-radius: var(--as-radius-3); box-shadow: var(--as-e2);
+  padding: 5px; overflow: hidden;
+  transform-origin: top center;
+  animation: asds-pop var(--as-dur-standard) var(--as-ease-out);
+}
+@keyframes asds-pop { from { opacity: 0; transform: translateY(-4px) scale(0.985); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .asds-sel__pop { animation: none; } }
+
+.asds-sel__search {
+  width: 100%; height: 34px; padding: 0 10px; margin-bottom: 4px;
+  border: 1px solid var(--as-line); border-radius: var(--as-radius-2);
+  font: 400 12px/1 var(--as-font-body); color: var(--as-ink); outline: none;
+}
+.asds-sel__search:focus { border-color: var(--as-gold-soft); }
+
+.asds-sel__list { max-height: 248px; overflow-y: auto; margin: 0; padding: 0; list-style: none; }
+.asds-sel__opt {
+  display: flex; align-items: center; gap: 9px;
+  padding: 8px 9px; border-radius: var(--as-radius-2); cursor: pointer;
+  font: 500 13px/1.3 var(--as-font-body); color: var(--as-ink);
+  transition: background var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-sel__opt:hover, .asds-sel__opt--active { background: var(--as-bg-alt); }
+.asds-sel__opt--selected { color: var(--as-gold-deep); font-weight: 600; }
+.asds-sel__opt--disabled { color: var(--as-ink-faint); cursor: not-allowed; }
+.asds-sel__opt--disabled:hover { background: transparent; }
+.asds-sel__opt-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.asds-sel__opt-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.asds-sel__opt-hint { font: 400 11px/1.3 var(--as-font-body); color: var(--as-ink-faint); }
+
+.asds-sel__box {
+  flex: none; width: 16px; height: 16px; border-radius: 4px;
+  border: 1.5px solid var(--as-line-strong); background: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background var(--as-dur-micro), border-color var(--as-dur-micro);
+}
+.asds-sel__opt--selected .asds-sel__box { background: var(--as-gold); border-color: var(--as-gold); }
+.asds-sel__box svg { width: 11px; height: 11px; stroke: #fff; stroke-width: 3; opacity: 0; }
+.asds-sel__opt--selected .asds-sel__box svg { opacity: 1; }
+
+.asds-sel__tick { flex: none; width: 16px; color: var(--as-gold); opacity: 0; }
+.asds-sel__opt--selected .asds-sel__tick { opacity: 1; }
+.asds-sel__tick svg { width: 16px; height: 16px; stroke-width: 2.25; display: block; }
+
+.asds-sel__empty { padding: 14px 9px; text-align: center; font: 400 12px/1.4 var(--as-font-body); color: var(--as-ink-faint); }
+
+.asds-sel__foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; padding: 6px 4px 2px; margin-top: 3px; border-top: 1px solid var(--as-line);
+}
+.asds-sel__foot-info { font: 600 11px/1 var(--as-font-body); color: var(--as-ink-soft); }
+.asds-sel__foot-clear {
+  font: 700 11px/1 var(--as-font-body); color: var(--as-gold-deep);
+  background: none; border: none; cursor: pointer; padding: 4px 6px; border-radius: var(--as-radius-1);
+}
+.asds-sel__foot-clear:hover { background: var(--as-bg-alt); }
+</code></pre></div><div class="code" id="select-3" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;div id="region"&gt;&lt;/div&gt;
+&lt;div id="zones"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  const { Select } = window.Asthara;
+  const h = React.createElement;
+  const regions = ["Jakarta Pusat", "Tangerang", "Bekasi", "Bogor", "Depok", "Bandung", "Serang", "Karawang"];
+  const zones = [
+    { value: "z1", label: "Skyfront Core", hint: "Mixed-use district" },
+    { value: "z2", label: "Riverside Park", hint: "Residential" },
+    { value: "z3", label: "Airport Link", hint: "Logistics" },
+    { value: "z4", label: "Heritage Walk", hint: "Retail &amp; F&amp;B" },
+  ];
+  ReactDOM.createRoot(document.getElementById("region")).render(
+    h(Select, { label: "Service region", options: regions, defaultValue: "Tangerang" })
+  );
+  ReactDOM.createRoot(document.getElementById("zones")).render(
+    h(Select, { multi: true, label: "Active zones", options: zones, defaultValue: ["z1", "z3"] })
+  );
+&lt;/script&gt;</code></pre></div>
+  <p class="comp-files">Files: <code>components/select/README.md</code> · <code>components/select/Select.d.ts</code> · <code>components/select/Select.jsx</code> · <code>components/select/select.css</code> · <code>components/select/select.js</code></p>
+</section>
+<section class="comp" id="date-picker">
+  <header class="comp-head">
+    <h2 class="as-h2">Date picker</h2>
+    <a class="comp-open" href="components/date-picker/date-picker.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">Date and date-time picker with a calendar popover, gold day selection and a 12/24-hour time strip. React component, with a plain-script build.</p>
+  <div class="stage stage--date-picker">
+<div id="move-in"></div>
+<div id="inspection"></div>
+
+<script>
+(function () {
+  const { DatePicker } = window.Asthara;
+  const h = React.createElement;
+  ReactDOM.createRoot(document.getElementById("move-in")).render(
+    h(DatePicker, { label: "Move-in date", defaultValue: new Date(2026, 4, 14) })
+  );
+  ReactDOM.createRoot(document.getElementById("inspection")).render(
+    h(DatePicker, { mode: "datetime", label: "Inspection slot", defaultValue: new Date(2026, 4, 20, 14, 15), minuteStep: 15 })
+  );
+})();
+</script>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Date picker code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="date-picker-0">React usage</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="date-picker-1">DatePicker.jsx</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="date-picker-2">CSS (for porting)</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="date-picker-3">Plain HTML + script</button></div>
+  <div class="code" id="date-picker-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>import { DatePicker } from "./DatePicker";
+
+&lt;DatePicker label="Move-in date" min={new Date()} value={date} onChange={setDate} /&gt;
+&lt;DatePicker mode="datetime" label="Inspection slot" hour12 minuteStep={15} onChange={setWhen} /&gt;
+&lt;DatePicker label="Hand-over" weekStartsOn={1} align="right" /&gt;</code></pre></div><div class="code" id="date-picker-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>import React, { useState, useRef, useEffect, useMemo, useCallback, useId } from "react";
+
+/* ============================================================
+   Asthara · DatePicker
+   A date- and date-time picker built on the --as-* tokens.
+   - Loadify product voice: Raleway 13px, 40px trigger, 8px radius.
+   - Popover calendar (elevation e2), gold focus ring + gold day select.
+   - One component, two modes via `mode`:
+       "date"      → calendar only
+       "datetime"  → calendar + time strip (hh:mm, optional AM/PM)
+   ============================================================ */
+
+const ASDS_DP_STYLE_ID = "asds-datepicker-styles";
+const ASDS_DP_CSS = `
+.asds-dp { position: relative; font-family: var(--as-font-body); width: 100%; }
+/* Sizes include padding and border whatever the page sets */
+.asds-dp, .asds-dp *, .asds-dp *::before, .asds-dp *::after { box-sizing: border-box; }
+.asds-dp__label {
+  display: block; margin-bottom: 6px;
+  font: 700 10px/1 var(--as-font-body);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--as-ink-soft);
+}
+.asds-dp__req { color: var(--as-gold-deep); margin-left: 2px; }
+
+.asds-dp__trigger {
+  width: 100%; min-height: 40px; padding: 0 10px 0 12px;
+  display: flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--as-ink);
+  border: 1px solid var(--as-line-strong); border-radius: var(--as-radius-3);
+  font: 400 13px/1.4 var(--as-font-body); text-align: left; cursor: pointer;
+  transition: border-color var(--as-dur-micro) var(--as-ease-out),
+              box-shadow var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp--sm .asds-dp__trigger { min-height: 32px; font-size: 12px; padding: 0 8px 0 10px; border-radius: var(--as-radius-2); }
+.asds-dp__trigger:hover { border-color: var(--as-ink-faint); }
+.asds-dp__trigger:focus-visible,
+.asds-dp--open .asds-dp__trigger {
+  outline: none; border-color: var(--as-gold); box-shadow: var(--as-focus-ring);
+}
+.asds-dp--disabled .asds-dp__trigger {
+  background: var(--as-bg-alt); color: var(--as-ink-faint);
+  cursor: not-allowed; border-color: var(--as-line);
+}
+
+.asds-dp__cal-ic { flex: none; color: var(--as-ink-soft); display: inline-flex; }
+.asds-dp__cal-ic svg { width: 16px; height: 16px; stroke-width: 1.75; display: block; }
+.asds-dp--open .asds-dp__cal-ic, .asds-dp__trigger:hover .asds-dp__cal-ic { color: var(--as-gold-deep); }
+
+.asds-dp__value { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 5px 0; }
+.asds-dp__placeholder { color: var(--as-ink-faint); }
+.asds-dp__value time { font-variant-numeric: tabular-nums lining-nums; }
+.asds-dp__value .asds-dp__tsep { color: var(--as-ink-faint); margin: 0 6px; }
+
+.asds-dp__clear {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%; border: none; padding: 0; cursor: pointer;
+  background: none; color: var(--as-ink-faint);
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__clear:hover { background: var(--as-bg-alt); color: var(--as-ink); }
+.asds-dp__clear svg { width: 11px; height: 11px; stroke-width: 2.5; display: block; }
+
+.asds-dp__pop {
+  position: absolute; z-index: 60; top: calc(100% + 6px); left: 0;
+  width: 268px; max-width: calc(100vw - 24px);
+  background: var(--as-card); border: 1px solid var(--as-line);
+  border-radius: var(--as-radius-3); box-shadow: var(--as-e2);
+  padding: 10px; overflow: hidden;
+  transform-origin: top left;
+  animation: asds-dp-pop var(--as-dur-standard) var(--as-ease-out);
+}
+.asds-dp--align-right .asds-dp__pop { left: auto; right: 0; transform-origin: top right; }
+@keyframes asds-dp-pop { from { opacity: 0; transform: translateY(-4px) scale(0.985); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .asds-dp__pop { animation: none; } }
+
+.asds-dp__head { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.asds-dp__title {
+  flex: 1 1 auto; text-align: center;
+  font: 700 13px/1 var(--as-font-display); color: var(--as-ink);
+  border: none; background: none; cursor: pointer; padding: 7px 8px;
+  border-radius: var(--as-radius-2);
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__title:hover { background: var(--as-bg-alt); color: var(--as-gold-deep); }
+.asds-dp__title:focus-visible { outline: none; box-shadow: var(--as-focus-ring); }
+.asds-dp__nav {
+  flex: none; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--as-line); border-radius: var(--as-radius-2); background: #fff; cursor: pointer;
+  color: var(--as-ink-soft);
+  transition: background var(--as-dur-micro) var(--as-ease-out), border-color var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__nav:hover { background: var(--as-bg-alt); border-color: var(--as-line-strong); color: var(--as-gold-deep); }
+.asds-dp__nav svg { width: 15px; height: 15px; stroke-width: 2; display: block; }
+
+.asds-dp__dow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
+.asds-dp__dow span {
+  text-align: center; font: 700 9px/1 var(--as-font-body);
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--as-ink-faint); padding: 4px 0;
+}
+
+.asds-dp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.asds-dp__day {
+  aspect-ratio: 1 / 1; min-height: 30px; display: inline-flex; align-items: center; justify-content: center;
+  border: none; background: none; cursor: pointer; padding: 0;
+  border-radius: var(--as-radius-2);
+  font: 500 12px/1 var(--as-font-body); color: var(--as-ink);
+  font-variant-numeric: tabular-nums lining-nums; position: relative;
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__day:hover { background: var(--as-bg-alt); }
+.asds-dp__day--out { color: var(--as-ink-faint); opacity: 0.55; }
+.asds-dp__day--today { font-weight: 700; color: var(--as-gold-deep); }
+.asds-dp__day--today::after {
+  content: ""; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+  width: 3px; height: 3px; border-radius: 50%; background: var(--as-gold);
+}
+.asds-dp__day--active { outline: 2px solid var(--as-gold-soft); outline-offset: -2px; }
+.asds-dp__day--sel, .asds-dp__day--sel:hover {
+  background: var(--as-gold); color: #fff; font-weight: 700;
+}
+.asds-dp__day--sel.asds-dp__day--today { color: #fff; }
+.asds-dp__day--sel.asds-dp__day--today::after { background: #fff; }
+.asds-dp__day--disabled { color: var(--as-ink-faint); opacity: 0.4; cursor: not-allowed; }
+.asds-dp__day--disabled:hover { background: none; }
+
+.asds-dp__cells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 6px 0 2px; }
+.asds-dp__cell {
+  height: 48px; display: inline-flex; align-items: center; justify-content: center;
+  border: none; background: none; cursor: pointer; padding: 0;
+  border-radius: var(--as-radius-2);
+  font: 600 12px/1 var(--as-font-body); color: var(--as-ink);
+  font-variant-numeric: tabular-nums lining-nums;
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__cell:hover { background: var(--as-bg-alt); }
+.asds-dp__cell--cur { color: var(--as-gold-deep); font-weight: 700; }
+.asds-dp__cell--sel, .asds-dp__cell--sel:hover { background: var(--as-gold); color: #fff; font-weight: 700; }
+.asds-dp__cell--disabled { color: var(--as-ink-faint); opacity: 0.4; cursor: not-allowed; }
+.asds-dp__cell--disabled:hover { background: none; }
+
+.asds-dp__time {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--as-line);
+}
+.asds-dp__time-ic { flex: none; color: var(--as-ink-soft); display: inline-flex; }
+.asds-dp__time-ic svg { width: 15px; height: 15px; stroke-width: 1.75; display: block; }
+.asds-dp__time-fields { flex: 1 1 auto; display: flex; align-items: center; gap: 3px; }
+.asds-dp__spin {
+  width: 44px; height: 32px; text-align: center;
+  border: 1px solid var(--as-line-strong); border-radius: var(--as-radius-2);
+  font: 600 13px/1 var(--as-font-body); color: var(--as-ink); background: #fff;
+  font-variant-numeric: tabular-nums lining-nums; outline: none;
+  -moz-appearance: textfield;
+}
+.asds-dp__spin::-webkit-outer-spin-button, .asds-dp__spin::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.asds-dp__spin:focus { border-color: var(--as-gold); box-shadow: var(--as-focus-ring); }
+.asds-dp__colon { font: 700 13px/1 var(--as-font-body); color: var(--as-ink-faint); }
+.asds-dp__mer {
+  display: inline-flex; margin-left: 4px;
+  border: 1px solid var(--as-line-strong); border-radius: var(--as-radius-2); overflow: hidden;
+}
+.asds-dp__mer button {
+  border: none; background: #fff; cursor: pointer; padding: 0 9px; height: 32px;
+  font: 700 10px/1 var(--as-font-body); color: var(--as-ink-soft); letter-spacing: 0.04em;
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__mer button + button { border-left: 1px solid var(--as-line); }
+.asds-dp__mer button[aria-pressed="true"] { background: var(--as-gold-tint); color: var(--as-gold-deep); }
+
+.asds-dp__foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--as-line);
+}
+.asds-dp__today-btn, .asds-dp__done-btn {
+  font: 700 11px/1 var(--as-font-body); cursor: pointer; padding: 6px 10px;
+  border-radius: var(--as-radius-2); transition: background var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__today-btn { color: var(--as-gold-deep); background: none; border: none; }
+.asds-dp__today-btn:hover { background: var(--as-bg-alt); }
+.asds-dp__done-btn { color: #fff; background: var(--as-gold); border: 1px solid var(--as-gold); }
+.asds-dp__done-btn:hover { background: var(--as-gold-deep); border-color: var(--as-gold-deep); }
+`;
+
+function useInjectDpStyles() {
+  useEffect(() =&gt; {
+    if (typeof document === "undefined") return;
+    if (document.getElementById(ASDS_DP_STYLE_ID)) return;
+    const el = document.createElement("style");
+    el.id = ASDS_DP_STYLE_ID;
+    el.textContent = ASDS_DP_CSS;
+    document.head.appendChild(el);
+  }, []);
+}
+
+/* ---- icons ---- */
+const IconCal = () =&gt; (
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;rect x="3" y="4.5" width="18" height="16" rx="2" /&gt;&lt;path d="M3 9h18M8 2.5v4M16 2.5v4" /&gt;&lt;/svg&gt;
+);
+const IconClock = () =&gt; (
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;circle cx="12" cy="12" r="9" /&gt;&lt;path d="M12 7.5V12l3 2" /&gt;&lt;/svg&gt;
+);
+const IconChevL = () =&gt; (
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="m15 6-6 6 6 6" /&gt;&lt;/svg&gt;
+);
+const IconChevR = () =&gt; (
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="m9 6 6 6-6 6" /&gt;&lt;/svg&gt;
+);
+const IconX = () =&gt; (
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="M18 6 6 18M6 6l12 12" /&gt;&lt;/svg&gt;
+);
+
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const DOW_FULL = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+/* ---- date helpers (local, no deps) ---- */
+const toDate = (v) =&gt; {
+  if (v == null || v === "") return null;
+  if (v instanceof Date) return isNaN(v) ? null : new Date(v);
+  const d = new Date(v);
+  return isNaN(d) ? null : d;
+};
+const sameDay = (a, b) =&gt; a &amp;&amp; b &amp;&amp; a.getFullYear() === b.getFullYear() &amp;&amp; a.getMonth() === b.getMonth() &amp;&amp; a.getDate() === b.getDate();
+const startOfDay = (d) =&gt; new Date(d.getFullYear(), d.getMonth(), d.getDate());
+const addMonths = (d, n) =&gt; new Date(d.getFullYear(), d.getMonth() + n, 1);
+const pad2 = (n) =&gt; String(n).padStart(2, "0");
+const clampDay = (d, min, max) =&gt; {
+  const t = startOfDay(d).getTime();
+  if (min &amp;&amp; t &lt; startOfDay(min).getTime()) return true;
+  if (max &amp;&amp; t &gt; startOfDay(max).getTime()) return true;
+  return false;
+};
+
+function defaultFormat(d, withTime, hour12) {
+  if (!d) return "";
+  const datePart = `${MONTHS_SHORT[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  if (!withTime) return datePart;
+  let h = d.getHours();
+  const m = pad2(d.getMinutes());
+  if (hour12) {
+    const mer = h &gt;= 12 ? "PM" : "AM";
+    h = h % 12 || 12;
+    return `${datePart} · ${h}:${m} ${mer}`;
+  }
+  return `${datePart} · ${pad2(h)}:${m}`;
+}
+
+export function DatePicker({
+  mode = "date",
+  value,
+  defaultValue,
+  onChange,
+  placeholder,
+  label,
+  required = false,
+  disabled = false,
+  size = "md",
+  min,
+  max,
+  weekStartsOn = 0,
+  hour12 = true,
+  minuteStep = 5,
+  clearable = true,
+  align = "left",
+  format,
+  id,
+}) {
+  useInjectDpStyles();
+  const withTime = mode === "datetime";
+  const autoId = useId();
+  const rootId = id || autoId;
+
+  const minD = useMemo(() =&gt; toDate(min), [min]);
+  const maxD = useMemo(() =&gt; toDate(max), [max]);
+
+  const isControlled = value !== undefined;
+  const [inner, setInner] = useState(() =&gt; toDate(defaultValue) || null);
+  const selected = isControlled ? toDate(value) : inner;
+
+  const [open, setOpen] = useState(false);
+  const [view, setView] = useState(() =&gt; startOfDay(selected || toDate(defaultValue) || new Date()));
+  const [activeDay, setActiveDay] = useState(null);
+  const [panel, setPanel] = useState("days"); // "days" | "months" | "years"
+  const rootRef = useRef(null);
+
+  const ph = placeholder || (withTime ? "Select date &amp; time…" : "Select a date…");
+
+  const commit = useCallback(
+    (next) =&gt; {
+      if (!isControlled) setInner(next);
+      if (onChange) onChange(next);
+    },
+    [isControlled, onChange]
+  );
+
+  // keep view in sync when opening
+  useEffect(() =&gt; {
+    if (open) {
+      setView(startOfDay(selected || new Date()));
+      setActiveDay(selected ? startOfDay(selected) : startOfDay(new Date()));
+      setPanel("days");
+    }
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // close on outside click
+  useEffect(() =&gt; {
+    if (!open) return;
+    const onDoc = (e) =&gt; { if (rootRef.current &amp;&amp; !rootRef.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", onDoc);
+    return () =&gt; document.removeEventListener("mousedown", onDoc);
+  }, [open]);
+
+  // build 6-week grid
+  const weeks = useMemo(() =&gt; {
+    const first = new Date(view.getFullYear(), view.getMonth(), 1);
+    const offset = (first.getDay() - weekStartsOn + 7) % 7;
+    const start = new Date(first);
+    start.setDate(first.getDate() - offset);
+    const cells = [];
+    for (let i = 0; i &lt; 42; i++) {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      cells.push(d);
+    }
+    const rows = [];
+    for (let i = 0; i &lt; 6; i++) rows.push(cells.slice(i * 7, i * 7 + 7));
+    return rows;
+  }, [view, weekStartsOn]);
+
+  const dow = useMemo(() =&gt; {
+    const arr = [];
+    for (let i = 0; i &lt; 7; i++) arr.push(DOW_FULL[(i + weekStartsOn) % 7]);
+    return arr;
+  }, [weekStartsOn]);
+
+  const applyTimeFrom = useCallback(
+    (base) =&gt; {
+      const d = new Date(base);
+      if (withTime &amp;&amp; selected) { d.setHours(selected.getHours(), selected.getMinutes(), 0, 0); }
+      else if (withTime) { const now = new Date(); d.setHours(now.getHours(), now.getMinutes(), 0, 0); }
+      return d;
+    },
+    [withTime, selected]
+  );
+
+  const pickDay = useCallback(
+    (d) =&gt; {
+      if (clampDay(d, minD, maxD)) return;
+      const next = applyTimeFrom(d);
+      commit(next);
+      setActiveDay(startOfDay(d));
+      if (!withTime) setOpen(false);
+    },
+    [minD, maxD, applyTimeFrom, commit, withTime]
+  );
+
+  const bumpTime = useCallback(
+    (part, val) =&gt; {
+      const base = selected || applyTimeFrom(startOfDay(new Date()));
+      const d = new Date(base);
+      if (part === "h") d.setHours(val);
+      else if (part === "m") d.setMinutes(val);
+      else if (part === "mer") {
+        const h = d.getHours();
+        if (val === "AM" &amp;&amp; h &gt;= 12) d.setHours(h - 12);
+        if (val === "PM" &amp;&amp; h &lt; 12) d.setHours(h + 12);
+      }
+      d.setSeconds(0, 0);
+      commit(d);
+    },
+    [selected, applyTimeFrom, commit]
+  );
+
+  // keyboard nav inside grid
+  const onTriggerKey = useCallback(
+    (e) =&gt; {
+      if (disabled) return;
+      if (!open &amp;&amp; (e.key === "Enter" || e.key === " " || e.key === "ArrowDown")) { e.preventDefault(); setOpen(true); }
+    },
+    [disabled, open]
+  );
+
+  const onGridKey = useCallback(
+    (e) =&gt; {
+      if (!open) return;
+      if (e.key === "Escape") { e.preventDefault(); setOpen(false); return; }
+      if (panel !== "days") return;
+      const base = activeDay || startOfDay(selected || new Date());
+      let next = null;
+      if (e.key === "ArrowLeft") next = new Date(base.getFullYear(), base.getMonth(), base.getDate() - 1);
+      else if (e.key === "ArrowRight") next = new Date(base.getFullYear(), base.getMonth(), base.getDate() + 1);
+      else if (e.key === "ArrowUp") next = new Date(base.getFullYear(), base.getMonth(), base.getDate() - 7);
+      else if (e.key === "ArrowDown") next = new Date(base.getFullYear(), base.getMonth(), base.getDate() + 7);
+      else if (e.key === "Enter" &amp;&amp; activeDay) { e.preventDefault(); pickDay(activeDay); return; }
+      if (next) {
+        e.preventDefault();
+        setActiveDay(next);
+        if (next.getMonth() !== view.getMonth() || next.getFullYear() !== view.getFullYear()) setView(startOfDay(new Date(next.getFullYear(), next.getMonth(), 1)));
+      }
+    },
+    [open, panel, activeDay, selected, view, pickDay]
+  );
+
+  // header chevrons step by month / year / 12-year page depending on the panel
+  const stepHeader = useCallback(
+    (dir) =&gt; {
+      setView((v) =&gt; {
+        if (panel === "days") return addMonths(v, dir);
+        if (panel === "months") return new Date(v.getFullYear() + dir, v.getMonth(), 1);
+        return new Date(v.getFullYear() + dir * 12, v.getMonth(), 1);
+      });
+    },
+    [panel]
+  );
+
+  const monthDisabled = useCallback(
+    (y, m) =&gt; {
+      const start = new Date(y, m, 1);
+      const end = new Date(y, m + 1, 0);
+      if (minD &amp;&amp; end &lt; startOfDay(minD)) return true;
+      if (maxD &amp;&amp; start &gt; startOfDay(maxD)) return true;
+      return false;
+    },
+    [minD, maxD]
+  );
+
+  const yearDisabled = useCallback(
+    (y) =&gt; {
+      if (minD &amp;&amp; y &lt; minD.getFullYear()) return true;
+      if (maxD &amp;&amp; y &gt; maxD.getFullYear()) return true;
+      return false;
+    },
+    [minD, maxD]
+  );
+
+  const fmt = format || ((d) =&gt; defaultFormat(d, withTime, hour12));
+  const today = new Date();
+  const yearPageStart = view.getFullYear() - (view.getFullYear() % 12);
+  const stepLabel = panel === "days" ? "month" : panel === "months" ? "year" : "years";
+  const titleText =
+    panel === "days"
+      ? `${MONTHS[view.getMonth()]} ${view.getFullYear()}`
+      : panel === "months"
+      ? String(view.getFullYear())
+      : `${yearPageStart} \u2013 ${yearPageStart + 11}`;
+
+  // time field display values
+  let dispH = "", dispM = "", mer = "AM";
+  if (withTime) {
+    const t = selected || new Date();
+    mer = t.getHours() &gt;= 12 ? "PM" : "AM";
+    dispH = hour12 ? (t.getHours() % 12 || 12) : t.getHours();
+    dispM = t.getMinutes();
+  }
+
+  return (
+    &lt;div
+      ref={rootRef}
+      id={rootId}
+      className={[
+        "asds-dp",
+        `asds-dp--${size}`,
+        open ? "asds-dp--open" : "",
+        disabled ? "asds-dp--disabled" : "",
+        align === "right" ? "asds-dp--align-right" : "",
+        withTime ? "asds-dp--datetime" : "asds-dp--date",
+      ].join(" ").trim()}
+    &gt;
+      {label &amp;&amp; (
+        &lt;label className="asds-dp__label" htmlFor={`${rootId}-trigger`}&gt;
+          {label}{required &amp;&amp; &lt;span className="asds-dp__req"&gt;*&lt;/span&gt;}
+        &lt;/label&gt;
+      )}
+
+      &lt;button
+        type="button"
+        id={`${rootId}-trigger`}
+        className="asds-dp__trigger"
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        disabled={disabled}
+        onClick={() =&gt; !disabled &amp;&amp; setOpen((o) =&gt; !o)}
+        onKeyDown={onTriggerKey}
+      &gt;
+        &lt;span className="asds-dp__cal-ic"&gt;{withTime ? &lt;IconClock /&gt; : &lt;IconCal /&gt;}&lt;/span&gt;
+        &lt;span className="asds-dp__value"&gt;
+          {selected ? &lt;time dateTime={selected.toISOString()}&gt;{fmt(selected)}&lt;/time&gt; : &lt;span className="asds-dp__placeholder"&gt;{ph}&lt;/span&gt;}
+        &lt;/span&gt;
+        {clearable &amp;&amp; selected &amp;&amp; !disabled &amp;&amp; (
+          &lt;span
+            className="asds-dp__clear"
+            role="button"
+            aria-label="Clear date"
+            onClick={(e) =&gt; { e.stopPropagation(); commit(null); }}
+          &gt;
+            &lt;IconX /&gt;
+          &lt;/span&gt;
+        )}
+      &lt;/button&gt;
+
+      {open &amp;&amp; (
+        &lt;div className="asds-dp__pop" role="dialog" aria-label={label || "Choose date"} onKeyDown={onGridKey}&gt;
+          &lt;div className="asds-dp__head"&gt;
+            &lt;button type="button" className="asds-dp__nav" aria-label={`Previous ${stepLabel}`} onClick={() =&gt; stepHeader(-1)}&gt;&lt;IconChevL /&gt;&lt;/button&gt;
+            &lt;button type="button" className="asds-dp__title" aria-label="Switch calendar view" onClick={() =&gt; setPanel((p) =&gt; (p === "days" ? "months" : "years"))}&gt;{titleText}&lt;/button&gt;
+            &lt;button type="button" className="asds-dp__nav" aria-label={`Next ${stepLabel}`} onClick={() =&gt; stepHeader(1)}&gt;&lt;IconChevR /&gt;&lt;/button&gt;
+          &lt;/div&gt;
+
+          {panel === "days" &amp;&amp; (
+          &lt;div className="asds-dp__dow"&gt;
+            {dow.map((d, i) =&gt; &lt;span key={i}&gt;{d}&lt;/span&gt;)}
+          &lt;/div&gt;
+          )}
+
+          {panel === "days" &amp;&amp; (
+          &lt;div className="asds-dp__grid" role="grid"&gt;
+            {weeks.map((row, ri) =&gt;
+              row.map((d, ci) =&gt; {
+                const out = d.getMonth() !== view.getMonth();
+                const isSel = sameDay(d, selected);
+                const isToday = sameDay(d, today);
+                const isActive = sameDay(d, activeDay);
+                const isDisabled = clampDay(d, minD, maxD);
+                return (
+                  &lt;button
+                    type="button"
+                    key={`${ri}-${ci}`}
+                    role="gridcell"
+                    aria-selected={isSel}
+                    aria-current={isToday ? "date" : undefined}
+                    disabled={isDisabled}
+                    tabIndex={isActive ? 0 : -1}
+                    className={[
+                      "asds-dp__day",
+                      out ? "asds-dp__day--out" : "",
+                      isToday ? "asds-dp__day--today" : "",
+                      isActive &amp;&amp; !isSel ? "asds-dp__day--active" : "",
+                      isSel ? "asds-dp__day--sel" : "",
+                      isDisabled ? "asds-dp__day--disabled" : "",
+                    ].join(" ").trim()}
+                    onClick={() =&gt; pickDay(d)}
+                    onMouseEnter={() =&gt; setActiveDay(startOfDay(d))}
+                  &gt;
+                    {d.getDate()}
+                  &lt;/button&gt;
+                );
+              })
+            )}
+          &lt;/div&gt;
+          )}
+
+          {panel === "months" &amp;&amp; (
+            &lt;div className="asds-dp__cells asds-dp__cells--month"&gt;
+              {MONTHS_SHORT.map((m, i) =&gt; {
+                const isSel = selected &amp;&amp; selected.getFullYear() === view.getFullYear() &amp;&amp; selected.getMonth() === i;
+                const isCur = today.getFullYear() === view.getFullYear() &amp;&amp; today.getMonth() === i;
+                const dis = monthDisabled(view.getFullYear(), i);
+                return (
+                  &lt;button
+                    type="button"
+                    key={m}
+                    disabled={dis}
+                    className={["asds-dp__cell", isCur ? "asds-dp__cell--cur" : "", isSel ? "asds-dp__cell--sel" : "", dis ? "asds-dp__cell--disabled" : ""].join(" ").trim()}
+                    onClick={() =&gt; { setView(new Date(view.getFullYear(), i, 1)); setPanel("days"); }}
+                  &gt;
+                    {m}
+                  &lt;/button&gt;
+                );
+              })}
+            &lt;/div&gt;
+          )}
+
+          {panel === "years" &amp;&amp; (
+            &lt;div className="asds-dp__cells asds-dp__cells--year"&gt;
+              {Array.from({ length: 12 }, (_, k) =&gt; yearPageStart + k).map((y) =&gt; {
+                const isSel = selected &amp;&amp; selected.getFullYear() === y;
+                const isCur = today.getFullYear() === y;
+                const dis = yearDisabled(y);
+                return (
+                  &lt;button
+                    type="button"
+                    key={y}
+                    disabled={dis}
+                    className={["asds-dp__cell", isCur ? "asds-dp__cell--cur" : "", isSel ? "asds-dp__cell--sel" : "", dis ? "asds-dp__cell--disabled" : ""].join(" ").trim()}
+                    onClick={() =&gt; { setView(new Date(y, view.getMonth(), 1)); setPanel("months"); }}
+                  &gt;
+                    {y}
+                  &lt;/button&gt;
+                );
+              })}
+            &lt;/div&gt;
+          )}
+
+          {panel === "days" &amp;&amp; withTime &amp;&amp; (
+            &lt;div className="asds-dp__time"&gt;
+              &lt;span className="asds-dp__time-ic"&gt;&lt;IconClock /&gt;&lt;/span&gt;
+              &lt;div className="asds-dp__time-fields"&gt;
+                &lt;input
+                  className="asds-dp__spin"
+                  type="number"
+                  aria-label="Hour"
+                  min={hour12 ? 1 : 0}
+                  max={hour12 ? 12 : 23}
+                  value={pad2(dispH)}
+                  onChange={(e) =&gt; {
+                    let n = parseInt(e.target.value, 10);
+                    if (isNaN(n)) return;
+                    if (hour12) {
+                      n = Math.max(1, Math.min(12, n));
+                      const h24 = mer === "PM" ? (n % 12) + 12 : n % 12;
+                      bumpTime("h", h24);
+                    } else {
+                      n = Math.max(0, Math.min(23, n));
+                      bumpTime("h", n);
+                    }
+                  }}
+                /&gt;
+                &lt;span className="asds-dp__colon"&gt;:&lt;/span&gt;
+                &lt;input
+                  className="asds-dp__spin"
+                  type="number"
+                  aria-label="Minute"
+                  min={0}
+                  max={59}
+                  step={minuteStep}
+                  value={pad2(dispM)}
+                  onChange={(e) =&gt; {
+                    let n = parseInt(e.target.value, 10);
+                    if (isNaN(n)) return;
+                    bumpTime("m", Math.max(0, Math.min(59, n)));
+                  }}
+                /&gt;
+                {hour12 &amp;&amp; (
+                  &lt;div className="asds-dp__mer" role="group" aria-label="AM or PM"&gt;
+                    &lt;button type="button" aria-pressed={mer === "AM"} onClick={() =&gt; bumpTime("mer", "AM")}&gt;AM&lt;/button&gt;
+                    &lt;button type="button" aria-pressed={mer === "PM"} onClick={() =&gt; bumpTime("mer", "PM")}&gt;PM&lt;/button&gt;
+                  &lt;/div&gt;
+                )}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          )}
+
+          {panel === "days" &amp;&amp; (
+          &lt;div className="asds-dp__foot"&gt;
+            &lt;button
+              type="button"
+              className="asds-dp__today-btn"
+              onClick={() =&gt; { const base = applyTimeFrom(startOfDay(new Date())); if (!clampDay(base, minD, maxD)) { commit(base); setView(startOfDay(base)); setActiveDay(startOfDay(base)); if (!withTime) setOpen(false); } }}
+            &gt;
+              {withTime ? "Now" : "Today"}
+            &lt;/button&gt;
+            {withTime &amp;&amp; (
+              &lt;button type="button" className="asds-dp__done-btn" onClick={() =&gt; setOpen(false)}&gt;Done&lt;/button&gt;
+            )}
+          &lt;/div&gt;
+          )}
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+export default DatePicker;
+</code></pre></div><div class="code" id="date-picker-2" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · DatePicker: the CSS that DatePicker.jsx injects at runtime, extracted for porting.
+   A React app using DatePicker.jsx does not need this file. Needs foundation/asthara.css. */
+
+.asds-dp { position: relative; font-family: var(--as-font-body); width: 100%; }
+/* Sizes include padding and border whatever the page sets */
+.asds-dp, .asds-dp *, .asds-dp *::before, .asds-dp *::after { box-sizing: border-box; }
+.asds-dp__label {
+  display: block; margin-bottom: 6px;
+  font: 700 10px/1 var(--as-font-body);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--as-ink-soft);
+}
+.asds-dp__req { color: var(--as-gold-deep); margin-left: 2px; }
+
+.asds-dp__trigger {
+  width: 100%; min-height: 40px; padding: 0 10px 0 12px;
+  display: flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--as-ink);
+  border: 1px solid var(--as-line-strong); border-radius: var(--as-radius-3);
+  font: 400 13px/1.4 var(--as-font-body); text-align: left; cursor: pointer;
+  transition: border-color var(--as-dur-micro) var(--as-ease-out),
+              box-shadow var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp--sm .asds-dp__trigger { min-height: 32px; font-size: 12px; padding: 0 8px 0 10px; border-radius: var(--as-radius-2); }
+.asds-dp__trigger:hover { border-color: var(--as-ink-faint); }
+.asds-dp__trigger:focus-visible,
+.asds-dp--open .asds-dp__trigger {
+  outline: none; border-color: var(--as-gold); box-shadow: var(--as-focus-ring);
+}
+.asds-dp--disabled .asds-dp__trigger {
+  background: var(--as-bg-alt); color: var(--as-ink-faint);
+  cursor: not-allowed; border-color: var(--as-line);
+}
+
+.asds-dp__cal-ic { flex: none; color: var(--as-ink-soft); display: inline-flex; }
+.asds-dp__cal-ic svg { width: 16px; height: 16px; stroke-width: 1.75; display: block; }
+.asds-dp--open .asds-dp__cal-ic, .asds-dp__trigger:hover .asds-dp__cal-ic { color: var(--as-gold-deep); }
+
+.asds-dp__value { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 5px 0; }
+.asds-dp__placeholder { color: var(--as-ink-faint); }
+.asds-dp__value time { font-variant-numeric: tabular-nums lining-nums; }
+.asds-dp__value .asds-dp__tsep { color: var(--as-ink-faint); margin: 0 6px; }
+
+.asds-dp__clear {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%; border: none; padding: 0; cursor: pointer;
+  background: none; color: var(--as-ink-faint);
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__clear:hover { background: var(--as-bg-alt); color: var(--as-ink); }
+.asds-dp__clear svg { width: 11px; height: 11px; stroke-width: 2.5; display: block; }
+
+.asds-dp__pop {
+  position: absolute; z-index: 60; top: calc(100% + 6px); left: 0;
+  width: 268px; max-width: calc(100vw - 24px);
+  background: var(--as-card); border: 1px solid var(--as-line);
+  border-radius: var(--as-radius-3); box-shadow: var(--as-e2);
+  padding: 10px; overflow: hidden;
+  transform-origin: top left;
+  animation: asds-dp-pop var(--as-dur-standard) var(--as-ease-out);
+}
+.asds-dp--align-right .asds-dp__pop { left: auto; right: 0; transform-origin: top right; }
+@keyframes asds-dp-pop { from { opacity: 0; transform: translateY(-4px) scale(0.985); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .asds-dp__pop { animation: none; } }
+
+.asds-dp__head { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.asds-dp__title {
+  flex: 1 1 auto; text-align: center;
+  font: 700 13px/1 var(--as-font-display); color: var(--as-ink);
+  border: none; background: none; cursor: pointer; padding: 7px 8px;
+  border-radius: var(--as-radius-2);
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__title:hover { background: var(--as-bg-alt); color: var(--as-gold-deep); }
+.asds-dp__title:focus-visible { outline: none; box-shadow: var(--as-focus-ring); }
+.asds-dp__nav {
+  flex: none; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--as-line); border-radius: var(--as-radius-2); background: #fff; cursor: pointer;
+  color: var(--as-ink-soft);
+  transition: background var(--as-dur-micro) var(--as-ease-out), border-color var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__nav:hover { background: var(--as-bg-alt); border-color: var(--as-line-strong); color: var(--as-gold-deep); }
+.asds-dp__nav svg { width: 15px; height: 15px; stroke-width: 2; display: block; }
+
+.asds-dp__dow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
+.asds-dp__dow span {
+  text-align: center; font: 700 9px/1 var(--as-font-body);
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--as-ink-faint); padding: 4px 0;
+}
+
+.asds-dp__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.asds-dp__day {
+  aspect-ratio: 1 / 1; min-height: 30px; display: inline-flex; align-items: center; justify-content: center;
+  border: none; background: none; cursor: pointer; padding: 0;
+  border-radius: var(--as-radius-2);
+  font: 500 12px/1 var(--as-font-body); color: var(--as-ink);
+  font-variant-numeric: tabular-nums lining-nums; position: relative;
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__day:hover { background: var(--as-bg-alt); }
+.asds-dp__day--out { color: var(--as-ink-faint); opacity: 0.55; }
+.asds-dp__day--today { font-weight: 700; color: var(--as-gold-deep); }
+.asds-dp__day--today::after {
+  content: ""; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+  width: 3px; height: 3px; border-radius: 50%; background: var(--as-gold);
+}
+.asds-dp__day--active { outline: 2px solid var(--as-gold-soft); outline-offset: -2px; }
+.asds-dp__day--sel, .asds-dp__day--sel:hover {
+  background: var(--as-gold); color: #fff; font-weight: 700;
+}
+.asds-dp__day--sel.asds-dp__day--today { color: #fff; }
+.asds-dp__day--sel.asds-dp__day--today::after { background: #fff; }
+.asds-dp__day--disabled { color: var(--as-ink-faint); opacity: 0.4; cursor: not-allowed; }
+.asds-dp__day--disabled:hover { background: none; }
+
+.asds-dp__cells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 6px 0 2px; }
+.asds-dp__cell {
+  height: 48px; display: inline-flex; align-items: center; justify-content: center;
+  border: none; background: none; cursor: pointer; padding: 0;
+  border-radius: var(--as-radius-2);
+  font: 600 12px/1 var(--as-font-body); color: var(--as-ink);
+  font-variant-numeric: tabular-nums lining-nums;
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__cell:hover { background: var(--as-bg-alt); }
+.asds-dp__cell--cur { color: var(--as-gold-deep); font-weight: 700; }
+.asds-dp__cell--sel, .asds-dp__cell--sel:hover { background: var(--as-gold); color: #fff; font-weight: 700; }
+.asds-dp__cell--disabled { color: var(--as-ink-faint); opacity: 0.4; cursor: not-allowed; }
+.asds-dp__cell--disabled:hover { background: none; }
+
+.asds-dp__time {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--as-line);
+}
+.asds-dp__time-ic { flex: none; color: var(--as-ink-soft); display: inline-flex; }
+.asds-dp__time-ic svg { width: 15px; height: 15px; stroke-width: 1.75; display: block; }
+.asds-dp__time-fields { flex: 1 1 auto; display: flex; align-items: center; gap: 3px; }
+.asds-dp__spin {
+  width: 44px; height: 32px; text-align: center;
+  border: 1px solid var(--as-line-strong); border-radius: var(--as-radius-2);
+  font: 600 13px/1 var(--as-font-body); color: var(--as-ink); background: #fff;
+  font-variant-numeric: tabular-nums lining-nums; outline: none;
+  -moz-appearance: textfield;
+}
+.asds-dp__spin::-webkit-outer-spin-button, .asds-dp__spin::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.asds-dp__spin:focus { border-color: var(--as-gold); box-shadow: var(--as-focus-ring); }
+.asds-dp__colon { font: 700 13px/1 var(--as-font-body); color: var(--as-ink-faint); }
+.asds-dp__mer {
+  display: inline-flex; margin-left: 4px;
+  border: 1px solid var(--as-line-strong); border-radius: var(--as-radius-2); overflow: hidden;
+}
+.asds-dp__mer button {
+  border: none; background: #fff; cursor: pointer; padding: 0 9px; height: 32px;
+  font: 700 10px/1 var(--as-font-body); color: var(--as-ink-soft); letter-spacing: 0.04em;
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__mer button + button { border-left: 1px solid var(--as-line); }
+.asds-dp__mer button[aria-pressed="true"] { background: var(--as-gold-tint); color: var(--as-gold-deep); }
+
+.asds-dp__foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--as-line);
+}
+.asds-dp__today-btn, .asds-dp__done-btn {
+  font: 700 11px/1 var(--as-font-body); cursor: pointer; padding: 6px 10px;
+  border-radius: var(--as-radius-2); transition: background var(--as-dur-micro) var(--as-ease-out);
+}
+.asds-dp__today-btn { color: var(--as-gold-deep); background: none; border: none; }
+.asds-dp__today-btn:hover { background: var(--as-bg-alt); }
+.asds-dp__done-btn { color: #fff; background: var(--as-gold); border: 1px solid var(--as-gold); }
+.asds-dp__done-btn:hover { background: var(--as-gold-deep); border-color: var(--as-gold-deep); }
+</code></pre></div><div class="code" id="date-picker-3" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;div id="move-in"&gt;&lt;/div&gt;
+&lt;div id="inspection"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  const { DatePicker } = window.Asthara;
+  const h = React.createElement;
+  ReactDOM.createRoot(document.getElementById("move-in")).render(
+    h(DatePicker, { label: "Move-in date", defaultValue: new Date(2026, 4, 14) })
+  );
+  ReactDOM.createRoot(document.getElementById("inspection")).render(
+    h(DatePicker, { mode: "datetime", label: "Inspection slot", defaultValue: new Date(2026, 4, 20, 14, 15), minuteStep: 15 })
+  );
+&lt;/script&gt;</code></pre></div>
+  <p class="comp-files">Files: <code>components/date-picker/DatePicker.d.ts</code> · <code>components/date-picker/DatePicker.jsx</code> · <code>components/date-picker/README.md</code> · <code>components/date-picker/date-picker.css</code> · <code>components/date-picker/date-picker.js</code></p>
+</section>
+<section class="comp" id="badge">
+  <header class="comp-head">
+    <h2 class="as-h2">Badges</h2>
+    <a class="comp-open" href="components/badge/badge.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">Status badges with a dot, priority tags and neutral tags.</p>
+  <div class="stage stage--badge">
+<!-- Status badges -->
+<span class="as-badge as-badge--draft"><span class="as-badge__dot"></span>Draft</span>
+<span class="as-badge as-badge--submitted"><span class="as-badge__dot"></span>Submitted</span>
+<span class="as-badge as-badge--in-review"><span class="as-badge__dot"></span>In Review</span>
+<span class="as-badge as-badge--revision"><span class="as-badge__dot"></span>Revision</span>
+<span class="as-badge as-badge--approved"><span class="as-badge__dot"></span>Approved</span>
+<span class="as-badge as-badge--rejected"><span class="as-badge__dot"></span>Rejected</span>
+<span class="as-badge as-badge--checked-in"><span class="as-badge__dot"></span>Checked In</span>
+
+<!-- Priority tags -->
+<span class="as-priority as-priority--regular">Regular</span>
+<span class="as-priority as-priority--urgent">Urgent</span>
+<span class="as-priority as-priority--emergency"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>Emergency</span>
+
+<!-- Neutral tags -->
+<span class="as-tag">F&amp;B</span>
+<span class="as-tag">ASM</span>
+<span class="as-tag">All projects</span>
+<span class="as-tag">Last 7 days</span>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Badges code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="badge-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="badge-1">CSS</button></div>
+  <div class="code" id="badge-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;!-- Status badges --&gt;
+&lt;span class="as-badge as-badge--draft"&gt;&lt;span class="as-badge__dot"&gt;&lt;/span&gt;Draft&lt;/span&gt;
+&lt;span class="as-badge as-badge--submitted"&gt;&lt;span class="as-badge__dot"&gt;&lt;/span&gt;Submitted&lt;/span&gt;
+&lt;span class="as-badge as-badge--in-review"&gt;&lt;span class="as-badge__dot"&gt;&lt;/span&gt;In Review&lt;/span&gt;
+&lt;span class="as-badge as-badge--revision"&gt;&lt;span class="as-badge__dot"&gt;&lt;/span&gt;Revision&lt;/span&gt;
+&lt;span class="as-badge as-badge--approved"&gt;&lt;span class="as-badge__dot"&gt;&lt;/span&gt;Approved&lt;/span&gt;
+&lt;span class="as-badge as-badge--rejected"&gt;&lt;span class="as-badge__dot"&gt;&lt;/span&gt;Rejected&lt;/span&gt;
+&lt;span class="as-badge as-badge--checked-in"&gt;&lt;span class="as-badge__dot"&gt;&lt;/span&gt;Checked In&lt;/span&gt;
+
+&lt;!-- Priority tags --&gt;
+&lt;span class="as-priority as-priority--regular"&gt;Regular&lt;/span&gt;
+&lt;span class="as-priority as-priority--urgent"&gt;Urgent&lt;/span&gt;
+&lt;span class="as-priority as-priority--emergency"&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/&gt;&lt;/svg&gt;Emergency&lt;/span&gt;
+
+&lt;!-- Neutral tags --&gt;
+&lt;span class="as-tag"&gt;F&amp;amp;B&lt;/span&gt;
+&lt;span class="as-tag"&gt;ASM&lt;/span&gt;
+&lt;span class="as-tag"&gt;All projects&lt;/span&gt;
+&lt;span class="as-tag"&gt;Last 7 days&lt;/span&gt;</code></pre></div><div class="code" id="badge-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Badges: status badge, priority tag, neutral tag
+   From the design system's Badges card. Needs foundation/asthara.css. */
+
+/* Status badge: &lt;span class="as-badge as-badge--approved"&gt;&lt;span class="as-badge__dot"&gt;&lt;/span&gt;Approved&lt;/span&gt; */
+.as-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 600 11px/1 var(--as-font-body);
+  padding: 5px 10px; border-radius: 9999px;
+}
+.as-badge__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+.as-badge--draft      { background: #EEEBE2; color: #6B6859; }
+.as-badge--draft .as-badge__dot { background: #9A9583; }
+.as-badge--submitted  { background: #E3EEFD; color: #1F6CC9; }
+.as-badge--in-review  { background: #E3EEFD; color: #3287F0; }
+.as-badge--revision   { background: #FFF1DE; color: #B45309; }
+.as-badge--approved   { background: #E6F5EE; color: #00875A; }
+.as-badge--rejected   { background: #FCE3EE; color: #B0024A; }
+.as-badge--checked-in { background: #DEF1F1; color: #006C6C; }
+
+/* Priority tag: &lt;span class="as-priority as-priority--urgent"&gt;Urgent&lt;/span&gt; */
+.as-priority {
+  display: inline-flex; align-items: center; gap: 4px;
+  font: 700 10px/1 var(--as-font-body);
+  padding: 5px 8px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.as-priority svg { width: 10px; height: 10px; }
+.as-priority--regular   { background: var(--as-bg-alt); color: var(--as-ink-soft); }
+.as-priority--urgent    { background: #FFF1DE; color: #B45309; }
+.as-priority--emergency { background: #FCE3EE; color: #B0024A; }
+
+/* Neutral tag (filters, categories): &lt;span class="as-tag"&gt;F&amp;amp;B&lt;/span&gt; */
+.as-tag {
+  font: 500 11px/1 var(--as-font-body);
+  padding: 5px 10px; border-radius: 4px;
+  background: var(--as-bg-alt); color: var(--as-ink);
+}
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/badge/README.md</code> · <code>components/badge/badge.css</code></p>
+</section>
+<section class="comp" id="tabs">
+  <header class="comp-head">
+    <h2 class="as-h2">Tabs</h2>
+    <a class="comp-open" href="components/tabs/tabs.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">Underline tabs for page sections, with counts; pill tabs for filters.</p>
+  <div class="stage stage--tabs">
+<!-- Underline tabs: page-level sections -->
+<div class="as-tabs" role="tablist" aria-label="Requests">
+  <button type="button" class="as-tab" role="tab" aria-selected="true">All <span class="as-tab__count">28</span></button>
+  <button type="button" class="as-tab" role="tab" aria-selected="false">In progress <span class="as-tab__count">9</span></button>
+  <button type="button" class="as-tab" role="tab" aria-selected="false">Approved <span class="as-tab__count">12</span></button>
+  <button type="button" class="as-tab" role="tab" aria-selected="false">Rejected <span class="as-tab__count">2</span></button>
+  <button type="button" class="as-tab" role="tab" aria-selected="false">Expired <span class="as-tab__count">5</span></button>
+</div>
+
+<!-- Pill tabs: filters -->
+<div class="as-pills" role="tablist" aria-label="Project type">
+  <button type="button" class="as-pill" role="tab" aria-selected="true">All</button>
+  <button type="button" class="as-pill" role="tab" aria-selected="false">Mall</button>
+  <button type="button" class="as-pill" role="tab" aria-selected="false">Office</button>
+  <button type="button" class="as-pill" role="tab" aria-selected="false">Industrial</button>
+</div>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Tabs code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="tabs-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="tabs-1">CSS</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="tabs-2">JS</button></div>
+  <div class="code" id="tabs-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;!-- Underline tabs: page-level sections --&gt;
+&lt;div class="as-tabs" role="tablist" aria-label="Requests"&gt;
+  &lt;button type="button" class="as-tab" role="tab" aria-selected="true"&gt;All &lt;span class="as-tab__count"&gt;28&lt;/span&gt;&lt;/button&gt;
+  &lt;button type="button" class="as-tab" role="tab" aria-selected="false"&gt;In progress &lt;span class="as-tab__count"&gt;9&lt;/span&gt;&lt;/button&gt;
+  &lt;button type="button" class="as-tab" role="tab" aria-selected="false"&gt;Approved &lt;span class="as-tab__count"&gt;12&lt;/span&gt;&lt;/button&gt;
+  &lt;button type="button" class="as-tab" role="tab" aria-selected="false"&gt;Rejected &lt;span class="as-tab__count"&gt;2&lt;/span&gt;&lt;/button&gt;
+  &lt;button type="button" class="as-tab" role="tab" aria-selected="false"&gt;Expired &lt;span class="as-tab__count"&gt;5&lt;/span&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Pill tabs: filters --&gt;
+&lt;div class="as-pills" role="tablist" aria-label="Project type"&gt;
+  &lt;button type="button" class="as-pill" role="tab" aria-selected="true"&gt;All&lt;/button&gt;
+  &lt;button type="button" class="as-pill" role="tab" aria-selected="false"&gt;Mall&lt;/button&gt;
+  &lt;button type="button" class="as-pill" role="tab" aria-selected="false"&gt;Office&lt;/button&gt;
+  &lt;button type="button" class="as-pill" role="tab" aria-selected="false"&gt;Industrial&lt;/button&gt;
+&lt;/div&gt;</code></pre></div><div class="code" id="tabs-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Tabs: underline tabs (page level) and pill tabs (filters)
+   From the design system's Tabs card. Needs foundation/asthara.css. */
+
+/* Underline tabs */
+.as-tabs { display: flex; border-bottom: 1px solid var(--as-line); gap: 6px; }
+.as-tab {
+  font: 600 13px/1 var(--as-font-body); color: var(--as-ink-soft);
+  padding: 12px 14px; margin-bottom: -1px;
+  background: none; border: 0; border-bottom: 2px solid transparent;
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.as-tab[aria-selected="true"] { color: var(--as-gold-deep); border-color: var(--as-gold); }
+.as-tab__count {
+  font: 700 10.5px/1 var(--as-font-body);
+  padding: 2px 7px; border-radius: 9999px;
+  background: var(--as-bg-alt); color: var(--as-ink-soft);
+  font-variant-numeric: var(--as-tabular);
+}
+.as-tab[aria-selected="true"] .as-tab__count { background: var(--as-gold-tint); color: var(--as-gold-deep); }
+
+/* Pill tabs */
+.as-pills { display: flex; gap: 6px; padding: 4px; background: var(--as-bg-alt); border-radius: 9999px; align-self: flex-start; width: max-content; }
+.as-pill {
+  font: 600 11px/1 var(--as-font-body);
+  padding: 6px 12px; border-radius: 9999px; border: 0;
+  background: none; color: var(--as-ink-soft); cursor: pointer;
+}
+.as-pill[aria-selected="true"] { background: #fff; color: var(--as-ink); box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+
+.as-tab:focus-visible,
+.as-pill:focus-visible { outline: none; box-shadow: var(--as-focus-ring); }
+</code></pre></div><div class="code" id="tabs-2" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Tabs behaviour: one selected tab per tablist.
+   Behaviour only; in a framework, bind aria-selected to your state instead. */
+document.addEventListener("click", function (e) {
+  var tab = e.target.closest('[role="tab"]');
+  if (!tab) return;
+  var list = tab.closest('[role="tablist"]');
+  list.querySelectorAll('[role="tab"]').forEach(function (t) {
+    t.setAttribute("aria-selected", t === tab ? "true" : "false");
+  });
+});
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/tabs/README.md</code> · <code>components/tabs/tabs.css</code> · <code>components/tabs/tabs.js</code></p>
+</section>
+<section class="comp" id="kpi-card">
+  <header class="comp-head">
+    <h2 class="as-h2">KPI card</h2>
+    <a class="comp-open" href="components/kpi-card/kpi-card.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">A 30px headline number with its label and a change note, in a four-column grid.</p>
+  <div class="stage stage--kpi-card">
+<div class="as-kpi-grid">
+  <div class="as-kpi">
+    <span class="as-kpi__label">Active loadings</span>
+    <span class="as-kpi__value">47</span>
+    <span class="as-kpi__delta as-kpi__delta--up">+12% vs last week</span>
+  </div>
+  <div class="as-kpi">
+    <span class="as-kpi__label">Pending approvals</span>
+    <span class="as-kpi__value">23</span>
+    <span class="as-kpi__delta as-kpi__delta--warn">5 urgent · 1 emergency</span>
+  </div>
+  <div class="as-kpi">
+    <span class="as-kpi__label">Vehicles inside</span>
+    <span class="as-kpi__value">38</span>
+    <span class="as-kpi__delta as-kpi__delta--mute">−6% across 5 projects</span>
+  </div>
+  <div class="as-kpi">
+    <span class="as-kpi__label">Permits (MTD)</span>
+    <span class="as-kpi__value">1,284</span>
+    <span class="as-kpi__delta as-kpi__delta--mute">on track for target</span>
+  </div>
+</div>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="KPI card code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="kpi-card-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="kpi-card-1">CSS</button></div>
+  <div class="code" id="kpi-card-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;div class="as-kpi-grid"&gt;
+  &lt;div class="as-kpi"&gt;
+    &lt;span class="as-kpi__label"&gt;Active loadings&lt;/span&gt;
+    &lt;span class="as-kpi__value"&gt;47&lt;/span&gt;
+    &lt;span class="as-kpi__delta as-kpi__delta--up"&gt;+12% vs last week&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="as-kpi"&gt;
+    &lt;span class="as-kpi__label"&gt;Pending approvals&lt;/span&gt;
+    &lt;span class="as-kpi__value"&gt;23&lt;/span&gt;
+    &lt;span class="as-kpi__delta as-kpi__delta--warn"&gt;5 urgent · 1 emergency&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="as-kpi"&gt;
+    &lt;span class="as-kpi__label"&gt;Vehicles inside&lt;/span&gt;
+    &lt;span class="as-kpi__value"&gt;38&lt;/span&gt;
+    &lt;span class="as-kpi__delta as-kpi__delta--mute"&gt;−6% across 5 projects&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="as-kpi"&gt;
+    &lt;span class="as-kpi__label"&gt;Permits (MTD)&lt;/span&gt;
+    &lt;span class="as-kpi__value"&gt;1,284&lt;/span&gt;
+    &lt;span class="as-kpi__delta as-kpi__delta--mute"&gt;on track for target&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></div><div class="code" id="kpi-card-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · KPI card
+   From the design system's KPI card. Needs foundation/asthara.css. */
+
+.as-kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+.as-kpi {
+  box-sizing: border-box;
+  background: #fff; border: 1px solid var(--as-line); border-radius: 12px;
+  padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.as-kpi__label { font: 700 10px/1 var(--as-font-body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--as-ink-soft); }
+.as-kpi__value { font: 700 30px/1 var(--as-font-display); color: var(--as-ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.as-kpi__delta { font: 500 10.5px/1 var(--as-font-body); }
+.as-kpi__delta--up   { color: var(--as-success-fg); }
+.as-kpi__delta--warn { color: var(--as-warning-fg); }
+.as-kpi__delta--mute { color: var(--as-ink-soft); }
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/kpi-card/README.md</code> · <code>components/kpi-card/kpi-card.css</code></p>
+</section>
+<section class="comp" id="avatar">
+  <header class="comp-head">
+    <h2 class="as-h2">Avatar</h2>
+    <a class="comp-open" href="components/avatar/avatar.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">Initials on a soft tint, 20 to 40px. The tint comes from the name, so a person keeps the same colour everywhere.</p>
+  <div class="stage stage--avatar">
+<!-- Sizes 20 / 24 / 28 / 32 / 40 -->
+<span class="as-avatar as-avatar--20 as-avatar--gold" aria-label="Sari Wulandari">SW</span>
+<span class="as-avatar as-avatar--24 as-avatar--teal" aria-label="Imam Maulana">IM</span>
+<span class="as-avatar as-avatar--28 as-avatar--info" aria-label="Putri Anggraini">PA</span>
+<span class="as-avatar as-avatar--32 as-avatar--rose" aria-label="Yulia Maharani">YM</span>
+<span class="as-avatar as-avatar--40 as-avatar--solid">AS</span>
+
+<!-- The two other tints of the palette -->
+<span class="as-avatar as-avatar--28 as-avatar--success" aria-label="Sukarno Hartono">SH</span>
+<span class="as-avatar as-avatar--28 as-avatar--purple" aria-label="Sari Wulandari">SW</span>
+
+<!-- Tint and initials from the name, with avatar.js -->
+<span class="as-avatar as-avatar--28" data-name="Putri Anggraini"></span>
+<script>
+(function () {
+  document.querySelectorAll(".as-avatar[data-name]").forEach(function (el) {
+    var name = el.dataset.name;
+    el.classList.add(asAvatarTint(name));
+    el.textContent = asAvatarInitials(name);
+    el.setAttribute("aria-label", name);
+  });
+})();
+</script>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Avatar code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="avatar-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="avatar-1">CSS</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="avatar-2">JS</button></div>
+  <div class="code" id="avatar-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;!-- Sizes 20 / 24 / 28 / 32 / 40 --&gt;
+&lt;span class="as-avatar as-avatar--20 as-avatar--gold" aria-label="Sari Wulandari"&gt;SW&lt;/span&gt;
+&lt;span class="as-avatar as-avatar--24 as-avatar--teal" aria-label="Imam Maulana"&gt;IM&lt;/span&gt;
+&lt;span class="as-avatar as-avatar--28 as-avatar--info" aria-label="Putri Anggraini"&gt;PA&lt;/span&gt;
+&lt;span class="as-avatar as-avatar--32 as-avatar--rose" aria-label="Yulia Maharani"&gt;YM&lt;/span&gt;
+&lt;span class="as-avatar as-avatar--40 as-avatar--solid"&gt;AS&lt;/span&gt;
+
+&lt;!-- The two other tints of the palette --&gt;
+&lt;span class="as-avatar as-avatar--28 as-avatar--success" aria-label="Sukarno Hartono"&gt;SH&lt;/span&gt;
+&lt;span class="as-avatar as-avatar--28 as-avatar--purple" aria-label="Sari Wulandari"&gt;SW&lt;/span&gt;
+
+&lt;!-- Tint and initials from the name, with avatar.js --&gt;
+&lt;span class="as-avatar as-avatar--28" data-name="Putri Anggraini"&gt;&lt;/span&gt;
+&lt;script&gt;
+  document.querySelectorAll(".as-avatar[data-name]").forEach(function (el) {
+    var name = el.dataset.name;
+    el.classList.add(asAvatarTint(name));
+    el.textContent = asAvatarInitials(name);
+    el.setAttribute("aria-label", name);
+  });
+&lt;/script&gt;</code></pre></div><div class="code" id="avatar-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Avatar: initials on a tint
+   Sizes and tints from the design system's Avatars card; the extra tints
+   (success, purple) are the Loadify kit's avatar palette. Needs foundation/asthara.css. */
+
+.as-avatar {
+  box-sizing: border-box; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font: 700 12px/1 var(--as-font-body); letter-spacing: 0.02em;
+  flex: none;
+}
+
+/* Sizes */
+.as-avatar--20 { width: 20px; height: 20px; font-size: 9px; }
+.as-avatar--24 { width: 24px; height: 24px; font-size: 10px; }
+.as-avatar--28 { width: 28px; height: 28px; font-size: 11px; }
+.as-avatar--32 { width: 32px; height: 32px; font-size: 12px; }
+.as-avatar--40 { width: 40px; height: 40px; font-size: 14px; }
+
+/* Tints: pick one per person with avatar.js (hashed from the name), or set it */
+.as-avatar--gold    { background: #F5C896; color: #6E3C0B; }
+.as-avatar--teal    { background: #DEF1F1; color: #006C6C; }
+.as-avatar--info    { background: #E3EEFD; color: #1F6CC9; }
+.as-avatar--rose    { background: #FCE3EE; color: #B0024A; }
+.as-avatar--success { background: #E6F5EE; color: #00875A; }
+.as-avatar--purple  { background: #EEE8FA; color: #5A2B9B; }
+/* Solid gold: the signed-in user */
+.as-avatar--solid   { background: var(--as-gold); color: #fff; }
+</code></pre></div><div class="code" id="avatar-2" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Avatar helpers (from the Loadify kit's Avatar component).
+   asAvatarTint(name) -&gt; the tint modifier for that name, stable across sessions.
+   asAvatarInitials(name) -&gt; up to two initials. */
+
+var AS_AVATAR_TINTS = ["gold", "teal", "info", "rose", "success", "purple"];
+
+function asAvatarTint(name) {
+  var h = 0;
+  for (var i = 0; i &lt; name.length; i++) h = (h * 31 + name.charCodeAt(i)) &gt;&gt;&gt; 0;
+  return "as-avatar--" + AS_AVATAR_TINTS[h % AS_AVATAR_TINTS.length];
+}
+
+function asAvatarInitials(name) {
+  return name.split(" ").slice(0, 2).map(function (w) { return w[0] || ""; }).join("").toUpperCase();
+}
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/avatar/README.md</code> · <code>components/avatar/avatar.css</code> · <code>components/avatar/avatar.js</code></p>
+</section>
+<section class="comp" id="stepper">
+  <header class="comp-head">
+    <h2 class="as-h2">Stepper</h2>
+    <a class="comp-open" href="components/stepper/stepper.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">Progress through a multi-step flow: done, active and upcoming steps.</p>
+  <div class="stage stage--stepper">
+<div class="as-stepper" aria-label="Request progress">
+  <span class="as-step as-step--done"><span class="as-step__n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Request</span>
+  <span class="as-stepper__conn as-stepper__conn--done" aria-hidden="true"></span>
+  <span class="as-step as-step--done"><span class="as-step__n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Schedule</span>
+  <span class="as-stepper__conn as-stepper__conn--done" aria-hidden="true"></span>
+  <span class="as-step as-step--active" aria-current="step"><span class="as-step__n">3</span>Vehicle</span>
+  <span class="as-stepper__conn" aria-hidden="true"></span>
+  <span class="as-step"><span class="as-step__n">4</span>Documents</span>
+  <span class="as-stepper__conn" aria-hidden="true"></span>
+  <span class="as-step"><span class="as-step__n">5</span>Review</span>
+</div>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Stepper code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="stepper-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="stepper-1">CSS</button></div>
+  <div class="code" id="stepper-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;div class="as-stepper" aria-label="Request progress"&gt;
+  &lt;span class="as-step as-step--done"&gt;&lt;span class="as-step__n"&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M20 6 9 17l-5-5"/&gt;&lt;/svg&gt;&lt;/span&gt;Request&lt;/span&gt;
+  &lt;span class="as-stepper__conn as-stepper__conn--done" aria-hidden="true"&gt;&lt;/span&gt;
+  &lt;span class="as-step as-step--done"&gt;&lt;span class="as-step__n"&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M20 6 9 17l-5-5"/&gt;&lt;/svg&gt;&lt;/span&gt;Schedule&lt;/span&gt;
+  &lt;span class="as-stepper__conn as-stepper__conn--done" aria-hidden="true"&gt;&lt;/span&gt;
+  &lt;span class="as-step as-step--active" aria-current="step"&gt;&lt;span class="as-step__n"&gt;3&lt;/span&gt;Vehicle&lt;/span&gt;
+  &lt;span class="as-stepper__conn" aria-hidden="true"&gt;&lt;/span&gt;
+  &lt;span class="as-step"&gt;&lt;span class="as-step__n"&gt;4&lt;/span&gt;Documents&lt;/span&gt;
+  &lt;span class="as-stepper__conn" aria-hidden="true"&gt;&lt;/span&gt;
+  &lt;span class="as-step"&gt;&lt;span class="as-step__n"&gt;5&lt;/span&gt;Review&lt;/span&gt;
+&lt;/div&gt;</code></pre></div><div class="code" id="stepper-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Stepper: multi-step request flow
+   From the design system's Stepper card. Needs foundation/asthara.css. */
+
+.as-stepper { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; margin: 0; padding: 0; list-style: none; }
+.as-step { display: flex; align-items: center; gap: 8px; font: 600 11px/1 var(--as-font-display); color: var(--as-ink-soft); }
+.as-step__n {
+  box-sizing: border-box; width: 22px; height: 22px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font: 700 11px/1 var(--as-font-body); font-variant-numeric: var(--as-tabular);
+  background: var(--as-bg-alt); color: var(--as-ink-soft); border: 1px solid var(--as-line);
+}
+.as-step__n svg { width: 12px; height: 12px; }
+.as-step--done .as-step__n   { background: var(--as-success-fg); color: #fff; border-color: var(--as-success-fg); }
+.as-step--active             { color: var(--as-gold-deep); }
+.as-step--active .as-step__n { background: var(--as-gold); color: #fff; border-color: var(--as-gold); }
+
+.as-stepper__conn       { width: 28px; height: 1px; background: var(--as-line); }
+.as-stepper__conn--done { background: var(--as-success-fg); }
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/stepper/README.md</code> · <code>components/stepper/stepper.css</code></p>
+</section>
+<section class="comp" id="activity-feed">
+  <header class="comp-head">
+    <h2 class="as-h2">Activity feed</h2>
+    <a class="comp-open" href="components/activity-feed/activity-feed.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">A timeline of events with a coloured dot per event type.</p>
+  <div class="stage stage--activity-feed">
+<ol class="as-feed">
+  <li class="as-feed__row">
+    <span class="as-feed__time">09:24</span>
+    <span class="as-feed__lane"><span class="as-feed__dot as-feed__dot--active"></span></span>
+    <span class="as-feed__text"><span class="as-feed__title">B 4421 DSO checked in</span><span class="as-feed__sub">Daiso Japan · Dock B-4 · Mall</span></span>
+  </li>
+  <li class="as-feed__row">
+    <span class="as-feed__time">09:18</span>
+    <span class="as-feed__lane"><span class="as-feed__dot as-feed__dot--success"></span></span>
+    <span class="as-feed__text"><span class="as-feed__title">LDF-2026-04217 approved</span><span class="as-feed__sub">Uniqlo · Sari Wulandari</span></span>
+  </li>
+  <li class="as-feed__row">
+    <span class="as-feed__time">09:02</span>
+    <span class="as-feed__lane"><span class="as-feed__dot as-feed__dot--danger"></span></span>
+    <span class="as-feed__text"><span class="as-feed__title">EMERGENCY · Bank Mandiri</span><span class="as-feed__sub">Server replacement at L5</span></span>
+  </li>
+  <li class="as-feed__row">
+    <span class="as-feed__time">08:47</span>
+    <span class="as-feed__lane"><span class="as-feed__dot as-feed__dot--info"></span></span>
+    <span class="as-feed__text"><span class="as-feed__title">B 0019 SBX checked out</span><span class="as-feed__sub">Starbucks Reserve · 1h 14m</span></span>
+  </li>
+</ol>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Activity feed code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="activity-feed-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="activity-feed-1">CSS</button></div>
+  <div class="code" id="activity-feed-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;ol class="as-feed"&gt;
+  &lt;li class="as-feed__row"&gt;
+    &lt;span class="as-feed__time"&gt;09:24&lt;/span&gt;
+    &lt;span class="as-feed__lane"&gt;&lt;span class="as-feed__dot as-feed__dot--active"&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="as-feed__text"&gt;&lt;span class="as-feed__title"&gt;B 4421 DSO checked in&lt;/span&gt;&lt;span class="as-feed__sub"&gt;Daiso Japan · Dock B-4 · Mall&lt;/span&gt;&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li class="as-feed__row"&gt;
+    &lt;span class="as-feed__time"&gt;09:18&lt;/span&gt;
+    &lt;span class="as-feed__lane"&gt;&lt;span class="as-feed__dot as-feed__dot--success"&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="as-feed__text"&gt;&lt;span class="as-feed__title"&gt;LDF-2026-04217 approved&lt;/span&gt;&lt;span class="as-feed__sub"&gt;Uniqlo · Sari Wulandari&lt;/span&gt;&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li class="as-feed__row"&gt;
+    &lt;span class="as-feed__time"&gt;09:02&lt;/span&gt;
+    &lt;span class="as-feed__lane"&gt;&lt;span class="as-feed__dot as-feed__dot--danger"&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="as-feed__text"&gt;&lt;span class="as-feed__title"&gt;EMERGENCY · Bank Mandiri&lt;/span&gt;&lt;span class="as-feed__sub"&gt;Server replacement at L5&lt;/span&gt;&lt;/span&gt;
+  &lt;/li&gt;
+  &lt;li class="as-feed__row"&gt;
+    &lt;span class="as-feed__time"&gt;08:47&lt;/span&gt;
+    &lt;span class="as-feed__lane"&gt;&lt;span class="as-feed__dot as-feed__dot--info"&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="as-feed__text"&gt;&lt;span class="as-feed__title"&gt;B 0019 SBX checked out&lt;/span&gt;&lt;span class="as-feed__sub"&gt;Starbucks Reserve · 1h 14m&lt;/span&gt;&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</code></pre></div><div class="code" id="activity-feed-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Activity feed: timeline with a coloured dot per event
+   From the design system's Activity feed card. Needs foundation/asthara.css.
+   The connector line runs through the centre of the dots (56px time column
+   + 10px gap + half of the 22px lane, minus half the 1px line). */
+
+.as-feed { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.as-feed__row { display: grid; grid-template-columns: 56px 22px 1fr; gap: 10px; align-items: flex-start; padding: 8px 0; position: relative; }
+.as-feed__time { font: 600 11px/14px var(--as-font-mono); color: var(--as-ink-faint); padding-top: 3px; font-variant-numeric: tabular-nums; }
+.as-feed__lane { display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 6px; }
+.as-feed__dot  { box-sizing: border-box; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--as-line); }
+.as-feed__row + .as-feed__row .as-feed__lane::before { content: ""; position: absolute; top: 0; left: 76.5px; width: 1px; height: 8px; background: var(--as-line); }
+.as-feed__row .as-feed__lane::after { content: ""; position: absolute; top: 22px; bottom: -2px; left: 76.5px; width: 1px; background: var(--as-line); }
+.as-feed__row:last-child .as-feed__lane::after { display: none; }
+.as-feed__text  { display: flex; flex-direction: column; gap: 1px; }
+.as-feed__title { font: 600 12.5px/1.3 var(--as-font-display); color: var(--as-ink); }
+.as-feed__sub   { font: 400 11.5px/1.3 var(--as-font-body); color: var(--as-ink-soft); }
+
+/* Event tones */
+.as-feed__dot--success { background: var(--as-success-fg); }
+.as-feed__dot--info    { background: var(--as-info-fg); }
+.as-feed__dot--danger  { background: var(--as-danger-fg); }
+.as-feed__dot--active  { background: var(--as-active-fg); }
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/activity-feed/README.md</code> · <code>components/activity-feed/activity-feed.css</code></p>
+</section>
+<section class="comp" id="log">
+  <header class="comp-head">
+    <h2 class="as-h2">Log</h2>
+    <a class="comp-open" href="components/log/log.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">A record's history, newest first and grouped by day: changes as old → new, status moves and internal notes, with a note composer. It goes at the bottom of the page, below the record's other sections.</p>
+  <div class="stage stage--log">
+<section class="as-log" aria-label="Log">
+  <div class="as-log__composer">
+    <span class="as-log__avatar" aria-hidden="true">AO</span>
+    <div class="as-log__compose">
+      <textarea class="as-textarea as-log__input" placeholder="Log an internal note" aria-label="Internal note"></textarea>
+      <button type="button" class="as-btn as-btn--secondary as-btn--sm" disabled>Log note</button>
+    </div>
+  </div>
+
+  <div class="as-log__day">28 Oct 2026</div>
+  <ul class="as-log__entries">
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">AO</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Adrian Owen</span><time class="as-log__time">28 Oct 2026 · 14:04</time></div>
+        <p class="as-log__message">Request approved</p>
+        <ul class="as-log__changes">
+          <li class="as-log__change"><span>Draft</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Approved</span><span class="as-log__field">(Status)</span></li>
+        </ul>
+      </div>
+    </li>
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">AO</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Adrian Owen</span><time class="as-log__time">28 Oct 2026 · 14:04</time></div>
+        <p class="as-log__message">Request updated</p>
+        <ul class="as-log__changes">
+          <li class="as-log__change"><span>—</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">REF/02/2026</span><span class="as-log__field">(Reference)</span></li>
+          <li class="as-log__change"><span>—</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Dock B-2</span><span class="as-log__field">(Location)</span></li>
+          <li class="as-log__change"><span>Rp 0</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Rp 45.000</span><span class="as-log__field">(Service fee)</span></li>
+          <li class="as-log__change"><span>Rp 850.000</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Rp 895.000</span><span class="as-log__field">(Total)</span></li>
+        </ul>
+      </div>
+    </li>
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">AO</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Adrian Owen</span><time class="as-log__time">28 Oct 2026 · 14:03</time></div>
+        <p class="as-log__message">Reset to draft — wrong dock</p>
+        <ul class="as-log__changes">
+          <li class="as-log__change"><span>Approved</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Draft</span><span class="as-log__field">(Status)</span></li>
+        </ul>
+      </div>
+    </li>
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">MP</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Maya Putri</span><time class="as-log__time">28 Oct 2026 · 14:03</time><span class="as-log__tag">Note</span></div>
+        <p class="as-log__message">The vendor will confirm the time slot tomorrow.</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="as-log__day">13 Oct 2026</div>
+  <ul class="as-log__entries">
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">MP</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Maya Putri</span><time class="as-log__time">13 Oct 2026 · 15:17</time></div>
+        <p class="as-log__message">Fee set paid</p>
+        <ul class="as-log__changes">
+          <li class="as-log__change"><span>Unpaid</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Paid on 13 Oct 2026 · Cash</span><span class="as-log__field">(Status)</span></li>
+        </ul>
+        <p class="as-log__quote">“Paid at the counter”</p>
+      </div>
+    </li>
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">MP</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Maya Putri</span><time class="as-log__time">13 Oct 2026 · 15:17</time></div>
+        <p class="as-log__message">Request created</p>
+        <ul class="as-log__changes">
+          <li class="as-log__change"><span>Rp 0</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Rp 850.000</span><span class="as-log__field">(Amount)</span></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</section>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Log code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="log-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="log-1">CSS</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="log-2">JS</button></div>
+  <div class="code" id="log-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;section class="as-log" aria-label="Log"&gt;
+  &lt;div class="as-log__composer"&gt;
+    &lt;span class="as-log__avatar" aria-hidden="true"&gt;AO&lt;/span&gt;
+    &lt;div class="as-log__compose"&gt;
+      &lt;textarea class="as-textarea as-log__input" placeholder="Log an internal note" aria-label="Internal note"&gt;&lt;/textarea&gt;
+      &lt;button type="button" class="as-btn as-btn--secondary as-btn--sm" disabled&gt;Log note&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="as-log__day"&gt;28 Oct 2026&lt;/div&gt;
+  &lt;ul class="as-log__entries"&gt;
+    &lt;li class="as-log__entry"&gt;
+      &lt;span class="as-log__avatar" aria-hidden="true"&gt;AO&lt;/span&gt;
+      &lt;div class="as-log__body"&gt;
+        &lt;div class="as-log__head"&gt;&lt;span class="as-log__name"&gt;Adrian Owen&lt;/span&gt;&lt;time class="as-log__time"&gt;28 Oct 2026 · 14:04&lt;/time&gt;&lt;/div&gt;
+        &lt;p class="as-log__message"&gt;Request approved&lt;/p&gt;
+        &lt;ul class="as-log__changes"&gt;
+          &lt;li class="as-log__change"&gt;&lt;span&gt;Draft&lt;/span&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M5 12h14"/&gt;&lt;path d="m12 5 7 7-7 7"/&gt;&lt;/svg&gt;&lt;span class="as-log__new"&gt;Approved&lt;/span&gt;&lt;span class="as-log__field"&gt;(Status)&lt;/span&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li class="as-log__entry"&gt;
+      &lt;span class="as-log__avatar" aria-hidden="true"&gt;AO&lt;/span&gt;
+      &lt;div class="as-log__body"&gt;
+        &lt;div class="as-log__head"&gt;&lt;span class="as-log__name"&gt;Adrian Owen&lt;/span&gt;&lt;time class="as-log__time"&gt;28 Oct 2026 · 14:04&lt;/time&gt;&lt;/div&gt;
+        &lt;p class="as-log__message"&gt;Request updated&lt;/p&gt;
+        &lt;ul class="as-log__changes"&gt;
+          &lt;li class="as-log__change"&gt;&lt;span&gt;—&lt;/span&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M5 12h14"/&gt;&lt;path d="m12 5 7 7-7 7"/&gt;&lt;/svg&gt;&lt;span class="as-log__new"&gt;REF/02/2026&lt;/span&gt;&lt;span class="as-log__field"&gt;(Reference)&lt;/span&gt;&lt;/li&gt;
+          &lt;li class="as-log__change"&gt;&lt;span&gt;—&lt;/span&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M5 12h14"/&gt;&lt;path d="m12 5 7 7-7 7"/&gt;&lt;/svg&gt;&lt;span class="as-log__new"&gt;Dock B-2&lt;/span&gt;&lt;span class="as-log__field"&gt;(Location)&lt;/span&gt;&lt;/li&gt;
+          &lt;li class="as-log__change"&gt;&lt;span&gt;Rp 0&lt;/span&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M5 12h14"/&gt;&lt;path d="m12 5 7 7-7 7"/&gt;&lt;/svg&gt;&lt;span class="as-log__new"&gt;Rp 45.000&lt;/span&gt;&lt;span class="as-log__field"&gt;(Service fee)&lt;/span&gt;&lt;/li&gt;
+          &lt;li class="as-log__change"&gt;&lt;span&gt;Rp 850.000&lt;/span&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M5 12h14"/&gt;&lt;path d="m12 5 7 7-7 7"/&gt;&lt;/svg&gt;&lt;span class="as-log__new"&gt;Rp 895.000&lt;/span&gt;&lt;span class="as-log__field"&gt;(Total)&lt;/span&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li class="as-log__entry"&gt;
+      &lt;span class="as-log__avatar" aria-hidden="true"&gt;AO&lt;/span&gt;
+      &lt;div class="as-log__body"&gt;
+        &lt;div class="as-log__head"&gt;&lt;span class="as-log__name"&gt;Adrian Owen&lt;/span&gt;&lt;time class="as-log__time"&gt;28 Oct 2026 · 14:03&lt;/time&gt;&lt;/div&gt;
+        &lt;p class="as-log__message"&gt;Reset to draft — wrong dock&lt;/p&gt;
+        &lt;ul class="as-log__changes"&gt;
+          &lt;li class="as-log__change"&gt;&lt;span&gt;Approved&lt;/span&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M5 12h14"/&gt;&lt;path d="m12 5 7 7-7 7"/&gt;&lt;/svg&gt;&lt;span class="as-log__new"&gt;Draft&lt;/span&gt;&lt;span class="as-log__field"&gt;(Status)&lt;/span&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li class="as-log__entry"&gt;
+      &lt;span class="as-log__avatar" aria-hidden="true"&gt;MP&lt;/span&gt;
+      &lt;div class="as-log__body"&gt;
+        &lt;div class="as-log__head"&gt;&lt;span class="as-log__name"&gt;Maya Putri&lt;/span&gt;&lt;time class="as-log__time"&gt;28 Oct 2026 · 14:03&lt;/time&gt;&lt;span class="as-log__tag"&gt;Note&lt;/span&gt;&lt;/div&gt;
+        &lt;p class="as-log__message"&gt;The vendor will confirm the time slot tomorrow.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;div class="as-log__day"&gt;13 Oct 2026&lt;/div&gt;
+  &lt;ul class="as-log__entries"&gt;
+    &lt;li class="as-log__entry"&gt;
+      &lt;span class="as-log__avatar" aria-hidden="true"&gt;MP&lt;/span&gt;
+      &lt;div class="as-log__body"&gt;
+        &lt;div class="as-log__head"&gt;&lt;span class="as-log__name"&gt;Maya Putri&lt;/span&gt;&lt;time class="as-log__time"&gt;13 Oct 2026 · 15:17&lt;/time&gt;&lt;/div&gt;
+        &lt;p class="as-log__message"&gt;Fee set paid&lt;/p&gt;
+        &lt;ul class="as-log__changes"&gt;
+          &lt;li class="as-log__change"&gt;&lt;span&gt;Unpaid&lt;/span&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M5 12h14"/&gt;&lt;path d="m12 5 7 7-7 7"/&gt;&lt;/svg&gt;&lt;span class="as-log__new"&gt;Paid on 13 Oct 2026 · Cash&lt;/span&gt;&lt;span class="as-log__field"&gt;(Status)&lt;/span&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class="as-log__quote"&gt;“Paid at the counter”&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li class="as-log__entry"&gt;
+      &lt;span class="as-log__avatar" aria-hidden="true"&gt;MP&lt;/span&gt;
+      &lt;div class="as-log__body"&gt;
+        &lt;div class="as-log__head"&gt;&lt;span class="as-log__name"&gt;Maya Putri&lt;/span&gt;&lt;time class="as-log__time"&gt;13 Oct 2026 · 15:17&lt;/time&gt;&lt;/div&gt;
+        &lt;p class="as-log__message"&gt;Request created&lt;/p&gt;
+        &lt;ul class="as-log__changes"&gt;
+          &lt;li class="as-log__change"&gt;&lt;span&gt;Rp 0&lt;/span&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M5 12h14"/&gt;&lt;path d="m12 5 7 7-7 7"/&gt;&lt;/svg&gt;&lt;span class="as-log__new"&gt;Rp 850.000&lt;/span&gt;&lt;span class="as-log__field"&gt;(Amount)&lt;/span&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre></div><div class="code" id="log-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Log: a record's history (changes, status moves, internal notes) with a note composer.
+   Needs foundation/asthara.css, and the Inputs and Button CSS for the composer. */
+
+.as-log { font-family: var(--as-font-body); color: var(--as-ink); }
+.as-log *, .as-log *::before, .as-log *::after { box-sizing: border-box; }
+
+/* Who: 30px initials on gold tint */
+.as-log__avatar {
+  width: 30px; height: 30px; border-radius: 50%; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--as-gold-tint); color: var(--as-gold-deep);
+  font: 700 11px/1 var(--as-font-body); letter-spacing: 0.02em;
+}
+
+/* Composer */
+.as-log__composer { display: flex; gap: 10px; align-items: flex-start; padding-bottom: 6px; }
+.as-log__compose { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.as-log__input { width: 100%; height: 56px; min-height: 40px; resize: vertical; }
+.as-log__input::placeholder { color: var(--as-ink-faint); }
+.as-log__composer .as-btn:disabled,
+.as-log__composer .as-btn:disabled:hover { background: #fff; color: var(--as-ink); border-color: var(--as-line-strong); opacity: 0.5; }
+
+/* Day divider */
+.as-log__day {
+  display: flex; align-items: center; gap: 12px; margin: 16px 0;
+  font: 700 11px/1 var(--as-font-body); color: var(--as-ink-soft); font-variant-numeric: var(--as-tabular);
+}
+.as-log__day::before, .as-log__day::after { content: ""; flex: 1; height: 1px; background: var(--as-line); }
+
+/* Entry */
+.as-log__entries { margin: 0; padding: 0; list-style: none; }
+.as-log__entry { display: flex; gap: 10px; align-items: flex-start; }
+.as-log__entry + .as-log__entry { margin-top: 14px; }
+.as-log__body { flex: 1; min-width: 0; }
+.as-log__head { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; min-height: 18px; }
+.as-log__name { font: 600 13px/1.3 var(--as-font-display); color: var(--as-ink); }
+.as-log__time { font: 400 11px/1.3 var(--as-font-body); color: var(--as-ink-faint); font-variant-numeric: var(--as-tabular); }
+.as-log__tag {
+  font: 700 9.5px/1 var(--as-font-body); text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 2px 6px; border-radius: 4px;
+  background: var(--as-gold-tint); color: var(--as-gold-deep);
+}
+.as-log__message { margin: 3px 0 0; font: 400 13px/1.5 var(--as-font-body); color: var(--as-ink); }
+
+/* What changed: old → new (field) */
+.as-log__changes { margin: 5px 0 0; padding: 0; list-style: none; }
+.as-log__change {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0 8px;
+  font: 400 13px/1.6 var(--as-font-body); color: var(--as-ink-faint); font-variant-numeric: var(--as-tabular);
+}
+.as-log__change::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex: none; }
+.as-log__change svg { width: 12px; height: 12px; flex: none; }
+.as-log__new { color: var(--as-gold-deep); }
+.as-log__field { font-style: italic; }
+.as-log__quote { margin: 2px 0 0 13px; font: italic 400 12px/1.5 var(--as-font-body); color: var(--as-ink-faint); }
+</code></pre></div><div class="code" id="log-2" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Log behaviour: "Log note" turns on once the note has text.
+   Behaviour only; saving the note and adding its entry is your app's job. */
+document.addEventListener("input", function (e) {
+  var input = e.target.closest(".as-log__input");
+  if (!input) return;
+  var button = input.closest(".as-log__compose").querySelector(".as-btn");
+  button.disabled = input.value.trim() === "";
+});
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/log/README.md</code> · <code>components/log/log.css</code> · <code>components/log/log.js</code></p>
+</section>
+<section class="comp" id="loader">
+  <header class="comp-head">
+    <h2 class="as-h2">Loaders</h2>
+    <a class="comp-open" href="components/loader/loader.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">Eightcellent loop, linear, mark and inline trio. All gold, one per surface.</p>
+  <div class="stage stage--loader">
+<div class="lx-hero">
+  <div class="lx-text">
+    <div class="lx-nm">Eightcellent loop</div>
+    <div class="lx-ms">2.4 s · ease-in-out · indeterminate</div>
+    <div class="lx-lbl">Signature loader. Eight bars travel in a wave — echoing the eight pillars and the Eightcellent ribbon. Full-page, drawer, modal.</div>
+  </div>
+  <div class="as-loader-eight" role="status" aria-label="Loading">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+</div>
+<div class="lx-row3">
+  <div class="lx-item">
+    <div class="lx-head"><span class="lx-nm">Linear</span><span class="lx-ms">1.8 s</span></div>
+    <div class="lx-stage"><div class="as-loader-linear" role="status" aria-label="Loading"></div></div>
+    <div class="lx-lbl">Top edge of a sheet, table, or panel. Becomes determinate when % is known.</div>
+  </div>
+  <div class="lx-item">
+    <div class="lx-head"><span class="lx-nm">Mark</span><span class="lx-ms">1.6 s · 2.6 s</span></div>
+    <div class="lx-stage">
+      <div class="as-loader-mark" role="status" aria-label="Loading"><img src="components/loader/asthara-mark.png" alt=""></div>
+    </div>
+    <div class="lx-lbl">Splash / app boot. Mark breathes while a thin gold arc orbits.</div>
+  </div>
+  <div class="lx-item">
+    <div class="lx-head"><span class="lx-nm">Inline trio</span><span class="lx-ms">1.2 s</span></div>
+    <div class="lx-stage"><span class="as-loader-trio" role="status" aria-label="Loading"><i></i><i></i><i></i></span></div>
+    <div class="lx-lbl">Inside buttons, chips, and table cells mid-request. Sits on ink so gold reads.</div>
+  </div>
+</div>
+<div class="lx-rules">
+  <div class="lx-r"><span class="lx-k">Use</span><span>Gold (or gold-tint track). One loader per surface. Always paired with a status string after 400 ms.</span></div>
+  <div class="lx-r"><span class="lx-k">Avoid</span><span>Spinners that bounce, overshoot, or rotate full mark. No coloured loaders outside gold.</span></div>
+</div>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Loaders code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="loader-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="loader-1">CSS</button></div>
+  <div class="code" id="loader-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;!-- A · Eightcellent loop --&gt;
+&lt;div class="as-loader-eight" role="status" aria-label="Loading"&gt;
+  &lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;
+&lt;/div&gt;
+
+&lt;!-- B · Linear --&gt;
+&lt;div class="as-loader-linear" role="status" aria-label="Loading"&gt;&lt;/div&gt;
+
+&lt;!-- C · Mark (asthara-mark.png sits beside this file) --&gt;
+&lt;div class="as-loader-mark" role="status" aria-label="Loading"&gt;
+  &lt;img src="asthara-mark.png" alt=""&gt;
+&lt;/div&gt;
+
+&lt;!-- D · Inline trio --&gt;
+&lt;span class="as-loader-trio" role="status" aria-label="Loading"&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/span&gt;</code></pre></div><div class="code" id="loader-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Loaders: Eightcellent loop, linear, mark, inline trio
+   From the design system's Loaders card. Needs foundation/asthara.css.
+   All gold. One loader per surface; pair it with a status string after 400 ms. */
+
+/* A · Eightcellent loop: eight bars in a wave. Full page, drawer, modal. */
+.as-loader-eight { display: flex; align-items: flex-end; gap: 4px; height: 44px; }
+.as-loader-eight i {
+  display: block; width: 4px; height: 14px;
+  background: var(--as-gold); border-radius: 3px;
+  transform-origin: center bottom;
+  animation: as-eight-pulse 2.4s var(--as-ease-in-out) infinite;
+}
+.as-loader-eight i:nth-child(1) { animation-delay: 0.00s; }
+.as-loader-eight i:nth-child(2) { animation-delay: 0.12s; }
+.as-loader-eight i:nth-child(3) { animation-delay: 0.24s; }
+.as-loader-eight i:nth-child(4) { animation-delay: 0.36s; }
+.as-loader-eight i:nth-child(5) { animation-delay: 0.48s; }
+.as-loader-eight i:nth-child(6) { animation-delay: 0.60s; }
+.as-loader-eight i:nth-child(7) { animation-delay: 0.72s; }
+.as-loader-eight i:nth-child(8) { animation-delay: 0.84s; }
+@keyframes as-eight-pulse {
+  0%, 70%, 100% { transform: scaleY(1);   background: var(--as-gold-soft); }
+  25%           { transform: scaleY(2.4); background: var(--as-gold); }
+  45%           { transform: scaleY(1.4); background: var(--as-gold-deep); }
+}
+
+/* B · Linear (indeterminate): top edge of a sheet, table or panel. */
+.as-loader-linear {
+  position: relative; width: 100%; height: 3px;
+  background: var(--as-gold-tint); border-radius: 3px; overflow: hidden;
+}
+.as-loader-linear::before {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 40%;
+  background: linear-gradient(90deg, var(--as-gold-soft) 0%, var(--as-gold) 50%, var(--as-gold-deep) 100%);
+  border-radius: 3px;
+  animation: as-linear-sweep 1.8s var(--as-ease-in-out) infinite;
+}
+@keyframes as-linear-sweep {
+  0%   { left: -45%; }
+  100% { left: 100%; }
+}
+
+/* C · Mark: the logo mark breathing inside an orbiting gold arc. Splash / app boot. */
+.as-loader-mark {
+  position: relative; width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+}
+.as-loader-mark img { width: 38px; height: 38px; animation: as-mark-breath 2.6s var(--as-ease-in-out) infinite; }
+.as-loader-mark::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  border: 1.5px solid transparent;
+  border-top-color: var(--as-gold); border-right-color: var(--as-gold);
+  animation: as-mark-spin 1.6s linear infinite;
+}
+@keyframes as-mark-spin { to { transform: rotate(360deg); } }
+@keyframes as-mark-breath {
+  0%, 100% { opacity: 1;    transform: scale(1); }
+  50%      { opacity: 0.72; transform: scale(0.94); }
+}
+
+/* D · Inline trio: inside buttons, chips and table cells mid-request. Sits on ink so gold reads. */
+.as-loader-trio {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 12px; background: var(--as-ink); border-radius: 999px;
+}
+.as-loader-trio i {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--as-gold-soft);
+  animation: as-trio-fade 1.2s var(--as-ease-in-out) infinite;
+}
+.as-loader-trio i:nth-child(2) { animation-delay: 0.15s; }
+.as-loader-trio i:nth-child(3) { animation-delay: 0.30s; }
+@keyframes as-trio-fade {
+  0%, 80%, 100% { opacity: 0.28; transform: translateY(0); }
+  40%           { opacity: 1;    transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .as-loader-eight i, .as-loader-linear::before, .as-loader-mark img, .as-loader-mark::before, .as-loader-trio i { animation: none; }
+}
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/loader/README.md</code> · <code>components/loader/asthara-mark.png</code> · <code>components/loader/loader.css</code></p>
+</section>
+<section class="comp" id="app-boot">
+  <header class="comp-head">
+    <h2 class="as-h2">App boot</h2>
+    <a class="comp-open" href="components/app-boot/app-boot.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">The screen an app shows while it starts: the Mark loader with the app's name and a one-line description. ORBIT is a placeholder.</p>
+  <div class="stage stage--app-boot">
+<div class="as-boot" role="status" aria-label="Loading ORBIT">
+  <div class="as-loader-mark as-loader-mark--lg" aria-hidden="true">
+    <img src="components/app-boot/asthara-mark.png" alt="">
+  </div>
+  <p class="as-boot__name">ORBIT</p>
+  <p class="as-boot__desc">Operations, Reporting &amp; Billing</p>
+</div>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="App boot code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="app-boot-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="app-boot-1">CSS</button></div>
+  <div class="code" id="app-boot-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;div class="as-boot" role="status" aria-label="Loading ORBIT"&gt;
+  &lt;div class="as-loader-mark as-loader-mark--lg" aria-hidden="true"&gt;
+    &lt;img src="asthara-mark.png" alt=""&gt;
+  &lt;/div&gt;
+  &lt;p class="as-boot__name"&gt;ORBIT&lt;/p&gt;
+  &lt;p class="as-boot__desc"&gt;Operations, Reporting &amp;amp; Billing&lt;/p&gt;
+&lt;/div&gt;</code></pre></div><div class="code" id="app-boot-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · App boot: the Mark loader full screen, with the app's name and a one-line description.
+   Needs foundation/asthara.css and the Loader CSS (it uses .as-loader-mark). */
+
+.as-boot {
+  box-sizing: border-box; min-height: 100vh; padding: 24px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--as-bg); text-align: center;
+}
+.as-loader-mark--lg { width: 104px; height: 104px; }
+.as-loader-mark--lg img { width: 62px; height: 62px; }
+.as-boot__name {
+  margin: 24px 0 0;
+  font: 700 16px/1 var(--as-font-display); letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--as-ink);
+}
+.as-boot__desc { margin: 12px 0 0; font: 400 13.5px/1.5 var(--as-font-body); color: var(--as-ink-soft); }
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/app-boot/README.md</code> · <code>components/app-boot/app-boot.css</code> · <code>components/app-boot/asthara-mark.png</code></p>
+</section>
+<section class="comp" id="sidebar">
+  <header class="comp-head">
+    <h2 class="as-h2">Sidebar</h2>
+    <a class="comp-open" href="components/sidebar/sidebar.html">Open on its own</a>
+  </header>
+  <p class="as-body comp-lede">The 248px ink navigation of the product apps. Just an example: every part is optional.</p>
+  <div class="stage stage--sidebar">
+<aside class="as-sidebar" aria-label="Asthara Finance">
+  <div class="as-sidebar__brand">
+    <img class="as-sidebar__mark" src="components/sidebar/logo-mark-color.png" alt="">
+    <div class="as-sidebar__brand-text">
+      <span class="as-sidebar__wordmark">ASTHARA</span>
+      <span class="as-sidebar__product">Finance</span>
+    </div>
+    <button type="button" class="as-sidebar__switch" aria-label="Switch app" aria-haspopup="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+  </div>
+
+  <nav class="as-sidebar__nav" aria-label="Main">
+    <a class="as-sidebar__link" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg><span class="as-sidebar__label">Workspace</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+  </nav>
+
+  <button type="button" class="as-sidebar__context" aria-haspopup="listbox">
+    <span class="as-sidebar__context-text">
+      <span class="as-sidebar__context-caption">Company</span>
+      <span class="as-sidebar__context-name">PT. Bumi Bandara Indah</span>
+    </span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+  </button>
+
+  <nav class="as-sidebar__scroll" aria-label="Modules">
+    <div class="as-sidebar__section">
+      <button type="button" class="as-sidebar__section-head" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg><span class="as-sidebar__label">Library</span><svg class="as-sidebar__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      <div class="as-sidebar__section-body">
+        <a class="as-sidebar__sublink" href="#">Collections</a>
+        <span class="as-sidebar__sublink" aria-disabled="true">Templates<span class="as-sidebar__soon">Soon</span></span>
+      </div>
+    </div>
+
+    <div class="as-sidebar__section">
+      <button type="button" class="as-sidebar__section-head" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg><span class="as-sidebar__label">Operations</span><svg class="as-sidebar__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      <div class="as-sidebar__section-body">
+        <div class="as-sidebar__group">Planning</div>
+        <a class="as-sidebar__sublink" href="#">Projects</a>
+        <a class="as-sidebar__sublink" href="#">Milestones</a>
+        <div class="as-sidebar__group">Review</div>
+        <a class="as-sidebar__sublink" href="#">Requests</a>
+        <a class="as-sidebar__sublink" href="#">Approvals</a>
+        <span class="as-sidebar__sublink" aria-disabled="true">Archive<span class="as-sidebar__soon">Soon</span></span>
+        <div class="as-sidebar__group">Resources</div>
+        <span class="as-sidebar__sublink" aria-disabled="true">Assets<span class="as-sidebar__soon">Soon</span></span>
+        <span class="as-sidebar__sublink" aria-disabled="true">Inventory<span class="as-sidebar__soon">Soon</span></span>
+        <a class="as-sidebar__sublink" href="#">Vendors</a>
+        <div class="as-sidebar__group">Reports</div>
+        <a class="as-sidebar__sublink" href="#">Daily summary</a>
+        <a class="as-sidebar__sublink" href="#">Weekly digest</a>
+        <a class="as-sidebar__sublink" href="#">Exports</a>
+        <a class="as-sidebar__sublink" href="#" aria-current="page">Insights</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="as-sidebar__divider"></div>
+
+  <div class="as-sidebar__section">
+    <button type="button" class="as-sidebar__section-head" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span class="as-sidebar__label">Settings</span><svg class="as-sidebar__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+    <div class="as-sidebar__section-body">
+      <a class="as-sidebar__sublink" href="#">Members</a>
+      <a class="as-sidebar__sublink" href="#">Permissions</a>
+    </div>
+  </div>
+
+  <div class="as-sidebar__user">
+    <span class="as-avatar as-avatar--28 as-avatar--gold" aria-hidden="true">AO</span>
+    <div class="as-sidebar__user-text">
+      <div class="as-sidebar__user-name">Adrian Owen</div>
+      <div class="as-sidebar__user-role">Digital &amp; Technology</div>
+    </div>
+  </div>
+</aside>
+  </div>
+  <div class="as-pills code-tabs" role="tablist" aria-label="Sidebar code"><button type="button" class="as-pill" role="tab" aria-selected="true" data-panel="sidebar-0">HTML</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="sidebar-1">CSS</button><button type="button" class="as-pill" role="tab" aria-selected="false" data-panel="sidebar-2">JS</button></div>
+  <div class="code" id="sidebar-0"><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>&lt;aside class="as-sidebar" aria-label="Asthara Finance"&gt;
+  &lt;div class="as-sidebar__brand"&gt;
+    &lt;img class="as-sidebar__mark" src="logo-mark-color.png" alt=""&gt;
+    &lt;div class="as-sidebar__brand-text"&gt;
+      &lt;span class="as-sidebar__wordmark"&gt;ASTHARA&lt;/span&gt;
+      &lt;span class="as-sidebar__product"&gt;Finance&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;button type="button" class="as-sidebar__switch" aria-label="Switch app" aria-haspopup="menu"&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="m6 9 6 6 6-6"/&gt;&lt;/svg&gt;&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;nav class="as-sidebar__nav" aria-label="Main"&gt;
+    &lt;a class="as-sidebar__link" href="#"&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/&gt;&lt;path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/&gt;&lt;path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/&gt;&lt;path d="M10 6h4"/&gt;&lt;path d="M10 10h4"/&gt;&lt;path d="M10 14h4"/&gt;&lt;path d="M10 18h4"/&gt;&lt;/svg&gt;&lt;span class="as-sidebar__label"&gt;Workspace&lt;/span&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="m9 18 6-6-6-6"/&gt;&lt;/svg&gt;&lt;/a&gt;
+  &lt;/nav&gt;
+
+  &lt;button type="button" class="as-sidebar__context" aria-haspopup="listbox"&gt;
+    &lt;span class="as-sidebar__context-text"&gt;
+      &lt;span class="as-sidebar__context-caption"&gt;Company&lt;/span&gt;
+      &lt;span class="as-sidebar__context-name"&gt;PT. Bumi Bandara Indah&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="m6 9 6 6 6-6"/&gt;&lt;/svg&gt;
+  &lt;/button&gt;
+
+  &lt;nav class="as-sidebar__scroll" aria-label="Modules"&gt;
+    &lt;div class="as-sidebar__section"&gt;
+      &lt;button type="button" class="as-sidebar__section-head" aria-expanded="true"&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;ellipse cx="12" cy="5" rx="9" ry="3"/&gt;&lt;path d="M3 5V19A9 3 0 0 0 21 19V5"/&gt;&lt;path d="M3 12A9 3 0 0 0 21 12"/&gt;&lt;/svg&gt;&lt;span class="as-sidebar__label"&gt;Library&lt;/span&gt;&lt;svg class="as-sidebar__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="m9 18 6-6-6-6"/&gt;&lt;/svg&gt;&lt;/button&gt;
+      &lt;div class="as-sidebar__section-body"&gt;
+        &lt;a class="as-sidebar__sublink" href="#"&gt;Collections&lt;/a&gt;
+        &lt;span class="as-sidebar__sublink" aria-disabled="true"&gt;Templates&lt;span class="as-sidebar__soon"&gt;Soon&lt;/span&gt;&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="as-sidebar__section"&gt;
+      &lt;button type="button" class="as-sidebar__section-head" aria-expanded="true"&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="m16 3 4 4-4 4"/&gt;&lt;path d="M20 7H4"/&gt;&lt;path d="m8 21-4-4 4-4"/&gt;&lt;path d="M4 17h16"/&gt;&lt;/svg&gt;&lt;span class="as-sidebar__label"&gt;Operations&lt;/span&gt;&lt;svg class="as-sidebar__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="m9 18 6-6-6-6"/&gt;&lt;/svg&gt;&lt;/button&gt;
+      &lt;div class="as-sidebar__section-body"&gt;
+        &lt;div class="as-sidebar__group"&gt;Planning&lt;/div&gt;
+        &lt;a class="as-sidebar__sublink" href="#"&gt;Projects&lt;/a&gt;
+        &lt;a class="as-sidebar__sublink" href="#"&gt;Milestones&lt;/a&gt;
+        &lt;div class="as-sidebar__group"&gt;Review&lt;/div&gt;
+        &lt;a class="as-sidebar__sublink" href="#"&gt;Requests&lt;/a&gt;
+        &lt;a class="as-sidebar__sublink" href="#"&gt;Approvals&lt;/a&gt;
+        &lt;span class="as-sidebar__sublink" aria-disabled="true"&gt;Archive&lt;span class="as-sidebar__soon"&gt;Soon&lt;/span&gt;&lt;/span&gt;
+        &lt;div class="as-sidebar__group"&gt;Resources&lt;/div&gt;
+        &lt;span class="as-sidebar__sublink" aria-disabled="true"&gt;Assets&lt;span class="as-sidebar__soon"&gt;Soon&lt;/span&gt;&lt;/span&gt;
+        &lt;span class="as-sidebar__sublink" aria-disabled="true"&gt;Inventory&lt;span class="as-sidebar__soon"&gt;Soon&lt;/span&gt;&lt;/span&gt;
+        &lt;a class="as-sidebar__sublink" href="#"&gt;Vendors&lt;/a&gt;
+        &lt;div class="as-sidebar__group"&gt;Reports&lt;/div&gt;
+        &lt;a class="as-sidebar__sublink" href="#"&gt;Daily summary&lt;/a&gt;
+        &lt;a class="as-sidebar__sublink" href="#"&gt;Weekly digest&lt;/a&gt;
+        &lt;a class="as-sidebar__sublink" href="#"&gt;Exports&lt;/a&gt;
+        &lt;a class="as-sidebar__sublink" href="#" aria-current="page"&gt;Insights&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+  &lt;div class="as-sidebar__divider"&gt;&lt;/div&gt;
+
+  &lt;div class="as-sidebar__section"&gt;
+    &lt;button type="button" class="as-sidebar__section-head" aria-expanded="false"&gt;&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/&gt;&lt;path d="m9 12 2 2 4-4"/&gt;&lt;/svg&gt;&lt;span class="as-sidebar__label"&gt;Settings&lt;/span&gt;&lt;svg class="as-sidebar__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;&lt;path d="m9 18 6-6-6-6"/&gt;&lt;/svg&gt;&lt;/button&gt;
+    &lt;div class="as-sidebar__section-body"&gt;
+      &lt;a class="as-sidebar__sublink" href="#"&gt;Members&lt;/a&gt;
+      &lt;a class="as-sidebar__sublink" href="#"&gt;Permissions&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="as-sidebar__user"&gt;
+    &lt;span class="as-avatar as-avatar--28 as-avatar--gold" aria-hidden="true"&gt;AO&lt;/span&gt;
+    &lt;div class="as-sidebar__user-text"&gt;
+      &lt;div class="as-sidebar__user-name"&gt;Adrian Owen&lt;/div&gt;
+      &lt;div class="as-sidebar__user-role"&gt;Digital &amp;amp; Technology&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;</code></pre></div><div class="code" id="sidebar-1" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Sidebar: the 248px ink navigation panel of the product apps (Loadify, Finance)
+   Values from the Loadify kit's sidebar (brand, top links, context switcher, user card)
+   and the Asthara Finance sidebar (sections, groups, sub-links, Soon pill, scroll area).
+   Needs foundation/asthara.css and the Avatar CSS (the user card uses .as-avatar). */
+
+.as-sidebar {
+  box-sizing: border-box;
+  width: var(--as-sidebar); height: 100vh;
+  position: sticky; top: 0;
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 18px 14px 14px;
+  background: linear-gradient(180deg, #2E2F3B 0%, #383947 100%);
+  color: #fff; font-family: var(--as-font-body);
+  overflow: hidden;
+}
+.as-sidebar *, .as-sidebar *::before, .as-sidebar *::after { box-sizing: border-box; }
+.as-sidebar svg { width: 16px; height: 16px; flex: none; }
+/* Resets at zero specificity, so every rule below wins over them */
+:where(.as-sidebar button) { font: inherit; color: inherit; background: none; border: 0; margin: 0; padding: 0; cursor: pointer; text-align: left; }
+:where(.as-sidebar a) { color: inherit; text-decoration: none; }
+.as-sidebar :focus-visible { outline: 2px solid var(--as-gold-soft); outline-offset: -2px; }
+
+/* Brand: mark + ASTHARA wordmark + product name in the script face, app switcher on the right */
+.as-sidebar__brand { display: flex; align-items: center; gap: 10px; padding: 0 6px 18px; }
+.as-sidebar__mark { width: 32px; height: auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,.3)); }
+.as-sidebar__brand-text { display: flex; flex-direction: column; line-height: 1; flex: 1; min-width: 0; }
+.as-sidebar__wordmark { font: 700 14px/1 var(--as-font-display); letter-spacing: 0.18em; }
+.as-sidebar__product { font: 400 18px/1 var(--as-font-script); color: var(--as-gold-soft); margin-top: -2px; }
+.as-sidebar__switch {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 6px; color: rgba(255,255,255,0.6);
+}
+.as-sidebar__switch:hover { background: rgba(255,255,255,0.06); color: #fff; }
+
+/* Top-level links: 30px rows, 2px apart inside __nav */
+.as-sidebar__nav { display: flex; flex-direction: column; gap: 2px; }
+.as-sidebar__link {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 7px 12px; border-radius: 8px;
+  color: rgba(255,255,255,0.78);
+  font: 500 12.5px/1 var(--as-font-body);
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro);
+}
+.as-sidebar__link &gt; svg:first-child { color: rgba(255,255,255,0.9); }
+.as-sidebar__link:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.as-sidebar__link[aria-current="page"] {
+  background: linear-gradient(90deg, rgba(200,130,70,0.18) 0%, rgba(200,130,70,0.04) 100%);
+  color: #fff;
+  box-shadow: inset 2px 0 0 var(--as-gold);
+}
+.as-sidebar__label { flex: 1; min-width: 0; }
+.as-sidebar__count {
+  background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85);
+  font: 600 10px/1 var(--as-font-body); padding: 3px 7px; border-radius: 9999px;
+  font-variant-numeric: var(--as-tabular);
+}
+.as-sidebar__link[aria-current="page"] .as-sidebar__count { background: rgba(200,130,70,0.35); color: #fff; }
+
+/* Context switcher (company, project) */
+.as-sidebar__context {
+  margin-top: 6px; width: 100%;
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; padding: 9px 12px;
+}
+.as-sidebar__context:hover { background: rgba(255,255,255,0.08); }
+.as-sidebar__context &gt; svg { color: rgba(255,255,255,0.65); }
+.as-sidebar__context-text { flex: 1; min-width: 0; }
+.as-sidebar__context-caption {
+  display: block;
+  font: 700 9px/1 var(--as-font-body); text-transform: uppercase;
+  letter-spacing: 0.12em; color: rgba(255,255,255,0.5); margin-bottom: 4px;
+}
+.as-sidebar__context-name { display: block; font: 600 12.5px/1.2 var(--as-font-display); }
+
+/* Scrolling middle: sections of grouped links */
+.as-sidebar__scroll {
+  flex: 1; min-height: 0; overflow-y: auto;
+  margin-right: -6px; padding-right: 11px;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin; scrollbar-color: rgba(245,200,150,0.75) transparent;
+}
+.as-sidebar__section + .as-sidebar__section { margin-top: 12px; }
+.as-sidebar__section-head {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 7px 12px; border-radius: 8px;
+  color: rgba(255,255,255,0.62);
+  font: 700 10px/1 var(--as-font-body); text-transform: uppercase; letter-spacing: 0.12em;
+}
+.as-sidebar__section-head &gt; svg:first-child { color: rgba(255,255,255,0.78); }
+.as-sidebar__section-head:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.as-sidebar__chevron { color: rgba(255,255,255,0.6); transition: transform var(--as-dur-micro) var(--as-ease-out); }
+.as-sidebar__section-head[aria-expanded="true"] .as-sidebar__chevron { transform: rotate(90deg); }
+.as-sidebar__section-body { display: flex; flex-direction: column; gap: 2px; padding-top: 2px; }
+.as-sidebar__section-head[aria-expanded="false"] + .as-sidebar__section-body { display: none; }
+
+.as-sidebar__group {
+  padding: 8px 0 2px 26px;
+  font: 700 9px/1 var(--as-font-body); text-transform: uppercase; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Sub-link: bullet, label, optional Soon pill; 30px rows, 2px apart */
+.as-sidebar__sublink {
+  display: flex; align-items: center; gap: 10px;
+  min-height: 30px; padding: 0 12px 0 26px; border-radius: 8px;
+  color: rgba(255,255,255,0.72);
+  font: 500 12px/1 var(--as-font-body);
+  transition: background var(--as-dur-micro) var(--as-ease-out), color var(--as-dur-micro);
+}
+/* Under a group label, links indent one step further */
+.as-sidebar__group ~ .as-sidebar__sublink { padding-left: 38px; }
+.as-sidebar__sublink::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: 0.55; flex: none; }
+.as-sidebar__sublink:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.as-sidebar__sublink[aria-current="page"] {
+  background: rgba(255,255,255,0.10); color: var(--as-gold-soft);
+  box-shadow: inset 2px 0 0 var(--as-gold);
+}
+.as-sidebar__sublink[aria-disabled="true"],
+.as-sidebar__sublink[aria-disabled="true"]:hover { background: none; color: rgba(255,255,255,0.45); cursor: default; }
+.as-sidebar__soon {
+  margin-left: auto;
+  font: 700 8px/1 var(--as-font-body); text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 3px 6px; border-radius: 9999px;
+  background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.55);
+}
+
+.as-sidebar__divider { height: 1px; background: rgba(255,255,255,0.08); flex: none; }
+.as-sidebar__divider + .as-sidebar__section { margin-top: -4px; }
+
+/* Signed-in user */
+.as-sidebar__user {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px; border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+}
+.as-sidebar__user-text { flex: 1; min-width: 0; line-height: 1.2; }
+.as-sidebar__user-name { font: 600 12px/1.2 var(--as-font-display); }
+.as-sidebar__user-role { font: 400 10.5px/1.2 var(--as-font-body); color: rgba(255,255,255,0.55); }
+</code></pre></div><div class="code" id="sidebar-2" hidden><button type="button" class="as-btn as-btn--secondary as-btn--sm copy">Copy</button><pre><code>/* Asthara · Sidebar behaviour.
+   - A section header opens and closes its section.
+   - A clicked link becomes the current page (aria-current="page"); Soon items stay inactive.
+   - Example links (href="#") stay on the page instead of jumping to the top.
+   Behaviour only; in your app, set aria-current from the route and aria-expanded from your state. */
+document.addEventListener("click", function (e) {
+  var head = e.target.closest(".as-sidebar__section-head");
+  if (head) {
+    head.setAttribute("aria-expanded", head.getAttribute("aria-expanded") === "true" ? "false" : "true");
+    return;
+  }
+  var link = e.target.closest(".as-sidebar__link, .as-sidebar__sublink");
+  if (!link || link.getAttribute("aria-disabled") === "true") return;
+  if (link.getAttribute("href") === "#") e.preventDefault();
+  var sidebar = link.closest(".as-sidebar");
+  sidebar.querySelectorAll('[aria-current="page"]').forEach(function (el) { el.removeAttribute("aria-current"); });
+  link.setAttribute("aria-current", "page");
+});
+</code></pre></div>
+  <p class="comp-files">Files: <code>components/sidebar/README.md</code> · <code>components/sidebar/logo-mark-color.png</code> · <code>components/sidebar/sidebar.css</code> · <code>components/sidebar/sidebar.js</code></p>
+</section>
+  </main>
+</div>
+<script src="components/input/input.js"></script>
+<script src="components/tabs/tabs.js"></script>
+<script src="components/log/log.js"></script>
+<script src="components/sidebar/sidebar.js"></script>
+<script>
+(function () {
+  // Show the code panel of the selected tab (tabs.js moves aria-selected).
+  document.addEventListener("click", function (e) {
+    var tab = e.target.closest(".code-tabs [role=tab]");
+    if (tab) {
+      var list = tab.closest(".code-tabs");
+      list.querySelectorAll("[role=tab]").forEach(function (t) {
+        document.getElementById(t.dataset.panel).hidden = t !== tab;
+      });
+    }
+    var btn = e.target.closest(".copy");
+    if (btn) {
+      var text = btn.parentNode.querySelector("code").textContent;
+      var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy"; }, 1400); };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+      function fallback() {
+        var ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); done(); } catch (err) {} document.body.removeChild(ta);
+      }
+    }
+  });
+  // Highlight the component in view.
+  var links = document.querySelectorAll(".side nav a");
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) links.forEach(function (a) { a.classList.toggle("on", a.getAttribute("href") === "#" + en.target.id); });
+    });
+  }, { rootMargin: "-20% 0px -70% 0px" });
+  document.querySelectorAll(".comp").forEach(function (s) { obs.observe(s); });
+})();
+</script>
+</body>
+</html>

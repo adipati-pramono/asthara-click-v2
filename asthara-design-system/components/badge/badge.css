@@ -1,0 +1,38 @@
+/* Asthara · Badges: status badge, priority tag, neutral tag
+   From the design system's Badges card. Needs foundation/asthara.css. */
+
+/* Status badge: <span class="as-badge as-badge--approved"><span class="as-badge__dot"></span>Approved</span> */
+.as-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 600 11px/1 var(--as-font-body);
+  padding: 5px 10px; border-radius: 9999px;
+}
+.as-badge__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+.as-badge--draft      { background: #EEEBE2; color: #6B6859; }
+.as-badge--draft .as-badge__dot { background: #9A9583; }
+.as-badge--submitted  { background: #E3EEFD; color: #1F6CC9; }
+.as-badge--in-review  { background: #E3EEFD; color: #3287F0; }
+.as-badge--revision   { background: #FFF1DE; color: #B45309; }
+.as-badge--approved   { background: #E6F5EE; color: #00875A; }
+.as-badge--rejected   { background: #FCE3EE; color: #B0024A; }
+.as-badge--checked-in { background: #DEF1F1; color: #006C6C; }
+
+/* Priority tag: <span class="as-priority as-priority--urgent">Urgent</span> */
+.as-priority {
+  display: inline-flex; align-items: center; gap: 4px;
+  font: 700 10px/1 var(--as-font-body);
+  padding: 5px 8px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.as-priority svg { width: 10px; height: 10px; }
+.as-priority--regular   { background: var(--as-bg-alt); color: var(--as-ink-soft); }
+.as-priority--urgent    { background: #FFF1DE; color: #B45309; }
+.as-priority--emergency { background: #FCE3EE; color: #B0024A; }
+
+/* Neutral tag (filters, categories): <span class="as-tag">F&amp;B</span> */
+.as-tag {
+  font: 500 11px/1 var(--as-font-body);
+  padding: 5px 10px; border-radius: 4px;
+  background: var(--as-bg-alt); color: var(--as-ink);
+}

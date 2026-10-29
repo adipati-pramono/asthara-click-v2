@@ -1,0 +1,32 @@
+/* Asthara · Button
+   From the design system's Buttons card. Needs foundation/asthara.css. */
+
+.as-btn {
+  box-sizing: border-box;
+  font: 600 13px/1 var(--as-font-body);
+  padding: 0 16px; height: 40px; border-radius: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid transparent; cursor: pointer;
+  transition: background var(--as-dur-micro) var(--as-ease-out), border-color var(--as-dur-micro) var(--as-ease-out);
+}
+.as-btn svg { width: 14px; height: 14px; stroke-width: 1.75; }
+.as-btn:focus-visible { outline: none; box-shadow: var(--as-focus-ring); }
+
+/* Sizes (md is the default) */
+.as-btn--sm { height: 32px; padding: 0 12px; font-size: 12px; border-radius: 6px; }
+.as-btn--lg { height: 48px; padding: 0 20px; font-size: 14px; }
+
+/* Variants */
+.as-btn--primary         { background: var(--as-gold); color: #fff; }
+.as-btn--primary:hover   { background: var(--as-gold-deep); }
+.as-btn--secondary       { background: #fff; color: var(--as-ink); border-color: var(--as-line-strong); }
+.as-btn--ghost           { background: transparent; color: var(--as-ink); }
+.as-btn--ghost:hover     { background: var(--as-bg-alt); }
+.as-btn--success         { background: var(--as-success-fg); color: #fff; }
+.as-btn--danger          { background: var(--as-danger-fg); color: #fff; }
+
+/* Disabled: the native attribute or the class */
+.as-btn:disabled,
+.as-btn--disabled,
+.as-btn:disabled:hover,
+.as-btn--disabled:hover  { background: var(--as-line); color: var(--as-ink-faint); border-color: transparent; cursor: not-allowed; }

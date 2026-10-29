@@ -1,0 +1,18 @@
+/* Asthara · Stepper: multi-step request flow
+   From the design system's Stepper card. Needs foundation/asthara.css. */
+
+.as-stepper { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; margin: 0; padding: 0; list-style: none; }
+.as-step { display: flex; align-items: center; gap: 8px; font: 600 11px/1 var(--as-font-display); color: var(--as-ink-soft); }
+.as-step__n {
+  box-sizing: border-box; width: 22px; height: 22px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font: 700 11px/1 var(--as-font-body); font-variant-numeric: var(--as-tabular);
+  background: var(--as-bg-alt); color: var(--as-ink-soft); border: 1px solid var(--as-line);
+}
+.as-step__n svg { width: 12px; height: 12px; }
+.as-step--done .as-step__n   { background: var(--as-success-fg); color: #fff; border-color: var(--as-success-fg); }
+.as-step--active             { color: var(--as-gold-deep); }
+.as-step--active .as-step__n { background: var(--as-gold); color: #fff; border-color: var(--as-gold); }
+
+.as-stepper__conn       { width: 28px; height: 1px; background: var(--as-line); }
+.as-stepper__conn--done { background: var(--as-success-fg); }

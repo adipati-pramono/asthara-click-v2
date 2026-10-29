@@ -1,0 +1,17 @@
+/* Asthara · KPI card
+   From the design system's KPI card. Needs foundation/asthara.css. */
+
+.as-kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+.as-kpi {
+  box-sizing: border-box;
+  background: #fff; border: 1px solid var(--as-line); border-radius: 12px;
+  padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.as-kpi__label { font: 700 10px/1 var(--as-font-body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--as-ink-soft); }
+.as-kpi__value { font: 700 30px/1 var(--as-font-display); color: var(--as-ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.as-kpi__delta { font: 500 10.5px/1 var(--as-font-body); }
+.as-kpi__delta--up   { color: var(--as-success-fg); }
+.as-kpi__delta--warn { color: var(--as-warning-fg); }
+.as-kpi__delta--mute { color: var(--as-ink-soft); }

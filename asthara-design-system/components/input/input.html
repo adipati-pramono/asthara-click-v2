@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inputs · Asthara components</title>
+<link rel="icon" href="../../favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="../../foundation/asthara.css">
+<link rel="stylesheet" href="input.css">
+<link rel="stylesheet" href="../../docs/demo.css">
+</head>
+<body>
+<main class="demo">
+  <a class="demo-back" href="../../index.html">All components</a>
+  <h1 class="as-h1 demo-title">Inputs</h1>
+  <p class="as-body demo-lede">Text field, textarea, checkbox and toggle: 40px fields, 8px radius, uppercase caption labels, gold focus.</p>
+
+  <div class="stage stage--input">
+<!-- ===== Copy from here ===== -->
+<div class="as-field">
+  <label class="as-field__label" for="plate">Vehicle plate *</label>
+  <input class="as-input" id="plate" type="text" value="B 8412 KCD">
+</div>
+
+<div class="as-field">
+  <label class="as-field__label" for="phone">Driver phone</label>
+  <input class="as-input" id="phone" type="tel" value="+62 813 4567 0001">
+</div>
+
+<div class="as-field">
+  <label class="as-field__label" for="notes">Notes</label>
+  <textarea class="as-textarea" id="notes">Coordinate with mall ops for elevator booking 06:30.</textarea>
+</div>
+
+<label class="as-check">
+  <input type="checkbox" class="as-check__box" checked>
+  Keep me signed in
+</label>
+
+<div class="as-toggle-row">
+  <span id="tfa-label">Two-factor auth</span>
+  <button type="button" class="as-toggle" role="switch" aria-checked="true" aria-labelledby="tfa-label"></button>
+</div>
+<!-- ===== to here ===== -->
+  </div>
+</main>
+<script src="input.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log · Asthara components</title>
+<link rel="icon" href="../../favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="../../foundation/asthara.css">
+<link rel="stylesheet" href="../input/input.css">
+<link rel="stylesheet" href="../button/button.css">
+<link rel="stylesheet" href="log.css">
+<link rel="stylesheet" href="../../docs/demo.css">
+</head>
+<body>
+<main class="demo">
+  <a class="demo-back" href="../../index.html">All components</a>
+  <h1 class="as-h1 demo-title">Log</h1>
+  <p class="as-body demo-lede">A record&#x27;s history, newest first and grouped by day: changes as old → new, status moves and internal notes, with a note composer. It goes at the bottom of the page, below the record&#x27;s other sections.</p>
+
+  <div class="stage stage--log">
+<!-- ===== Copy from here ===== -->
+<section class="as-log" aria-label="Log">
+  <div class="as-log__composer">
+    <span class="as-log__avatar" aria-hidden="true">AO</span>
+    <div class="as-log__compose">
+      <textarea class="as-textarea as-log__input" placeholder="Log an internal note" aria-label="Internal note"></textarea>
+      <button type="button" class="as-btn as-btn--secondary as-btn--sm" disabled>Log note</button>
+    </div>
+  </div>
+
+  <div class="as-log__day">28 Oct 2026</div>
+  <ul class="as-log__entries">
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">AO</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Adrian Owen</span><time class="as-log__time">28 Oct 2026 · 14:04</time></div>
+        <p class="as-log__message">Request approved</p>
+        <ul class="as-log__changes">
+          <li class="as-log__change"><span>Draft</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Approved</span><span class="as-log__field">(Status)</span></li>
+        </ul>
+      </div>
+    </li>
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">AO</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Adrian Owen</span><time class="as-log__time">28 Oct 2026 · 14:04</time></div>
+        <p class="as-log__message">Request updated</p>
+        <ul class="as-log__changes">
+          <li class="as-log__change"><span>—</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">REF/02/2026</span><span class="as-log__field">(Reference)</span></li>
+          <li class="as-log__change"><span>—</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Dock B-2</span><span class="as-log__field">(Location)</span></li>
+          <li class="as-log__change"><span>Rp 0</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Rp 45.000</span><span class="as-log__field">(Service fee)</span></li>
+          <li class="as-log__change"><span>Rp 850.000</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Rp 895.000</span><span class="as-log__field">(Total)</span></li>
+        </ul>
+      </div>
+    </li>
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">AO</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Adrian Owen</span><time class="as-log__time">28 Oct 2026 · 14:03</time></div>
+        <p class="as-log__message">Reset to draft — wrong dock</p>
+        <ul class="as-log__changes">
+          <li class="as-log__change"><span>Approved</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Draft</span><span class="as-log__field">(Status)</span></li>
+        </ul>
+      </div>
+    </li>
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">MP</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Maya Putri</span><time class="as-log__time">28 Oct 2026 · 14:03</time><span class="as-log__tag">Note</span></div>
+        <p class="as-log__message">The vendor will confirm the time slot tomorrow.</p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="as-log__day">13 Oct 2026</div>
+  <ul class="as-log__entries">
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">MP</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Maya Putri</span><time class="as-log__time">13 Oct 2026 · 15:17</time></div>
+        <p class="as-log__message">Fee set paid</p>
+        <ul class="as-log__changes">
+          <li class="as-log__change"><span>Unpaid</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Paid on 13 Oct 2026 · Cash</span><span class="as-log__field">(Status)</span></li>
+        </ul>
+        <p class="as-log__quote">“Paid at the counter”</p>
+      </div>
+    </li>
+    <li class="as-log__entry">
+      <span class="as-log__avatar" aria-hidden="true">MP</span>
+      <div class="as-log__body">
+        <div class="as-log__head"><span class="as-log__name">Maya Putri</span><time class="as-log__time">13 Oct 2026 · 15:17</time></div>
+        <p class="as-log__message">Request created</p>
+        <ul class="as-log__changes">
+          <li class="as-log__change"><span>Rp 0</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="as-log__new">Rp 850.000</span><span class="as-log__field">(Amount)</span></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</section>
+<!-- ===== to here ===== -->
+  </div>
+</main>
+<script src="log.js"></script>
+</body>
+</html>

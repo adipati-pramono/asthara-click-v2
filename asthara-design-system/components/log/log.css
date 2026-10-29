@@ -1,0 +1,55 @@
+/* Asthara · Log: a record's history (changes, status moves, internal notes) with a note composer.
+   Needs foundation/asthara.css, and the Inputs and Button CSS for the composer. */
+
+.as-log { font-family: var(--as-font-body); color: var(--as-ink); }
+.as-log *, .as-log *::before, .as-log *::after { box-sizing: border-box; }
+
+/* Who: 30px initials on gold tint */
+.as-log__avatar {
+  width: 30px; height: 30px; border-radius: 50%; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--as-gold-tint); color: var(--as-gold-deep);
+  font: 700 11px/1 var(--as-font-body); letter-spacing: 0.02em;
+}
+
+/* Composer */
+.as-log__composer { display: flex; gap: 10px; align-items: flex-start; padding-bottom: 6px; }
+.as-log__compose { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.as-log__input { width: 100%; height: 56px; min-height: 40px; resize: vertical; }
+.as-log__input::placeholder { color: var(--as-ink-faint); }
+.as-log__composer .as-btn:disabled,
+.as-log__composer .as-btn:disabled:hover { background: #fff; color: var(--as-ink); border-color: var(--as-line-strong); opacity: 0.5; }
+
+/* Day divider */
+.as-log__day {
+  display: flex; align-items: center; gap: 12px; margin: 16px 0;
+  font: 700 11px/1 var(--as-font-body); color: var(--as-ink-soft); font-variant-numeric: var(--as-tabular);
+}
+.as-log__day::before, .as-log__day::after { content: ""; flex: 1; height: 1px; background: var(--as-line); }
+
+/* Entry */
+.as-log__entries { margin: 0; padding: 0; list-style: none; }
+.as-log__entry { display: flex; gap: 10px; align-items: flex-start; }
+.as-log__entry + .as-log__entry { margin-top: 14px; }
+.as-log__body { flex: 1; min-width: 0; }
+.as-log__head { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; min-height: 18px; }
+.as-log__name { font: 600 13px/1.3 var(--as-font-display); color: var(--as-ink); }
+.as-log__time { font: 400 11px/1.3 var(--as-font-body); color: var(--as-ink-faint); font-variant-numeric: var(--as-tabular); }
+.as-log__tag {
+  font: 700 9.5px/1 var(--as-font-body); text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 2px 6px; border-radius: 4px;
+  background: var(--as-gold-tint); color: var(--as-gold-deep);
+}
+.as-log__message { margin: 3px 0 0; font: 400 13px/1.5 var(--as-font-body); color: var(--as-ink); }
+
+/* What changed: old → new (field) */
+.as-log__changes { margin: 5px 0 0; padding: 0; list-style: none; }
+.as-log__change {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0 8px;
+  font: 400 13px/1.6 var(--as-font-body); color: var(--as-ink-faint); font-variant-numeric: var(--as-tabular);
+}
+.as-log__change::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex: none; }
+.as-log__change svg { width: 12px; height: 12px; flex: none; }
+.as-log__new { color: var(--as-gold-deep); }
+.as-log__field { font-style: italic; }
+.as-log__quote { margin: 2px 0 0 13px; font: italic 400 12px/1.5 var(--as-font-body); color: var(--as-ink-faint); }

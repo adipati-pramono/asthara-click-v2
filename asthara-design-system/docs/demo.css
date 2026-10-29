@@ -1,0 +1,50 @@
+/* Layout for the demo pages and index.html only. Not part of any component. */
+body { margin: 0; background: var(--as-bg); color: var(--as-ink); font-family: var(--as-font-body); -webkit-font-smoothing: antialiased; }
+.demo { max-width: 920px; margin: 0 auto; padding: 40px 24px 72px; }
+.demo-back { font: 600 12px/1 var(--as-font-body); color: var(--as-gold-deep); text-decoration: none; }
+.demo-back:hover { text-decoration: underline; }
+.demo-title { margin: 18px 0 6px; }
+.demo-lede { margin: 0 0 24px; max-width: 64ch; }
+.stage { background: var(--as-card); border: 1px solid var(--as-line); border-radius: 12px; padding: 24px 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; overflow-x: auto; }
+.stage--input { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; }
+.stage--input .as-field:has(.as-textarea) { grid-column: 1 / -1; }
+.stage--select, .stage--date-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 28px; align-items: start; min-height: 340px; }
+.stage--date-picker { min-height: 450px; }
+.stage--badge { gap: 8px; }
+.stage--tabs { flex-direction: column; align-items: stretch; gap: 22px; }
+.stage--kpi-card { display: block; background: var(--as-bg); }
+.stage--avatar { gap: 12px; }
+.stage--stepper, .stage--activity-feed { display: block; }
+/* Loaders: laid out like the design system's Loaders card (same values) */
+.stage--loader { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 18px; max-width: 700px; box-sizing: border-box; }
+.stage--loader * { box-sizing: border-box; }
+.lx-hero { background: var(--as-bg); border: 1px solid var(--as-line); border-radius: 10px; padding: 22px 24px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; }
+.lx-text { display: flex; flex-direction: column; gap: 4px; }
+.lx-hero .lx-nm { font: 700 13px/1.2 var(--as-font-display); color: var(--as-ink); letter-spacing: -0.005em; }
+.lx-hero .lx-ms { font: 600 10.5px/1 var(--as-font-mono); color: var(--as-gold-deep); font-variant-numeric: tabular-nums; }
+.lx-hero .lx-lbl { font: 400 11.5px/1.5 var(--as-font-body); color: var(--as-ink-soft); max-width: 360px; text-wrap: pretty; }
+.lx-row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.lx-item { background: var(--as-bg); border: 1px solid var(--as-line); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-height: 138px; }
+.lx-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.lx-item .lx-nm { font: 700 11.5px/1.2 var(--as-font-display); color: var(--as-ink); }
+.lx-item .lx-ms { font: 600 10px/1 var(--as-font-mono); color: var(--as-gold-deep); font-variant-numeric: tabular-nums; }
+.lx-stage { flex: 1; display: flex; align-items: center; justify-content: center; padding: 8px 0 4px; }
+.lx-item .lx-lbl { font: 400 10.5px/1.4 var(--as-font-body); color: var(--as-ink-soft); text-wrap: pretty; }
+.lx-rules { display: flex; gap: 14px; font: 400 10.5px/1.45 var(--as-font-body); color: var(--as-ink-soft); }
+.lx-r { flex: 1; display: flex; gap: 8px; align-items: flex-start; }
+.lx-k { font: 700 9.5px/1.4 var(--as-font-body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--as-gold-deep); white-space: nowrap; padding-top: 1px; }
+/* Log: on the canvas, as in the apps */
+.stage--log { display: block; background: var(--as-bg); }
+/* App boot: shown in a phone-sized frame */
+.stage--app-boot { display: block; padding: 0; background: none; border: 0; overflow: visible; }
+.stage--app-boot .as-boot { min-height: 640px; max-width: 360px; border: 1px solid var(--as-line); border-radius: 12px; }
+/* Sidebar: shown at a fixed height so its middle scrolls */
+.stage--sidebar { display: block; padding: 0; background: none; border: 0; overflow: visible; }
+.stage--sidebar .as-sidebar { height: 760px; position: relative; border-radius: 12px; }
+.code-block { margin-top: 24px; }
+.code-block h2 { margin: 0 0 10px; }
+.code-block pre { margin: 0; background: var(--as-ink); color: var(--as-bg); border-radius: 12px; padding: 18px 20px; overflow: auto; font: 400 12px/1.6 var(--as-font-mono); }
+@media (max-width: 720px) {
+  .stage--input, .stage--select, .stage--date-picker { grid-template-columns: 1fr; }
+  .stage--kpi-card .as-kpi-grid { grid-template-columns: 1fr 1fr; }
+}

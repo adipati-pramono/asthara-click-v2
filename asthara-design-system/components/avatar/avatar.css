@@ -1,0 +1,27 @@
+/* Asthara · Avatar: initials on a tint
+   Sizes and tints from the design system's Avatars card; the extra tints
+   (success, purple) are the Loadify kit's avatar palette. Needs foundation/asthara.css. */
+
+.as-avatar {
+  box-sizing: border-box; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font: 700 12px/1 var(--as-font-body); letter-spacing: 0.02em;
+  flex: none;
+}
+
+/* Sizes */
+.as-avatar--20 { width: 20px; height: 20px; font-size: 9px; }
+.as-avatar--24 { width: 24px; height: 24px; font-size: 10px; }
+.as-avatar--28 { width: 28px; height: 28px; font-size: 11px; }
+.as-avatar--32 { width: 32px; height: 32px; font-size: 12px; }
+.as-avatar--40 { width: 40px; height: 40px; font-size: 14px; }
+
+/* Tints: pick one per person with avatar.js (hashed from the name), or set it */
+.as-avatar--gold    { background: #F5C896; color: #6E3C0B; }
+.as-avatar--teal    { background: #DEF1F1; color: #006C6C; }
+.as-avatar--info    { background: #E3EEFD; color: #1F6CC9; }
+.as-avatar--rose    { background: #FCE3EE; color: #B0024A; }
+.as-avatar--success { background: #E6F5EE; color: #00875A; }
+.as-avatar--purple  { background: #EEE8FA; color: #5A2B9B; }
+/* Solid gold: the signed-in user */
+.as-avatar--solid   { background: var(--as-gold); color: #fff; }

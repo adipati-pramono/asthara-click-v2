@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stepper · Asthara components</title>
+<link rel="icon" href="../../favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="../../foundation/asthara.css">
+<link rel="stylesheet" href="stepper.css">
+<link rel="stylesheet" href="../../docs/demo.css">
+</head>
+<body>
+<main class="demo">
+  <a class="demo-back" href="../../index.html">All components</a>
+  <h1 class="as-h1 demo-title">Stepper</h1>
+  <p class="as-body demo-lede">Progress through a multi-step flow: done, active and upcoming steps.</p>
+
+  <div class="stage stage--stepper">
+<!-- ===== Copy from here ===== -->
+<div class="as-stepper" aria-label="Request progress">
+  <span class="as-step as-step--done"><span class="as-step__n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Request</span>
+  <span class="as-stepper__conn as-stepper__conn--done" aria-hidden="true"></span>
+  <span class="as-step as-step--done"><span class="as-step__n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Schedule</span>
+  <span class="as-stepper__conn as-stepper__conn--done" aria-hidden="true"></span>
+  <span class="as-step as-step--active" aria-current="step"><span class="as-step__n">3</span>Vehicle</span>
+  <span class="as-stepper__conn" aria-hidden="true"></span>
+  <span class="as-step"><span class="as-step__n">4</span>Documents</span>
+  <span class="as-stepper__conn" aria-hidden="true"></span>
+  <span class="as-step"><span class="as-step__n">5</span>Review</span>
+</div>
+<!-- ===== to here ===== -->
+  </div>
+</main>
+
+</body>
+</html>

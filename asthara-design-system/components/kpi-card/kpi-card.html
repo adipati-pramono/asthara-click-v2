@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KPI card · Asthara components</title>
+<link rel="icon" href="../../favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="../../foundation/asthara.css">
+<link rel="stylesheet" href="kpi-card.css">
+<link rel="stylesheet" href="../../docs/demo.css">
+</head>
+<body>
+<main class="demo">
+  <a class="demo-back" href="../../index.html">All components</a>
+  <h1 class="as-h1 demo-title">KPI card</h1>
+  <p class="as-body demo-lede">A 30px headline number with its label and a change note, in a four-column grid.</p>
+
+  <div class="stage stage--kpi-card">
+<!-- ===== Copy from here ===== -->
+<div class="as-kpi-grid">
+  <div class="as-kpi">
+    <span class="as-kpi__label">Active loadings</span>
+    <span class="as-kpi__value">47</span>
+    <span class="as-kpi__delta as-kpi__delta--up">+12% vs last week</span>
+  </div>
+  <div class="as-kpi">
+    <span class="as-kpi__label">Pending approvals</span>
+    <span class="as-kpi__value">23</span>
+    <span class="as-kpi__delta as-kpi__delta--warn">5 urgent · 1 emergency</span>
+  </div>
+  <div class="as-kpi">
+    <span class="as-kpi__label">Vehicles inside</span>
+    <span class="as-kpi__value">38</span>
+    <span class="as-kpi__delta as-kpi__delta--mute">−6% across 5 projects</span>
+  </div>
+  <div class="as-kpi">
+    <span class="as-kpi__label">Permits (MTD)</span>
+    <span class="as-kpi__value">1,284</span>
+    <span class="as-kpi__delta as-kpi__delta--mute">on track for target</span>
+  </div>
+</div>
+<!-- ===== to here ===== -->
+  </div>
+</main>
+
+</body>
+</html>

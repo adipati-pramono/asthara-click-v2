@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tabs · Asthara components</title>
+<link rel="icon" href="../../favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="../../foundation/asthara.css">
+<link rel="stylesheet" href="tabs.css">
+<link rel="stylesheet" href="../../docs/demo.css">
+</head>
+<body>
+<main class="demo">
+  <a class="demo-back" href="../../index.html">All components</a>
+  <h1 class="as-h1 demo-title">Tabs</h1>
+  <p class="as-body demo-lede">Underline tabs for page sections, with counts; pill tabs for filters.</p>
+
+  <div class="stage stage--tabs">
+<!-- ===== Copy from here ===== -->
+<!-- Underline tabs: page-level sections -->
+<div class="as-tabs" role="tablist" aria-label="Requests">
+  <button type="button" class="as-tab" role="tab" aria-selected="true">All <span class="as-tab__count">28</span></button>
+  <button type="button" class="as-tab" role="tab" aria-selected="false">In progress <span class="as-tab__count">9</span></button>
+  <button type="button" class="as-tab" role="tab" aria-selected="false">Approved <span class="as-tab__count">12</span></button>
+  <button type="button" class="as-tab" role="tab" aria-selected="false">Rejected <span class="as-tab__count">2</span></button>
+  <button type="button" class="as-tab" role="tab" aria-selected="false">Expired <span class="as-tab__count">5</span></button>
+</div>
+
+<!-- Pill tabs: filters -->
+<div class="as-pills" role="tablist" aria-label="Project type">
+  <button type="button" class="as-pill" role="tab" aria-selected="true">All</button>
+  <button type="button" class="as-pill" role="tab" aria-selected="false">Mall</button>
+  <button type="button" class="as-pill" role="tab" aria-selected="false">Office</button>
+  <button type="button" class="as-pill" role="tab" aria-selected="false">Industrial</button>
+</div>
+<!-- ===== to here ===== -->
+  </div>
+</main>
+<script src="tabs.js"></script>
+</body>
+</html>

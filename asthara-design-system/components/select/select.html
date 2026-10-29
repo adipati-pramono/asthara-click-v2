@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Select · Asthara components</title>
+<link rel="icon" href="../../favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="../../foundation/asthara.css">
+<link rel="stylesheet" href="../../docs/demo.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<script src="select.js"></script>
+</head>
+<body>
+<main class="demo">
+  <a class="demo-back" href="../../index.html">All components</a>
+  <h1 class="as-h1 demo-title">Select</h1>
+  <p class="as-body demo-lede">Single- and multi-select dropdown with search, chips and a gold selection mark. React component, with a plain-script build.</p>
+
+  <div class="stage stage--select">
+<!-- ===== Copy from here ===== -->
+<div id="region"></div>
+<div id="zones"></div>
+
+<script>
+  const { Select } = window.Asthara;
+  const h = React.createElement;
+  const regions = ["Jakarta Pusat", "Tangerang", "Bekasi", "Bogor", "Depok", "Bandung", "Serang", "Karawang"];
+  const zones = [
+    { value: "z1", label: "Skyfront Core", hint: "Mixed-use district" },
+    { value: "z2", label: "Riverside Park", hint: "Residential" },
+    { value: "z3", label: "Airport Link", hint: "Logistics" },
+    { value: "z4", label: "Heritage Walk", hint: "Retail & F&B" },
+  ];
+  ReactDOM.createRoot(document.getElementById("region")).render(
+    h(Select, { label: "Service region", options: regions, defaultValue: "Tangerang" })
+  );
+  ReactDOM.createRoot(document.getElementById("zones")).render(
+    h(Select, { multi: true, label: "Active zones", options: zones, defaultValue: ["z1", "z3"] })
+  );
+</script>
+<!-- ===== to here ===== -->
+  </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+/* Asthara · Activity feed: timeline with a coloured dot per event
+   From the design system's Activity feed card. Needs foundation/asthara.css.
+   The connector line runs through the centre of the dots (56px time column
+   + 10px gap + half of the 22px lane, minus half the 1px line). */
+
+.as-feed { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.as-feed__row { display: grid; grid-template-columns: 56px 22px 1fr; gap: 10px; align-items: flex-start; padding: 8px 0; position: relative; }
+.as-feed__time { font: 600 11px/14px var(--as-font-mono); color: var(--as-ink-faint); padding-top: 3px; font-variant-numeric: tabular-nums; }
+.as-feed__lane { display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 6px; }
+.as-feed__dot  { box-sizing: border-box; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--as-line); }
+.as-feed__row + .as-feed__row .as-feed__lane::before { content: ""; position: absolute; top: 0; left: 76.5px; width: 1px; height: 8px; background: var(--as-line); }
+.as-feed__row .as-feed__lane::after { content: ""; position: absolute; top: 22px; bottom: -2px; left: 76.5px; width: 1px; background: var(--as-line); }
+.as-feed__row:last-child .as-feed__lane::after { display: none; }
+.as-feed__text  { display: flex; flex-direction: column; gap: 1px; }
+.as-feed__title { font: 600 12.5px/1.3 var(--as-font-display); color: var(--as-ink); }
+.as-feed__sub   { font: 400 11.5px/1.3 var(--as-font-body); color: var(--as-ink-soft); }
+
+/* Event tones */
+.as-feed__dot--success { background: var(--as-success-fg); }
+.as-feed__dot--info    { background: var(--as-info-fg); }
+.as-feed__dot--danger  { background: var(--as-danger-fg); }
+.as-feed__dot--active  { background: var(--as-active-fg); }

@@ -1,0 +1,16 @@
+/* Asthara · App boot: the Mark loader full screen, with the app's name and a one-line description.
+   Needs foundation/asthara.css and the Loader CSS (it uses .as-loader-mark). */
+
+.as-boot {
+  box-sizing: border-box; min-height: 100vh; padding: 24px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--as-bg); text-align: center;
+}
+.as-loader-mark--lg { width: 104px; height: 104px; }
+.as-loader-mark--lg img { width: 62px; height: 62px; }
+.as-boot__name {
+  margin: 24px 0 0;
+  font: 700 16px/1 var(--as-font-display); letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--as-ink);
+}
+.as-boot__desc { margin: 12px 0 0; font: 400 13.5px/1.5 var(--as-font-body); color: var(--as-ink-soft); }

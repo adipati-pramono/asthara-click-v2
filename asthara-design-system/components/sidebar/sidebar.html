@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sidebar · Asthara components</title>
+<link rel="icon" href="../../favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="../../foundation/asthara.css">
+<link rel="stylesheet" href="../avatar/avatar.css">
+<link rel="stylesheet" href="sidebar.css">
+<link rel="stylesheet" href="../../docs/demo.css">
+</head>
+<body>
+<main class="demo">
+  <a class="demo-back" href="../../index.html">All components</a>
+  <h1 class="as-h1 demo-title">Sidebar</h1>
+  <p class="as-body demo-lede">The 248px ink navigation of the product apps. Just an example: every part is optional.</p>
+
+  <div class="stage stage--sidebar">
+<!-- ===== Copy from here ===== -->
+<aside class="as-sidebar" aria-label="Asthara Finance">
+  <div class="as-sidebar__brand">
+    <img class="as-sidebar__mark" src="logo-mark-color.png" alt="">
+    <div class="as-sidebar__brand-text">
+      <span class="as-sidebar__wordmark">ASTHARA</span>
+      <span class="as-sidebar__product">Finance</span>
+    </div>
+    <button type="button" class="as-sidebar__switch" aria-label="Switch app" aria-haspopup="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+  </div>
+
+  <nav class="as-sidebar__nav" aria-label="Main">
+    <a class="as-sidebar__link" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg><span class="as-sidebar__label">Workspace</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+  </nav>
+
+  <button type="button" class="as-sidebar__context" aria-haspopup="listbox">
+    <span class="as-sidebar__context-text">
+      <span class="as-sidebar__context-caption">Company</span>
+      <span class="as-sidebar__context-name">PT. Bumi Bandara Indah</span>
+    </span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+  </button>
+
+  <nav class="as-sidebar__scroll" aria-label="Modules">
+    <div class="as-sidebar__section">
+      <button type="button" class="as-sidebar__section-head" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg><span class="as-sidebar__label">Library</span><svg class="as-sidebar__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      <div class="as-sidebar__section-body">
+        <a class="as-sidebar__sublink" href="#">Collections</a>
+        <span class="as-sidebar__sublink" aria-disabled="true">Templates<span class="as-sidebar__soon">Soon</span></span>
+      </div>
+    </div>
+
+    <div class="as-sidebar__section">
+      <button type="button" class="as-sidebar__section-head" aria-expanded="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg><span class="as-sidebar__label">Operations</span><svg class="as-sidebar__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      <div class="as-sidebar__section-body">
+        <div class="as-sidebar__group">Planning</div>
+        <a class="as-sidebar__sublink" href="#">Projects</a>
+        <a class="as-sidebar__sublink" href="#">Milestones</a>
+        <div class="as-sidebar__group">Review</div>
+        <a class="as-sidebar__sublink" href="#">Requests</a>
+        <a class="as-sidebar__sublink" href="#">Approvals</a>
+        <span class="as-sidebar__sublink" aria-disabled="true">Archive<span class="as-sidebar__soon">Soon</span></span>
+        <div class="as-sidebar__group">Resources</div>
+        <span class="as-sidebar__sublink" aria-disabled="true">Assets<span class="as-sidebar__soon">Soon</span></span>
+        <span class="as-sidebar__sublink" aria-disabled="true">Inventory<span class="as-sidebar__soon">Soon</span></span>
+        <a class="as-sidebar__sublink" href="#">Vendors</a>
+        <div class="as-sidebar__group">Reports</div>
+        <a class="as-sidebar__sublink" href="#">Daily summary</a>
+        <a class="as-sidebar__sublink" href="#">Weekly digest</a>
+        <a class="as-sidebar__sublink" href="#">Exports</a>
+        <a class="as-sidebar__sublink" href="#" aria-current="page">Insights</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="as-sidebar__divider"></div>
+
+  <div class="as-sidebar__section">
+    <button type="button" class="as-sidebar__section-head" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span class="as-sidebar__label">Settings</span><svg class="as-sidebar__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+    <div class="as-sidebar__section-body">
+      <a class="as-sidebar__sublink" href="#">Members</a>
+      <a class="as-sidebar__sublink" href="#">Permissions</a>
+    </div>
+  </div>
+
+  <div class="as-sidebar__user">
+    <span class="as-avatar as-avatar--28 as-avatar--gold" aria-hidden="true">AO</span>
+    <div class="as-sidebar__user-text">
+      <div class="as-sidebar__user-name">Adrian Owen</div>
+      <div class="as-sidebar__user-role">Digital &amp; Technology</div>
+    </div>
+  </div>
+</aside>
+<!-- ===== to here ===== -->
+  </div>
+</main>
+<script src="sidebar.js"></script>
+</body>
+</html>

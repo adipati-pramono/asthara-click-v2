@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Date picker · Asthara components</title>
+<link rel="icon" href="../../favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="../../foundation/asthara.css">
+<link rel="stylesheet" href="../../docs/demo.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<script src="date-picker.js"></script>
+</head>
+<body>
+<main class="demo">
+  <a class="demo-back" href="../../index.html">All components</a>
+  <h1 class="as-h1 demo-title">Date picker</h1>
+  <p class="as-body demo-lede">Date and date-time picker with a calendar popover, gold day selection and a 12/24-hour time strip. React component, with a plain-script build.</p>
+
+  <div class="stage stage--date-picker">
+<!-- ===== Copy from here ===== -->
+<div id="move-in"></div>
+<div id="inspection"></div>
+
+<script>
+  const { DatePicker } = window.Asthara;
+  const h = React.createElement;
+  ReactDOM.createRoot(document.getElementById("move-in")).render(
+    h(DatePicker, { label: "Move-in date", defaultValue: new Date(2026, 4, 14) })
+  );
+  ReactDOM.createRoot(document.getElementById("inspection")).render(
+    h(DatePicker, { mode: "datetime", label: "Inspection slot", defaultValue: new Date(2026, 4, 20, 14, 15), minuteStep: 15 })
+  );
+</script>
+<!-- ===== to here ===== -->
+  </div>
+</main>
+
+</body>
+</html>

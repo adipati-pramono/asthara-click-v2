@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loaders · Asthara components</title>
+<link rel="icon" href="../../favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="../../foundation/asthara.css">
+<link rel="stylesheet" href="loader.css">
+<link rel="stylesheet" href="../../docs/demo.css">
+</head>
+<body>
+<main class="demo">
+  <a class="demo-back" href="../../index.html">All components</a>
+  <h1 class="as-h1 demo-title">Loaders</h1>
+  <p class="as-body demo-lede">Eightcellent loop, linear, mark and inline trio. All gold, one per surface.</p>
+
+  <div class="stage stage--loader">
+<div class="lx-hero">
+  <div class="lx-text">
+    <div class="lx-nm">Eightcellent loop</div>
+    <div class="lx-ms">2.4 s · ease-in-out · indeterminate</div>
+    <div class="lx-lbl">Signature loader. Eight bars travel in a wave — echoing the eight pillars and the Eightcellent ribbon. Full-page, drawer, modal.</div>
+  </div>
+  <div class="as-loader-eight" role="status" aria-label="Loading">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+</div>
+<div class="lx-row3">
+  <div class="lx-item">
+    <div class="lx-head"><span class="lx-nm">Linear</span><span class="lx-ms">1.8 s</span></div>
+    <div class="lx-stage"><div class="as-loader-linear" role="status" aria-label="Loading"></div></div>
+    <div class="lx-lbl">Top edge of a sheet, table, or panel. Becomes determinate when % is known.</div>
+  </div>
+  <div class="lx-item">
+    <div class="lx-head"><span class="lx-nm">Mark</span><span class="lx-ms">1.6 s · 2.6 s</span></div>
+    <div class="lx-stage">
+      <div class="as-loader-mark" role="status" aria-label="Loading"><img src="asthara-mark.png" alt=""></div>
+    </div>
+    <div class="lx-lbl">Splash / app boot. Mark breathes while a thin gold arc orbits.</div>
+  </div>
+  <div class="lx-item">
+    <div class="lx-head"><span class="lx-nm">Inline trio</span><span class="lx-ms">1.2 s</span></div>
+    <div class="lx-stage"><span class="as-loader-trio" role="status" aria-label="Loading"><i></i><i></i><i></i></span></div>
+    <div class="lx-lbl">Inside buttons, chips, and table cells mid-request. Sits on ink so gold reads.</div>
+  </div>
+</div>
+<div class="lx-rules">
+  <div class="lx-r"><span class="lx-k">Use</span><span>Gold (or gold-tint track). One loader per surface. Always paired with a status string after 400 ms.</span></div>
+  <div class="lx-r"><span class="lx-k">Avoid</span><span>Spinners that bounce, overshoot, or rotate full mark. No coloured loaders outside gold.</span></div>
+</div>
+  </div>
+  <section class="code-block">
+    <h2 class="as-h2">Markup to copy</h2>
+    <pre><code>&lt;!-- A · Eightcellent loop --&gt;
+&lt;div class="as-loader-eight" role="status" aria-label="Loading"&gt;
+  &lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;
+&lt;/div&gt;
+
+&lt;!-- B · Linear --&gt;
+&lt;div class="as-loader-linear" role="status" aria-label="Loading"&gt;&lt;/div&gt;
+
+&lt;!-- C · Mark (asthara-mark.png sits beside this file) --&gt;
+&lt;div class="as-loader-mark" role="status" aria-label="Loading"&gt;
+  &lt;img src="asthara-mark.png" alt=""&gt;
+&lt;/div&gt;
+
+&lt;!-- D · Inline trio --&gt;
+&lt;span class="as-loader-trio" role="status" aria-label="Loading"&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/span&gt;</code></pre>
+  </section>
+</main>
+
+</body>
+</html>

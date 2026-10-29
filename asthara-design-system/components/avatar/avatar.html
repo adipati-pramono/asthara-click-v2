@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avatar · Asthara components</title>
+<link rel="icon" href="../../favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="stylesheet" href="../../foundation/asthara.css">
+<link rel="stylesheet" href="avatar.css">
+<link rel="stylesheet" href="../../docs/demo.css">
+<script src="avatar.js"></script>
+</head>
+<body>
+<main class="demo">
+  <a class="demo-back" href="../../index.html">All components</a>
+  <h1 class="as-h1 demo-title">Avatar</h1>
+  <p class="as-body demo-lede">Initials on a soft tint, 20 to 40px. The tint comes from the name, so a person keeps the same colour everywhere.</p>
+
+  <div class="stage stage--avatar">
+<!-- ===== Copy from here ===== -->
+<!-- Sizes 20 / 24 / 28 / 32 / 40 -->
+<span class="as-avatar as-avatar--20 as-avatar--gold" aria-label="Sari Wulandari">SW</span>
+<span class="as-avatar as-avatar--24 as-avatar--teal" aria-label="Imam Maulana">IM</span>
+<span class="as-avatar as-avatar--28 as-avatar--info" aria-label="Putri Anggraini">PA</span>
+<span class="as-avatar as-avatar--32 as-avatar--rose" aria-label="Yulia Maharani">YM</span>
+<span class="as-avatar as-avatar--40 as-avatar--solid">AS</span>
+
+<!-- The two other tints of the palette -->
+<span class="as-avatar as-avatar--28 as-avatar--success" aria-label="Sukarno Hartono">SH</span>
+<span class="as-avatar as-avatar--28 as-avatar--purple" aria-label="Sari Wulandari">SW</span>
+
+<!-- Tint and initials from the name, with avatar.js -->
+<span class="as-avatar as-avatar--28" data-name="Putri Anggraini"></span>
+<script>
+  document.querySelectorAll(".as-avatar[data-name]").forEach(function (el) {
+    var name = el.dataset.name;
+    el.classList.add(asAvatarTint(name));
+    el.textContent = asAvatarInitials(name);
+    el.setAttribute("aria-label", name);
+  });
+</script>
+<!-- ===== to here ===== -->
+  </div>
+</main>
+
+</body>
+</html>
